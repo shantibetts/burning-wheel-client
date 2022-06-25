@@ -6,19 +6,37 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import PetsIcon from '@mui/icons-material/Pets'
+import MenuIcon from '@mui/icons-material/Menu'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
-const TopNavBar = () => {
+const NavBar = () => {
+	// States controlling for nav-bar menu
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
+
+	// Functions to open and close the nav-bar menu
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
 	}
 	const handleClose = () => {
 		setAnchorEl(null)
 	}
+
+	// Set location Name based on route for title to display
+	// let location = useLocation().pathname
+	// let locationName = ''
+	// if (location === '/') {
+	// 	locationName = 'Burning Wheel Community'
+	// } else if (location === '/decks') {
+	// 	locationName = 'Tarot Decks'
+	// } else if (location === '/threecardspread') {
+	// 	locationName = 'Three Card Spread'
+	// } else if (location === '/fivecardspread') {
+	// 	locationName = 'Five Card Spread'
+	// } else if (location === '/about') {
+	// 	locationName = 'About'
+	// }
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -32,7 +50,7 @@ const TopNavBar = () => {
 						sx={{ mr: 2 }}
 						onClick={handleClick}
 					>
-						<PetsIcon />
+						<MenuIcon />
 					</IconButton>
 					<Menu
 						id="basic-menu"
@@ -54,7 +72,7 @@ const TopNavBar = () => {
 						</MenuItem>
 					</Menu>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Tracker
+						Burning Wheel Community
 					</Typography>
 					<Button color="inherit">Login</Button>
 				</Toolbar>
@@ -63,4 +81,4 @@ const TopNavBar = () => {
 	)
 }
 
-export default TopNavBar
+export default NavBar

@@ -2,7 +2,7 @@ import * as React from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Components/Home'
-import TopNavBar from './Components/TopNavBar'
+import NavBar from './Components/NavBar'
 import About from './Components/About'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { fetchAllBugs, fetchAllUsers } from './Components/Utils'
@@ -24,20 +24,20 @@ function App() {
 
 	return (
 		<div className="App">
-			<TopNavBar />
+			<NavBar />
 			<Routes>
 				<Route
 					path="/"
 					element={
 						<Home
-							dataName="Bug"
-							tablet={tablet}
-							desktop={desktop}
-							homeTitle="All Bugs"
-							allBugs={allBugs}
-							allUsers={allUsers}
-							setAllBugs={setAllBugs}
-							setAllUsers={setAllUsers}
+						// dataName="Bug"
+						// tablet={tablet}
+						// desktop={desktop}
+						// homeTitle="All Bugs"
+						// allBugs={allBugs}
+						// allUsers={allUsers}
+						// setAllBugs={setAllBugs}
+						// setAllUsers={setAllUsers}
 						/>
 					}
 				/>
@@ -45,14 +45,14 @@ function App() {
 					path="/users"
 					element={
 						<Home
-							dataName="User"
-							tablet={tablet}
-							desktop={desktop}
-							homeTitle="All Users"
-							allBugs={allBugs}
-							allUsers={allUsers}
-							setAllBugs={setAllBugs}
-							setAllUsers={setAllUsers}
+						// dataName="User"
+						// tablet={tablet}
+						// desktop={desktop}
+						// homeTitle="All Users"
+						// allBugs={allBugs}
+						// allUsers={allUsers}
+						// setAllBugs={setAllBugs}
+						// setAllUsers={setAllUsers}
 						/>
 					}
 				/>
