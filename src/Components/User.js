@@ -38,9 +38,6 @@ const User = (props) => {
 	const [dense, setDense] = React.useState(false)
 	const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
-	// Delete a character from a user
-	const handleDeleteCharacter = () => {}
-
 	// Open dialog to add a new character
 	const handleAddCharacterDialogToggle = () => {}
 
@@ -55,18 +52,7 @@ const User = (props) => {
 	const emptyRows =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
 
-	if (userData === null) {
-		return (
-			<div>
-				<Typography variant="h2" sx={{ py: 3 }}>
-					Oops!
-				</Typography>
-				<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
-					Something went wrong! Please report this bug.
-				</Typography>
-			</div>
-		)
-	} else {
+	if (userData && userData !== null) {
 		return (
 			<Box sx={{ width: '100%' }}>
 				<Paper sx={{ width: '100%', mb: 2 }}>
@@ -110,9 +96,7 @@ const User = (props) => {
 										setOrderBy
 									)
 								}
-								dataName={User}
-								tablet={tablet}
-								desktop={desktop}
+								dataName={'User'}
 							/>
 							<TableBody>
 								{
@@ -124,10 +108,8 @@ const User = (props) => {
 											<UserRow
 												key={row._id}
 												row={row}
-												selected={selected}
-												setSelected={setSelected}
-												tablet={tablet}
-												desktop={desktop}
+												userData={userData}
+												setUserData={setUserData}
 											/>
 										))
 								}
@@ -167,6 +149,17 @@ const User = (props) => {
 					label="Dense padding"
 				/>
 			</Box>
+		)
+	} else {
+		return (
+			<div>
+				<Typography variant="h2" sx={{ py: 3 }}>
+					Oops!
+				</Typography>
+				<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+					Something went wrong! Please report this bug.
+				</Typography>
+			</div>
 		)
 	}
 }

@@ -3,12 +3,13 @@ import Button from '@mui/material/Button'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
+import { fetchUser } from './Utils'
 import { useNavigate } from 'react-router-dom'
-import apiUrl from '../apiUrl'
 
 const Home = (props) => {
 	const { tablet, desktop, setUserData, setIsLoggedIn } = props
 	const navigate = useNavigate()
+
 	// Log In Error message
 	let errorMessage = ''
 
@@ -18,21 +19,8 @@ const Home = (props) => {
 
 		// Get log-in data from google
 
-		// Temporary hardcode user-name
-		let userName = 'SBetts'
-
 		// Fetch user info
-		fetch(apiUrl + `/users/username/` + userName)
-			.then((res) => res.json())
-			.then((data) => {
-				setUserData(data.user)
-				console.log(data.user)
-				navigate(`../:${userName}`, { replace: true })
-			})
-			.catch((err) => {
-				errorMessage = 'something went wrong' + err
-				console.log('something went wrong', err)
-			})
+		errorMessage = fetchUser(setUserData, 'SBetts', navigate)
 	}
 
 	return (

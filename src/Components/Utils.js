@@ -1,68 +1,51 @@
 import apiUrl from '../apiUrl'
 
+// const navigate = useNavigate()
+
 // *** CRUD Functions ****
 
-// Functions to GET data from database
-const fetchAllBugs = (setAllBugs) => {
-	fetch(apiUrl + `/bugs/`)
+// Functions to GET user with charactesr from database
+const fetchUser = (setUserData, userName, navigate) => {
+	fetch(apiUrl + `/users/username/` + userName)
 		.then((res) => res.json())
 		.then((data) => {
-			setAllBugs(data.bugs)
+			setUserData(data.user)
+			console.log(data.user)
+			navigate(`/:${userName}`, { replace: true })
+			return ''
 		})
-		.catch((err) => console.log('something went wrong', err))
+		.catch((err) => {
+			console.log('something went wrong', err)
+			return 'something went wrong' + err
+		})
 }
-const fetchAllUsers = (setAllUsers) => {
-	fetch(apiUrl + `/users/`)
+
+// Delete a character from a user
+const handleCharacterTrashToggle = (setUserData, userData, id) => {
+	// find index of row
+	const i = userData.characters.findIndex((character) => character._id === id)
+	console.log(id, i)
+	// update DB to toggle character isTrash
+	fetch(apiUrl + `/characters/` + id, {
+		method: 'PATCH',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({
+			isTrash: !userData.characters[i].isTrash
+		})
+	})
 		.then((res) => res.json())
 		.then((data) => {
-			setAllUsers(data.users)
+			let updatedUser = { ...userData }
+			updatedUser.characters.splice(i, 1, data.character)
+			setUserData(updatedUser)
+			console.log(data.character)
 		})
-		.catch((err) => console.log('something went wrong', err))
+		.catch((err) => {
+			console.log('something went wrong', err)
+		})
 }
 
 // *** Table Functions ****
-
-// Filter rows by filter
-const handleFilterRowsBy = (filter, allRows, setRows, setTitle) => {
-	if (filter === 'allBugs') {
-		setRows(allRows)
-		setTitle('All Bugs')
-	}
-	if (filter === 'activeBugs') {
-		const activeRows = allRows.filter((row) => row.isActive)
-		setRows(activeRows)
-		setTitle('Active Bugs')
-	}
-	if (filter === 'closedBugs') {
-		const activeRows = allRows.filter((row) => !row.isActive)
-		setRows(activeRows)
-		setTitle('Closed Bugs')
-	}
-	if (filter === 'assignedBugs') {
-		const activeRows = allRows.filter((row) => row.assigned !== 'none')
-		setRows(activeRows)
-		setTitle('Assigned Bugs')
-	}
-	if (filter === 'unassignedBugs') {
-		const activeRows = allRows.filter((row) => row.assigned === 'none')
-		setRows(activeRows)
-		setTitle('Unassigned Bugs')
-	}
-	if (filter === 'allUsers') {
-		setRows(allRows)
-		setTitle('All Users')
-	}
-	if (filter === 'assignedUsers') {
-		const activeRows = allRows.filter((row) => row.bugs.length > 0)
-		setRows(activeRows)
-		setTitle('Users with Bugs')
-	}
-	if (filter === 'unassignedUsers') {
-		const activeRows = allRows.filter((row) => row.bugs.length === 0)
-		setRows(activeRows)
-		setTitle('Users with no Bugs')
-	}
-}
 
 // This function sorts the table
 function descendingComparator(a, b, orderBy) {
@@ -127,9 +110,8 @@ const handleChangeDense = (event, setDense) => {
 }
 
 export {
-	fetchAllBugs,
-	fetchAllUsers,
-	handleFilterRowsBy,
+	fetchUser,
+	handleCharacterTrashToggle,
 	getComparator,
 	stableSort,
 	handleRequestSort,

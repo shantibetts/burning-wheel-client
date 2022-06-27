@@ -4,16 +4,9 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
-import FilterListIcon from '@mui/icons-material/FilterList'
 
 const TableToolbar = (props) => {
-	const {
-		title,
-		dataName,
-		handleMenuOpen,
-		handleAddCharacterDialogToggle,
-		handleDeleteCharacter
-	} = props
+	const { title, handleAddCharacterDialogToggle } = props
 
 	return (
 		// This toolbar contains the table header OR the selected bugs feature
@@ -34,7 +27,7 @@ const TableToolbar = (props) => {
 				id="tableTitle"
 				component="div"
 			>
-				Characters
+				{title}
 			</Typography>
 		</Toolbar>
 	)

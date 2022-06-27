@@ -4,27 +4,20 @@ import TableRow from '@mui/material/TableRow'
 import moment from 'moment'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { handleCharacterTrashToggle } from './Utils'
 
 const UserRow = (props) => {
-	const { tablet, desktop, selected, setSelected, row } = props
-
-	// Populate Issues at 600px
-	// let issuesCell = ''
-	// if (tablet) {
-	// 	issuesCell = <TableCell align="center">{row.issues}</TableCell>
-	// }
-	// let dateCreatedCell = ''
-	// if (desktop) {
-	// 	dateCreatedCell = (
-	// 		<TableCell align="center">
-	// 			{moment(row.dateCreated).format('MMM Do YY')}
-	// 		</TableCell>
-	// 	)
-	// }
+	const { row, userData, setUserData } = props
 
 	return (
 		<React.Fragment>
-			<TableRow hover>
+			<TableRow
+				hover
+				onClick={() => {
+					handleCharacterTrashToggle(setUserData, userData, row._id)
+					console.log(row, row._id)
+				}}
+			>
 				<TableCell>
 					<IconButton aria-label="delete character" size="small">
 						<DeleteIcon />
@@ -37,7 +30,7 @@ const UserRow = (props) => {
 				<TableCell align="left">
 					{moment(row.dateCreated).format('MMM Do YY')}
 				</TableCell>
-				<TableCell align="right">
+				<TableCell align="left">
 					{moment(row.dateEdited).format('MMM Do YY')}
 				</TableCell>
 			</TableRow>
