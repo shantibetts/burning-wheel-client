@@ -72,7 +72,7 @@ const NavBar = () => {
 						</MenuItem>
 					</Menu>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Burning Wheel Community
+						Burning Wheel CharSheet
 					</Typography>
 					<Button color="inherit">Login</Button>
 				</Toolbar>

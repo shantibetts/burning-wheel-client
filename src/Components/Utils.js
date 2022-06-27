@@ -24,7 +24,6 @@ const fetchUser = (setUserData, userName, navigate) => {
 const handleCharacterTrashToggle = (setUserData, userData, id) => {
 	// find index of row
 	const i = userData.characters.findIndex((character) => character._id === id)
-	console.log(id, i)
 	// update DB to toggle character isTrash
 	fetch(apiUrl + `/characters/` + id, {
 		method: 'PATCH',
@@ -38,7 +37,6 @@ const handleCharacterTrashToggle = (setUserData, userData, id) => {
 			let updatedUser = { ...userData }
 			updatedUser.characters.splice(i, 1, data.character)
 			setUserData(updatedUser)
-			console.log(data.character)
 		})
 		.catch((err) => {
 			console.log('something went wrong', err)
