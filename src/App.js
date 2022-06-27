@@ -5,22 +5,19 @@ import Home from './Components/Home'
 import NavBar from './Components/NavBar'
 import About from './Components/About'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { fetchAllBugs, fetchAllUsers } from './Components/Utils'
+import User from './Components/User'
+import Character from './Components/Character'
 
 function App() {
-	// All Data from fetch request
-	// const [allBugs, setAllBugs] = React.useState([])
-	// const [allUsers, setAllUsers] = React.useState([])
+	// User's info + list of characters
+	const [userData, setUserData] = React.useState([])
+
+	// State for user's logged-in status
+	const [isLoggedIn, setIsLoggedIn] = React.useState(false)
 
 	// Media queries to set width
 	let tablet = useMediaQuery('(min-width:600px)')
 	let desktop = useMediaQuery('(min-width:900px)')
-
-	// On app load: Set allBugs and allUsers
-	// React.useEffect(() => {
-	// 	fetchAllBugs(setAllBugs)
-	// 	fetchAllUsers(setAllUsers)
-	// }, [])
 
 	return (
 		<div className="App">
@@ -30,30 +27,23 @@ function App() {
 					path="/"
 					element={
 						<Home
-						// dataName="Bug"
-						// tablet={tablet}
-						// desktop={desktop}
-						// homeTitle="All Bugs"
-						// allBugs={allBugs}
-						// allUsers={allUsers}
-						// setAllBugs={setAllBugs}
-						// setAllUsers={setAllUsers}
+							tablet={tablet}
+							desktop={desktop}
+							setUserData={setUserData}
+							setIsLoggedIn={setIsLoggedIn}
 						/>
 					}
 				/>
 				<Route
-					path="/users"
+					path="/:user"
 					element={
-						<Home
-						// dataName="User"
-						// tablet={tablet}
-						// desktop={desktop}
-						// homeTitle="All Users"
-						// allBugs={allBugs}
-						// allUsers={allUsers}
-						// setAllBugs={setAllBugs}
-						// setAllUsers={setAllUsers}
-						/>
+						<User tablet={tablet} desktop={desktop} userData={userData} />
+					}
+				/>
+				<Route
+					path="/:user/:character"
+					element={
+						<Character tablet={tablet} desktop={desktop} userData={userData} />
 					}
 				/>
 				<Route path="/about" element={<About />} />
