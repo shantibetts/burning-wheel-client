@@ -15,11 +15,10 @@ import {
 	handleChangeRowsPerPage,
 	handleChangeDense
 } from './Utils'
-import EnhancedTableHead from './EnhancedTableHead'
+import TableHeader from './TableHeader'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
-import Typography from '@mui/material/Typography'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -30,11 +29,23 @@ import UserRow from './UserRow'
 const User = (props) => {
 	const { tablet, desktop, userData, setUserData } = props
 
+	// States for controlling the Table
+	const [rows, setRows] = React.useState([])
+	const [order, setOrder] = React.useState('asc')
+	const [orderBy, setOrderBy] = React.useState('calories')
+	const [selected, setSelected] = React.useState('')
+	const [page, setPage] = React.useState(0)
+	const [dense, setDense] = React.useState(false)
+	const [rowsPerPage, setRowsPerPage] = React.useState(5)
+
 	// Delete a character from a user
 	const handleDeleteCharacter = () => {}
 
-	// Adding propTypes for the EnhancedTableHead Component
-	EnhancedTableHead.propTypes = {
+	// Open dialog to add a new character
+	const handleAddCharacterDialogToggle = () => {}
+
+	// Adding propTypes for the TableHead Component
+	TableHeader.propTypes = {
 		onRequestSort: PropTypes.func.isRequired,
 		order: PropTypes.oneOf(['asc', 'desc']).isRequired,
 		orderBy: PropTypes.string.isRequired
@@ -86,7 +97,7 @@ const User = (props) => {
 							aria-labelledby="tableTitle"
 							size={dense ? 'small' : 'medium'}
 						>
-							<EnhancedTableHead
+							<TableHeader
 								order={order}
 								orderBy={orderBy}
 								onRequestSort={(event, property) =>
@@ -99,7 +110,7 @@ const User = (props) => {
 										setOrderBy
 									)
 								}
-								dataName={dataName}
+								dataName={User}
 								tablet={tablet}
 								desktop={desktop}
 							/>

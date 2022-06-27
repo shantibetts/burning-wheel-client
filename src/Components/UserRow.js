@@ -4,7 +4,6 @@ import TableRow from '@mui/material/TableRow'
 import moment from 'moment'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import TableControls from './TableControls'
 
 const UserRow = (props) => {
 	const { tablet, desktop, selected, setSelected, row } = props
@@ -25,7 +24,7 @@ const UserRow = (props) => {
 
 	return (
 		<React.Fragment>
-			<TableRow hover aria-checked={isItemSelected}>
+			<TableRow hover>
 				<TableCell>
 					<IconButton aria-label="delete character" size="small">
 						<DeleteIcon />

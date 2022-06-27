@@ -8,6 +8,7 @@ import apiUrl from '../apiUrl'
 
 const Home = (props) => {
 	const { tablet, desktop, setUserData, setIsLoggedIn } = props
+	const navigate = useNavigate()
 	// Log In Error message
 	let errorMessage = ''
 
@@ -26,7 +27,7 @@ const Home = (props) => {
 			.then((data) => {
 				setUserData(data.user)
 				console.log(data.user)
-				useNavigate(`../:${userName}`, { replace: true })
+				navigate(`../:${userName}`, { replace: true })
 			})
 			.catch((err) => {
 				errorMessage = 'something went wrong' + err
