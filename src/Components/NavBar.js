@@ -62,7 +62,7 @@ const NavBar = () => {
 						}}
 					>
 						<MenuItem onClick={handleClose} component={RouterLink} to="/">
-							Bugs
+							Home
 						</MenuItem>
 						<MenuItem onClick={handleClose} component={RouterLink} to="/users">
 							Users
