@@ -24,26 +24,9 @@ const CharacterRow = (props) => {
 		setDialogType
 	} = props
 
-	const [rowCollapseOpen, setRowCollapseOpen] = React.useState(false)
-
 	// Sets whichever row is selected by ID
 	const isItemSelected = selected._id === row._id ? true : false
 	let priorityBackground = ''
-
-	const tableControlls = (
-		<TableControls
-			open={rowCollapseOpen}
-			dataName={dataName}
-			handleBugDialogToggle={handleBugDialogToggle}
-			handleUserDialogToggle={handleUserDialogToggle}
-			handleDetailsDialogToggle={handleDetailsDialogToggle}
-			handleMenuOpen={handleMenuOpen}
-			row={row}
-			setAllBugs={setAllBugs}
-			setDialogData={setDialogData}
-			setDialogType={setDialogType}
-		/>
-	)
 
 	if (dataName === 'Bug') {
 		// Populate Issues at 600px
@@ -97,61 +80,6 @@ const CharacterRow = (props) => {
 					</TableCell>
 					{dateCreatedCell}
 					<TableCell align="right">{assignedUser}</TableCell>
-				</TableRow>
-				<TableRow selected={true}>
-					<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-						{tableControlls}
-					</TableCell>
-				</TableRow>
-			</React.Fragment>
-		)
-	}
-	if (dataName === 'User') {
-		// Populate Issues at 600px
-		let bugNumberCell = ''
-		if (tablet) {
-			bugNumberCell = (
-				<TableCell align="center">{row.bugs ? row.bugs.length : 0}</TableCell>
-			)
-		}
-		let bugHoursCell = ''
-		if (desktop) {
-			let bugHours = 0
-			if (row.bugs) {
-				row.bugs.forEach((bug) => {
-					bugHours = bugHours + bug.timeEstimate
-				})
-			}
-			bugHoursCell = <TableCell align="center">{bugHours}</TableCell>
-		}
-		return (
-			<React.Fragment>
-				<TableRow
-					hover
-					onClick={() => {
-						row === selected ? setSelected({}) : setSelected(row)
-						setRowCollapseOpen(!rowCollapseOpen)
-					}}
-					aria-checked={isItemSelected}
-					selected={isItemSelected}
-					sx={{ '& > *': { borderBottom: 'unset' } }}
-				>
-					<TableCell>
-						<IconButton aria-label="expand row" size="small">
-							{rowCollapseOpen ? (
-								<KeyboardArrowUpIcon />
-							) : (
-								<KeyboardArrowDownIcon />
-							)}
-						</IconButton>
-					</TableCell>
-					<TableCell component="th" scope="row">
-						{row.userName}
-					</TableCell>
-					<TableCell align="left">{row.firstName}</TableCell>
-					<TableCell align="left">{row.lastName}</TableCell>
-					{bugNumberCell}
-					{bugHoursCell}
 				</TableRow>
 				<TableRow selected={true}>
 					<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

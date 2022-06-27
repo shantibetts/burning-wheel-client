@@ -10,7 +10,6 @@ const Home = (props) => {
 	const { tablet, desktop, setUserData, setIsLoggedIn } = props
 	// Log In Error message
 	let errorMessage = ''
-	let navigate = useNavigate()
 
 	// Logs user in and fetches user data and sets user state
 	const handleLogIn = () => {
@@ -27,9 +26,7 @@ const Home = (props) => {
 			.then((data) => {
 				setUserData(data.user)
 				console.log(data.user)
-			})
-			.then(() => {
-				navigate(`../:${userName}`, { replace: true })
+				useNavigate(`../:${userName}`, { replace: true })
 			})
 			.catch((err) => {
 				errorMessage = 'something went wrong' + err

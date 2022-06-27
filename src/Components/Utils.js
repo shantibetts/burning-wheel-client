@@ -2,7 +2,7 @@ import apiUrl from '../apiUrl'
 
 // *** CRUD Functions ****
 
-// Functions to fetch all data from database
+// Functions to GET data from database
 const fetchAllBugs = (setAllBugs) => {
 	fetch(apiUrl + `/bugs/`)
 		.then((res) => res.json())

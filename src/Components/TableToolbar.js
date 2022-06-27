@@ -11,8 +11,8 @@ const TableToolbar = (props) => {
 		title,
 		dataName,
 		handleMenuOpen,
-		handleBugDialogToggle,
-		handleUserDialogToggle
+		handleAddCharacterDialogToggle,
+		handleDeleteCharacter
 	} = props
 
 	return (
@@ -23,14 +23,8 @@ const TableToolbar = (props) => {
 				pr: { xs: 1, sm: 1 }
 			}}
 		>
-			<Tooltip title={dataName === 'Bug' ? 'Add Bug' : 'Add User'}>
-				<IconButton
-					onClick={() => {
-						dataName === 'Bug'
-							? handleBugDialogToggle()
-							: handleUserDialogToggle()
-					}}
-				>
+			<Tooltip title="add character">
+				<IconButton onClick={handleAddCharacterDialogToggle}>
 					<AddIcon />
 				</IconButton>
 			</Tooltip>
@@ -40,16 +34,8 @@ const TableToolbar = (props) => {
 				id="tableTitle"
 				component="div"
 			>
-				{title}
+				Characters
 			</Typography>
-			<Tooltip
-				title="Filter list"
-				onClick={(event) => handleMenuOpen(event, 'filter')}
-			>
-				<IconButton>
-					<FilterListIcon />
-				</IconButton>
-			</Tooltip>
 		</Toolbar>
 	)
 }

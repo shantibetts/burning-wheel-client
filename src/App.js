@@ -37,13 +37,23 @@ function App() {
 				<Route
 					path="/:user"
 					element={
-						<User tablet={tablet} desktop={desktop} userData={userData} />
+						<User
+							tablet={tablet}
+							desktop={desktop}
+							userData={userData}
+							setUserData={setUserData}
+						/>
 					}
 				/>
 				<Route
 					path="/:user/:character"
 					element={
-						<Character tablet={tablet} desktop={desktop} userData={userData} />
+						<Character
+							tablet={tablet}
+							desktop={desktop}
+							userData={userData}
+							setUserData={setUserData}
+						/>
 					}
 				/>
 				<Route path="/about" element={<About />} />
