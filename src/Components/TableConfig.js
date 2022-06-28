@@ -25,6 +25,11 @@ const userTableHeadCells = [
 // List of column names for Die, Test and Artha tables:
 const dieTestArthaTableHeadCells = [
 	{
+		id: 'name',
+		align: 'left',
+		label: 'Name'
+	},
+	{
 		id: 'shade',
 		align: 'left',
 		label: 'Shade'
@@ -70,6 +75,58 @@ const dieTestArthaTableHeadCells = [
 		label: 'Deeds'
 	}
 ]
+
+// 	{
+// 		id: 'name',
+// 		align: 'left',
+// 		label: 'Name'
+// 	},
+// 	{
+// 		id: 'shade',
+// 		align: 'left',
+// 		label: 'S'
+// 	},
+// 	{
+// 		id: 'exponent',
+// 		align: 'left',
+// 		label: 'E'
+// 	},
+// 	{
+// 		id: 'tax',
+// 		align: 'left',
+// 		label: 'T'
+// 	},
+// 	{
+// 		id: 'routine',
+// 		align: 'left',
+// 		label: 'R'
+// 	},
+// 	{
+// 		id: 'difficult',
+// 		align: 'left',
+// 		label: 'D'
+// 	},
+// 	{
+// 		id: 'challenging',
+// 		align: 'left',
+// 		label: 'C'
+// 	},
+// 	{
+// 		id: 'fate',
+// 		align: 'left',
+// 		label: 'F'
+// 	},
+// 	{
+// 		id: 'persona',
+// 		align: 'left',
+// 		label: 'P'
+// 	},
+// 	{
+// 		id: 'deeds',
+// 		align: 'left',
+// 		label: 'D'
+// 	}
+// ]
 
 // List of column names for Strength, Name, Description tables:
 const strengthNameDescTableHeadCells = [

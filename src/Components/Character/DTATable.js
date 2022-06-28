@@ -50,7 +50,7 @@ const DTATable = (props) => {
 							<DTARow
 								key={i}
 								row={row}
-								userData={userData}
+								character={character}
 								setUserData={setUserData}
 							/>
 						))}
