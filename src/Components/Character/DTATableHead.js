@@ -1,7 +1,4 @@
 import * as React from 'react'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Switch from '@mui/material/Switch'
-import { handleChangeDense } from '../Utils'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
@@ -12,17 +9,7 @@ const DTATableHead = (props) => {
 	return (
 		<TableHead>
 			<TableRow>
-				<TableCell colSpan={2}>
-					<FormControlLabel
-						control={
-							<Switch
-								checked={dense}
-								onChange={(event) => handleChangeDense(event, setDense)}
-							/>
-						}
-						label="Dense padding"
-					/>
-				</TableCell>
+				<TableCell colSpan={2} />
 				<TableCell align="center" colSpan={3}>
 					Die Pool
 				</TableCell>

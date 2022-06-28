@@ -108,8 +108,8 @@ const handleChangeRowsPerPage = (event, setRowsPerPage, setPage) => {
 }
 
 // Toggles the padding
-const handleChangeDense = (event, setDense) => {
-	setDense(event.target.checked)
+const handleChangeDense = (dense, setDense) => {
+	setDense(!dense)
 }
 
 export {

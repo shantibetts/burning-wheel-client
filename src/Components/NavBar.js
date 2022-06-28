@@ -11,7 +11,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
 const NavBar = (props) => {
-	const { userData } = props
+	const { userData, setCharacterIndex } = props
 	// States controlling for nav-bar menu
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
@@ -44,7 +44,10 @@ const NavBar = (props) => {
 			return (
 				<MenuItem
 					key={i}
-					onClick={handleClose}
+					onClick={() => {
+						setCharacterIndex(i)
+						handleClose()
+					}}
 					component={RouterLink}
 					to={'/character/' + character.characterName}
 				>

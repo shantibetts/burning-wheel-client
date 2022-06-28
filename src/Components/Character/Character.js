@@ -1,10 +1,12 @@
 import * as React from 'react'
 import Typography from '@mui/material/Typography'
-import { getCharacter } from './../Utils'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Switch from '@mui/material/Switch'
+import { getCharacter, handleChangeDense } from './../Utils'
 import DTATable from './DTATable'
 
 const Character = (props) => {
-	const { tablet, desktop, userData, setUserData, characterIndex } = props
+	const { userData, setUserData, characterIndex, dense, setDense } = props
 
 	// Open dialog to add a new character
 	const handleAddCharacterDialogToggle = () => {}
@@ -16,6 +18,17 @@ const Character = (props) => {
 					userData={userData}
 					setUserData={setUserData}
 					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<FormControlLabel
+					control={
+						<Switch
+							checked={dense}
+							onChange={() => handleChangeDense(dense, setDense)}
+						/>
+					}
+					label="Dense padding"
 				/>
 			</div>
 		)

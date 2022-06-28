@@ -12,6 +12,7 @@ function App() {
 	// User's info + list of characters
 	const [userData, setUserData] = React.useState(null)
 	const [characterIndex, setCharacterIndex] = React.useState([])
+	const [dense, setDense] = React.useState(true)
 
 	// State for user's logged-in status
 	const [isLoggedIn, setIsLoggedIn] = React.useState(false)
@@ -20,9 +21,15 @@ function App() {
 	let tablet = useMediaQuery('(min-width:600px)')
 	let desktop = useMediaQuery('(min-width:900px)')
 
+	React.useEffect(() => {
+		if (tablet || desktop) {
+			setDense(false)
+		}
+	})
+
 	return (
 		<div className="App">
-			<NavBar userData={userData} />
+			<NavBar userData={userData} setCharacterIndex={setCharacterIndex} />
 			<Routes>
 				<Route
 					path="/"
@@ -44,6 +51,8 @@ function App() {
 							userData={userData}
 							setUserData={setUserData}
 							setCharacterIndex={setCharacterIndex}
+							dense={dense}
+							setDense={setDense}
 						/>
 					}
 				/>
@@ -57,6 +66,8 @@ function App() {
 							setUserData={setUserData}
 							characterIndex={characterIndex}
 							setCharacterIndex={setCharacterIndex}
+							dense={dense}
+							setDense={setDense}
 						/>
 					}
 				/>

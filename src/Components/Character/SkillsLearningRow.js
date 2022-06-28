@@ -7,8 +7,10 @@ import EditIcon from '@mui/icons-material/Edit'
 const DTARow = (props) => {
 	const { row, setUserData } = props
 
-	const handleDTAEditToggle = () => {}
+	const handleSkillsLearningEditToggle = () => {}
 	const rowName = row.name.charAt(0).toUpperCase() + row.name.slice(1)
+	const rowArtha = row.values.slice(1)
+	const routineTests = row.values[0]
 
 	return (
 		<React.Fragment>
@@ -17,13 +19,19 @@ const DTARow = (props) => {
 					<IconButton
 						aria-label="fast edit"
 						size="small"
-						onClick={() => handleDTAEditToggle(setUserData)}
+						onClick={() => handleSkillsLearningEditToggle(setUserData)}
 					>
 						<EditIcon />
 					</IconButton>
 				</TableCell>
 				<TableCell>{rowName}</TableCell>
-				{row.values.map((value, i) => (
+				{/* Spacers for shade, exponent and tax */}
+				<TableCell colSpan={3} />
+				{/* Routine tests & spacers for difficult and challenging */}
+				<TableCell>{routineTests}</TableCell>
+				<TableCell colSpan={2} />
+				{/* Artha */}
+				{rowArtha.map((value, i) => (
 					<TableCell key={i} align="left">
 						{value}
 					</TableCell>
