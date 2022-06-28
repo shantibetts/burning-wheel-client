@@ -7,7 +7,8 @@ import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import { dieTestArthaTableHeadCells } from './../TableConfig'
 
-const DTATableHead = () => {
+const DTATableHead = (props) => {
+	const { dense, setDense } = props
 	return (
 		<TableHead>
 			<TableRow>

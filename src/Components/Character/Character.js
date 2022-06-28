@@ -12,7 +12,11 @@ const Character = (props) => {
 	if (getCharacter(userData, characterIndex) !== null) {
 		return (
 			<div>
-				<DTATable />
+				<DTATable
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+				/>
 			</div>
 		)
 	} else {

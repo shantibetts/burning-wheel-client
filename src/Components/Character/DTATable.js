@@ -7,13 +7,7 @@ import TablePagination from '@mui/material/TablePagination'
 import Paper from '@mui/material/Paper'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
-import {
-	getComparator,
-	handleRequestSort,
-	handleChangePage,
-	handleChangeRowsPerPage,
-	handleChangeDense
-} from '../Utils'
+import { getCharacter } from './../Utils'
 import TableHeader from '../TableHeader'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -24,11 +18,13 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
 import DTARow from './DTARow'
-import TableHead from '@mui/material/TableHead'
 import DTATableHead from './DTATableHead'
 
 const DTATable = (props) => {
-	const { title } = props
+	const { userData, setUserData, characterIndex } = props
+
+	let character = getCharacter(userData, characterIndex)
+	console.log(character, character.stats)
 
 	// States for controlling the Table
 	const [dense, setDense] = React.useState(false)
@@ -43,60 +39,24 @@ const DTATable = (props) => {
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<DTATableHead />
-					<TableHeader
-						order={order}
-						orderBy={orderBy}
-						onRequestSort={(event, property) =>
-							handleRequestSort(
-								event,
-								property,
-								order,
-								orderBy,
-								setOrder,
-								setOrderBy
-							)
-						}
-						dataName={'User'}
-					/>
+					<DTATableHead dense={dense} setDense={setDense} />
 					<TableBody>
-						{rows
-							.slice()
-							.sort(getComparator(order, orderBy))
-							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							.map((row) => (
-								<UserRow
-									key={row._id}
-									row={row}
-									userData={userData}
-									setUserData={setUserData}
-								/>
-							))}
-						{emptyRows > 0 && (
-							<TableRow
-								style={{
-									height: (dense ? 33 : 53) * emptyRows
-								}}
-							>
-								<TableCell colSpan={6} />
-							</TableRow>
-						)}
+						<TableRow>
+							<TableCell align="center" colSpan={10}>
+								Stats
+							</TableCell>
+						</TableRow>
+						{character.stats.map((row, i) => (
+							<DTARow
+								key={i}
+								row={row}
+								userData={userData}
+								setUserData={setUserData}
+							/>
+						))}
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<TablePagination
-				rowsPerPageOptions={[5, 10, 25]}
-				component="div"
-				count={rows.length}
-				rowsPerPage={rowsPerPage}
-				page={page}
-				onPageChange={(event, newPage) =>
-					handleChangePage(event, newPage, setPage)
-				}
-				onRowsPerPageChange={(event) =>
-					handleChangeRowsPerPage(event, setRowsPerPage, setPage)
-				}
-			/>
 		</Paper>
 	)
 }
