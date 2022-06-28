@@ -12,7 +12,7 @@ const DTATableHead = (props) => {
 	return (
 		<TableHead>
 			<TableRow>
-				<TableCell>
+				<TableCell colSpan={2}>
 					<FormControlLabel
 						control={
 							<Switch

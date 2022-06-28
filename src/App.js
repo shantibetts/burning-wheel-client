@@ -10,7 +10,7 @@ import Character from './Components/Character/Character'
 
 function App() {
 	// User's info + list of characters
-	const [userData, setUserData] = React.useState([])
+	const [userData, setUserData] = React.useState(null)
 	const [characterIndex, setCharacterIndex] = React.useState([])
 
 	// State for user's logged-in status
@@ -22,7 +22,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<NavBar />
+			<NavBar userData={userData} />
 			<Routes>
 				<Route
 					path="/"
@@ -36,7 +36,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="/:user"
+					path="/user/:user"
 					element={
 						<User
 							tablet={tablet}

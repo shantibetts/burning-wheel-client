@@ -26,6 +26,9 @@ const DTATable = (props) => {
 	let character = getCharacter(userData, characterIndex)
 	console.log(character, character.stats)
 
+	const handleAddSkillDialogToggle = () => {}
+	const handleAddSkillLearningDialogToggle = () => {}
+
 	// States for controlling the Table
 	const [dense, setDense] = React.useState(false)
 
@@ -42,11 +45,58 @@ const DTATable = (props) => {
 					<DTATableHead dense={dense} setDense={setDense} />
 					<TableBody>
 						<TableRow>
-							<TableCell align="center" colSpan={10}>
+							<TableCell className="titleRow" colSpan={10}>
 								Stats
 							</TableCell>
 						</TableRow>
 						{character.stats.map((row, i) => (
+							<DTARow
+								key={i}
+								row={row}
+								character={character}
+								setUserData={setUserData}
+							/>
+						))}
+						<TableRow />
+						<TableRow>
+							<TableCell className="titleRow" colSpan={10}>
+								Attributes
+							</TableCell>
+						</TableRow>
+						{character.attributes.map((row, i) => (
+							<DTARow
+								key={i}
+								row={row}
+								character={character}
+								setUserData={setUserData}
+							/>
+						))}
+						<TableRow />
+						<TableRow className="titleRow">
+							<TableCell>
+								<IconButton onClick={handleAddSkillDialogToggle}>
+									<AddIcon />
+								</IconButton>
+							</TableCell>
+							<TableCell colSpan={10}>Skills</TableCell>
+						</TableRow>
+						{character.skills.map((row, i) => (
+							<DTARow
+								key={i}
+								row={row}
+								character={character}
+								setUserData={setUserData}
+							/>
+						))}
+						<TableRow className="titleRow">
+							<TableCell>
+								<IconButton onClick={handleAddSkillLearningDialogToggle}>
+									<AddIcon />
+								</IconButton>
+							</TableCell>
+							<TableCell colSpan={10}>Skills being learned</TableCell>
+						</TableRow>
+						{character.skillsLearning.map((row, i) => (
 							<DTARow
 								key={i}
 								row={row}

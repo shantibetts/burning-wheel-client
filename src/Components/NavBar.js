@@ -10,7 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
-const NavBar = () => {
+const NavBar = (props) => {
+	const { userData } = props
 	// States controlling for nav-bar menu
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
@@ -23,20 +24,50 @@ const NavBar = () => {
 		setAnchorEl(null)
 	}
 
+	// Set Username
+	let userName = ''
+	if (userData !== null) {
+		userName = (
+			<MenuItem
+				onClick={handleClose}
+				component={RouterLink}
+				to={'/user/' + userData.userName}
+			>
+				Character List
+			</MenuItem>
+		)
+	}
+	// set Characters
+	let characters = ''
+	if (userData !== null) {
+		characters = userData.characters.map((character, i) => {
+			return (
+				<MenuItem
+					key={i}
+					onClick={handleClose}
+					component={RouterLink}
+					to={'/character/' + character.characterName}
+				>
+					{character.characterName}
+				</MenuItem>
+			)
+		})
+	}
+
 	// Set location Name based on route for title to display
-	// let location = useLocation().pathname
-	// let locationName = ''
-	// if (location === '/') {
-	// 	locationName = 'Burning Wheel Community'
-	// } else if (location === '/decks') {
-	// 	locationName = 'Tarot Decks'
-	// } else if (location === '/threecardspread') {
-	// 	locationName = 'Three Card Spread'
-	// } else if (location === '/fivecardspread') {
-	// 	locationName = 'Five Card Spread'
-	// } else if (location === '/about') {
-	// 	locationName = 'About'
-	// }
+	let location = useLocation().pathname
+	let locationName = ''
+	if (location === '/') {
+		locationName = 'Burning Wheel CharSheet'
+	}
+	if (location.slice(0, 6) === '/user/') {
+		locationName = location.slice(6)
+		locationName = locationName.split('%20').join(' ')
+	}
+	if (location.slice(0, 11) === '/character/') {
+		locationName = location.slice(11)
+		locationName = locationName.split('%20').join(' ')
+	}
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -53,26 +84,25 @@ const NavBar = () => {
 						<MenuIcon />
 					</IconButton>
 					<Menu
-						id="basic-menu"
+						id="navigation-menu"
 						anchorEl={anchorEl}
 						open={open}
 						onClose={handleClose}
 						MenuListProps={{
-							'aria-labelledby': 'basic-button'
+							'aria-labelledby': 'navigation-button'
 						}}
 					>
 						<MenuItem onClick={handleClose} component={RouterLink} to="/">
 							Home
 						</MenuItem>
-						<MenuItem onClick={handleClose} component={RouterLink} to="/users">
-							Users
-						</MenuItem>
+						{userName}
+						{characters}
 						<MenuItem onClick={handleClose} component={RouterLink} to="/about">
 							About
 						</MenuItem>
 					</Menu>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Burning Wheel CharSheet
+						{locationName}
 					</Typography>
 					<Button color="inherit">Login</Button>
 				</Toolbar>

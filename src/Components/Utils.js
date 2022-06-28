@@ -9,7 +9,7 @@ const fetchUser = (setUserData, userName, navigate) => {
 		.then((data) => {
 			setUserData(data.user)
 			console.log(data.user)
-			navigate(`/:${userName}`, { replace: true })
+			navigate(`/user/${userName}`, { replace: true })
 			return ''
 		})
 		.catch((err) => {
