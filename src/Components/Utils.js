@@ -1,7 +1,5 @@
 import apiUrl from '../apiUrl'
 
-// const navigate = useNavigate()
-
 // *** CRUD Functions ****
 
 // Functions to GET user with charactesr from database
@@ -41,6 +39,13 @@ const handleCharacterTrashToggle = (setUserData, userData, id) => {
 		.catch((err) => {
 			console.log('something went wrong', err)
 		})
+}
+
+// *** Helper Functions ***
+
+// This function returns the character info based on userData and characterIndex
+const getCharacter = (userData, characterIndex) => {
+	return userData.characters[characterIndex]
 }
 
 // *** Table Functions ****
@@ -110,6 +115,7 @@ const handleChangeDense = (event, setDense) => {
 export {
 	fetchUser,
 	handleCharacterTrashToggle,
+	getCharacter,
 	getComparator,
 	stableSort,
 	handleRequestSort,

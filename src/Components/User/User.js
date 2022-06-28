@@ -9,13 +9,12 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
 import {
 	getComparator,
-	stableSort,
 	handleRequestSort,
 	handleChangePage,
 	handleChangeRowsPerPage,
 	handleChangeDense
-} from './Utils'
-import TableHeader from './TableHeader'
+} from '../Utils'
+import TableHeader from '../TableHeader'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
@@ -25,18 +24,27 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
 import UserRow from './UserRow'
+import TableToolbar from '../TableToolbar'
 
 const User = (props) => {
-	const { tablet, desktop, userData, setUserData } = props
+	const { tablet, desktop, userData, setUserData, setCharacterIndex } = props
 
 	// States for controlling the Table
 	const [rows, setRows] = React.useState([])
 	const [order, setOrder] = React.useState('asc')
-	const [orderBy, setOrderBy] = React.useState('calories')
-	const [selected, setSelected] = React.useState('')
+	const [orderBy, setOrderBy] = React.useState('characterName')
 	const [page, setPage] = React.useState(0)
 	const [dense, setDense] = React.useState(false)
 	const [rowsPerPage, setRowsPerPage] = React.useState(5)
+
+	React.useEffect(() => {
+		if (userData) {
+			let rowsToDisplay = userData.characters.filter(
+				(character) => !character.isTrash
+			)
+			setRows(rowsToDisplay)
+		}
+	}, [userData])
 
 	// Open dialog to add a new character
 	const handleAddCharacterDialogToggle = () => {}
@@ -57,26 +65,11 @@ const User = (props) => {
 			<Box sx={{ width: '100%' }}>
 				<Paper sx={{ width: '100%', mb: 2 }}>
 					{/* Table toolbar and Title */}
-					<Toolbar
-						sx={{
-							pl: { sm: 2 },
-							pr: { xs: 1, sm: 1 }
-						}}
-					>
-						<Tooltip title="add character">
-							<IconButton onClick={handleAddCharacterDialogToggle}>
-								<AddIcon />
-							</IconButton>
-						</Tooltip>
-						<Typography
-							sx={{ flex: '1 1 100%' }}
-							variant="h6"
-							id="tableTitle"
-							component="div"
-						>
-							Characters
-						</Typography>
-					</Toolbar>
+					<TableToolbar
+						title="Characters"
+						handleAdd={handleAddCharacterDialogToggle}
+						addTitle="Add new character"
+					/>
 					<TableContainer>
 						<Table
 							sx={{ minWidth: 370 }}
@@ -99,20 +92,20 @@ const User = (props) => {
 								dataName={'User'}
 							/>
 							<TableBody>
-								{
-									/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                                rows.slice().sort(getComparator(order, orderBy)) */
-									stableSort(userData.characters, getComparator(order, orderBy))
-										.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-										.map((row) => (
-											<UserRow
-												key={row._id}
-												row={row}
-												userData={userData}
-												setUserData={setUserData}
-											/>
-										))
-								}
+								{rows
+									.slice()
+									.sort(getComparator(order, orderBy))
+									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+									.map((row, characterIndex) => (
+										<UserRow
+											key={row._id}
+											row={row}
+											userData={userData}
+											setUserData={setUserData}
+											setCharacterIndex={setCharacterIndex}
+											characterIndex={characterIndex}
+										/>
+									))}
 								{emptyRows > 0 && (
 									<TableRow
 										style={{

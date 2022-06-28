@@ -5,12 +5,13 @@ import Home from './Components/Home'
 import NavBar from './Components/NavBar'
 import About from './Components/About'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import User from './Components/User'
-import Character from './Components/Character'
+import User from './Components/User/User'
+import Character from './Components/Character/Character'
 
 function App() {
 	// User's info + list of characters
 	const [userData, setUserData] = React.useState([])
+	const [characterIndex, setCharacterIndex] = React.useState([])
 
 	// State for user's logged-in status
 	const [isLoggedIn, setIsLoggedIn] = React.useState(false)
@@ -42,17 +43,20 @@ function App() {
 							desktop={desktop}
 							userData={userData}
 							setUserData={setUserData}
+							setCharacterIndex={setCharacterIndex}
 						/>
 					}
 				/>
 				<Route
-					path="/:user/:character"
+					path="/character/:name"
 					element={
 						<Character
 							tablet={tablet}
 							desktop={desktop}
 							userData={userData}
 							setUserData={setUserData}
+							characterIndex={characterIndex}
+							setCharacterIndex={setCharacterIndex}
 						/>
 					}
 				/>

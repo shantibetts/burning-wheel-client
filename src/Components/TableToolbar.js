@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
 
 const TableToolbar = (props) => {
-	const { title, handleAddCharacterDialogToggle } = props
+	const { title, handleAdd, addTitle } = props
 
 	return (
 		// This toolbar contains the table header OR the selected bugs feature
@@ -16,8 +16,8 @@ const TableToolbar = (props) => {
 				pr: { xs: 1, sm: 1 }
 			}}
 		>
-			<Tooltip title="add character">
-				<IconButton onClick={handleAddCharacterDialogToggle}>
+			<Tooltip title={addTitle}>
+				<IconButton onClick={handleAdd}>
 					<AddIcon />
 				</IconButton>
 			</Tooltip>

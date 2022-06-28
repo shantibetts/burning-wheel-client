@@ -4,16 +4,17 @@ import TableRow from '@mui/material/TableRow'
 import moment from 'moment'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { handleCharacterTrashToggle } from './Utils'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { handleCharacterTrashToggle } from '../Utils'
+import { useNavigate } from 'react-router-dom'
 
 const UserRow = (props) => {
-	const { row, userData, setUserData } = props
+	const { row, userData, setUserData, setCharacterIndex, characterIndex } =
+		props
 	const navigate = useNavigate()
-	let location = useLocation().pathname
 
 	const handleCharacterNavigation = () => {
-		navigate(`${location}/:${row.characterName}`, { replace: true })
+		setCharacterIndex(characterIndex)
+		navigate(`/character/${row.characterName}`, { replace: true })
 	}
 
 	return (
@@ -35,10 +36,10 @@ const UserRow = (props) => {
 				</TableCell>
 				<TableCell align="left">{row.game}</TableCell>
 				<TableCell align="left">
-					{moment(row.dateCreated).format('MMM Do YY')}
+					{moment(row.dateCreated).format('MM/DD/YY')}
 				</TableCell>
 				<TableCell align="left">
-					{moment(row.dateEdited).format('MMM Do YY')}
+					{moment(row.dateEdited).format('MM/DD/YY')}
 				</TableCell>
 			</TableRow>
 		</React.Fragment>
