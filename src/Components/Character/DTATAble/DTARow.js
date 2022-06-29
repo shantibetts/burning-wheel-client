@@ -7,15 +7,12 @@ import { createDTAData } from './../../Utils'
 
 const DTARow = (props) => {
 	const {
-		title,
+		attribute,
 		row,
-		setUserData,
 		handleDTADialogToggle,
 		setDialogData,
 		setDialogType
 	} = props
-
-	const handleDTAEditToggle = () => {}
 
 	return (
 		<React.Fragment>
@@ -26,8 +23,10 @@ const DTARow = (props) => {
 						size="small"
 						onClick={() => {
 							handleDTADialogToggle()
-							setDialogData(createDTAData(row.name, ...row.values))
-							setDialogType({ title: title, type: 'edit' })
+							setDialogData(
+								createDTAData(row.name, ...row.values, row.root1, row.root2)
+							)
+							setDialogType({ attribute: attribute, type: 'edit' })
 						}}
 					>
 						<EditIcon />

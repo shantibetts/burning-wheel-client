@@ -5,20 +5,17 @@ import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
 import { createDTAData } from './../../Utils'
 
-const DTARow = (props) => {
+const SkillsLearningRow = (props) => {
 	const {
-		title,
+		attribute,
 		row,
-		setUserData,
 		handleDTADialogToggle,
 		setDialogData,
 		setDialogType
 	} = props
 
-	const handleSkillsLearningEditToggle = () => {}
-	const rowName = row.name.charAt(0).toUpperCase() + row.name.slice(1)
+	// Creating a list of values for artha only
 	const rowArtha = row.values.slice(1)
-	const routineTests = row.values[0]
 
 	return (
 		<React.Fragment>
@@ -29,18 +26,31 @@ const DTARow = (props) => {
 						size="small"
 						onClick={() => {
 							handleDTADialogToggle()
-							setDialogData(createDTAData(row.name, ...row.values))
-							setDialogType({ title: title, type: 'edit' })
+							setDialogData(
+								createDTAData(
+									row.name,
+									0,
+									0,
+									0,
+									row.values[0],
+									0,
+									0,
+									...rowArtha,
+									row.root1,
+									row.root2
+								)
+							)
+							setDialogType({ attribute: attribute, type: 'edit' })
 						}}
 					>
 						<EditIcon />
 					</IconButton>
 				</TableCell>
-				<TableCell>{rowName}</TableCell>
+				<TableCell>{row.name}</TableCell>
 				{/* Spacers for shade, exponent and tax */}
 				<TableCell colSpan={3} />
 				{/* Routine tests & spacers for difficult and challenging */}
-				<TableCell>{routineTests}</TableCell>
+				<TableCell>{row.values[0]}</TableCell>
 				<TableCell colSpan={2} />
 				{/* Artha */}
 				{rowArtha.map((value, i) => (
@@ -53,4 +63,4 @@ const DTARow = (props) => {
 	)
 }
 
-export default DTARow
+export default SkillsLearningRow

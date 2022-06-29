@@ -2,7 +2,7 @@ import apiUrl from '../apiUrl'
 
 // *** CRUD Functions ****
 
-// Functions to GET user with charactesr from database
+// Functions to GET user with characters from database
 const fetchUser = (setUserData, userName, navigate) => {
 	fetch(apiUrl + `/users/username/` + userName)
 		.then((res) => res.json())
@@ -19,19 +19,19 @@ const fetchUser = (setUserData, userName, navigate) => {
 }
 
 // Delete a character from a user
-const handleCharacterTrashToggle = (setUserData, userData, id) => {
+const handleCharacterUpdate = (setUserData, userData, id, updateBody) => {
 	// find index of row
 	const i = userData.characters.findIndex((character) => character._id === id)
-	// update DB to toggle character isTrash
+	// update DB with updateBody
+	console.log(updateBody)
 	fetch(apiUrl + `/characters/` + id, {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({
-			isTrash: !userData.characters[i].isTrash
-		})
+		body: JSON.stringify(updateBody)
 	})
 		.then((res) => res.json())
 		.then((data) => {
+			console.log(data)
 			let updatedUser = { ...userData }
 			updatedUser.characters.splice(i, 1, data.character)
 			setUserData(updatedUser)
@@ -50,16 +50,18 @@ const getCharacter = (userData, characterIndex) => {
 
 // Creates form data for DTA Tables
 const createDTAData = (
-	name,
-	shade,
-	exponent,
-	tax,
-	routine,
-	difficult,
-	challenging,
-	fate,
-	persona,
-	deeds
+	name = '',
+	shade = '',
+	exponent = '',
+	tax = '',
+	routine = '',
+	difficult = '',
+	challenging = '',
+	fate = '',
+	persona = '',
+	deeds = '',
+	root1 = '',
+	root2 = ''
 ) => {
 	return {
 		name,
@@ -71,7 +73,54 @@ const createDTAData = (
 		challenging,
 		fate,
 		persona,
-		deeds
+		deeds,
+		root1,
+		root2
+	}
+}
+// Creates form data for DTA Tables
+const writeDTAData = (dialogType, dialogData) => {
+	if (dialogType.attribute === 'skillsLearning') {
+		const skillsLearning = {
+			name: dialogData.name,
+			root1: dialogData.root1,
+			values: [
+				dialogData.routine,
+				dialogData.fate,
+				dialogData.persona,
+				dialogData.deeds
+			]
+		}
+		if (dialogData.root2.length > 0) {
+			skillsLearning.root2 = dialogData.root2
+		}
+		const character = {}
+		character[`${dialogType.attribute}`] = skillsLearning
+		return character
+	} else {
+		const dta = {
+			name: dialogData.name,
+			values: [
+				dialogData.shade,
+				dialogData.exponent,
+				dialogData.tax,
+				dialogData.routine,
+				dialogData.difficult,
+				dialogData.challenging,
+				dialogData.fate,
+				dialogData.persona,
+				dialogData.deeds
+			]
+		}
+		if (dialogData.root1.length > 0) {
+			dta.root1 = dialogData.root1
+		}
+		if (dialogData.root2.length > 0) {
+			dta.root2 = dialogData.root2
+		}
+		const character = {}
+		character[`${dialogType.attribute}`] = dta
+		return character
 	}
 }
 
@@ -127,9 +176,10 @@ const handleChangeDense = (dense, setDense) => {
 
 export {
 	fetchUser,
-	handleCharacterTrashToggle,
+	handleCharacterUpdate,
 	getCharacter,
 	createDTAData,
+	writeDTAData,
 	getComparator,
 	handleRequestSort,
 	handleChangePage,

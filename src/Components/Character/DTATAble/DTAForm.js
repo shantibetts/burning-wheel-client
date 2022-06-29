@@ -7,7 +7,11 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import { createDTAData } from './../../Utils'
+import {
+	handleCharacterUpdate,
+	createDTAData,
+	writeDTAData
+} from './../../Utils'
 
 const DTAForm = (props) => {
 	const {
@@ -17,11 +21,25 @@ const DTAForm = (props) => {
 		setDialogData,
 		DTADialogOpen,
 		setUserData,
-		setDialogType
+		userData,
+		setDialogType,
+		characterIndex
 	} = props
 
-	// Create empty form data
-	const emptyFormData = createDTAData('', '', '', '', '', '', '', '', '', '')
+	// Create form title:
+	let dialogTitle = ''
+	if (dialogType.attribute === 'stats') {
+		dialogTitle = 'stat'
+	}
+	if (dialogType.attribute === 'attributes') {
+		dialogTitle = 'attribute'
+	}
+	if (dialogType.attribute === 'skills') {
+		dialogTitle = 'skill'
+	}
+	if (dialogType.attribute === 'skillLearning') {
+		dialogTitle = 'skill being learned'
+	}
 
 	// Handle functions set state to form values
 	const handleNameChange = (event) => {
@@ -29,9 +47,9 @@ const DTAForm = (props) => {
 		newData.name = event.target.value
 		setDialogData(newData)
 	}
-	const handleValuesChange = (event, index) => {
+	const handleValuesChange = (event, attribute) => {
 		const newData = { ...dialogData }
-		newData.values[index] = event.target.value
+		newData[`${attribute.toLowerCase()}`] = event.target.value
 		setDialogData(newData)
 	}
 
@@ -47,8 +65,11 @@ const DTAForm = (props) => {
 		'Persona',
 		'Deeds'
 	]
-	if (dialogType.title === 'skill being learned') {
-		DTAlist = ['Routine', 'Fate', 'Persona', 'Deeds']
+	if (dialogType.attribute === 'skills') {
+		DTAlist = ['Root1', 'Root2', ...DTAlist]
+	}
+	if (dialogType.attribute === 'skillsLearning') {
+		DTAlist = ['Root1', 'Root2', 'Routine', 'Fate', 'Persona', 'Deeds']
 	}
 	// Array to create form elements
 	const formArray = [
@@ -56,17 +77,18 @@ const DTAForm = (props) => {
 			label: 'Name',
 			value: dialogData.name,
 			disabled:
-				dialogType.title === 'stat' || dialogType.title === 'attribute'
+				dialogType.attribute === 'stats' ||
+				dialogType.attribute === 'attributes'
 					? true
 					: false,
 			onChange: handleNameChange
 		},
-		...DTAlist.map((value, index) => {
+		...DTAlist.map((value) => {
 			return {
 				label: value,
 				value: dialogData[`${value.toLowerCase()}`],
 				disabled: false,
-				onChange: (event) => handleValuesChange(event, index)
+				onChange: (event) => handleValuesChange(event, value)
 			}
 		})
 	]
@@ -75,15 +97,15 @@ const DTAForm = (props) => {
 		<Dialog
 			open={DTADialogOpen}
 			onClose={() => {
-				setDialogData(emptyFormData)
+				setDialogData(createDTAData())
 				setDialogType('')
 				handleToggle()
 			}}
 		>
 			<DialogTitle>
 				{dialogType.type === 'edit'
-					? `Edit ${dialogType.title}`
-					: `Add new ${dialogType.title}`}
+					? `Edit ${dialogTitle}`
+					: `Add new ${dialogTitle}`}
 			</DialogTitle>
 			<DialogContent>
 				<Box
@@ -98,7 +120,13 @@ const DTAForm = (props) => {
 						return (
 							<TextField
 								key={field.label}
-								required
+								required={
+									(dialogType.attribute === 'skills' ||
+										dialogType.attribute === 'skillsLearning') &&
+									field.label === 'Root2'
+										? false
+										: true
+								}
 								id={field.label}
 								label={field.label}
 								value={field.value}
@@ -114,7 +142,7 @@ const DTAForm = (props) => {
 				<Button
 					variant="contained"
 					onClick={() => {
-						setDialogData(emptyFormData)
+						setDialogData(createDTAData())
 						setDialogType('')
 						handleToggle()
 					}}
@@ -123,26 +151,14 @@ const DTAForm = (props) => {
 				</Button>
 				<Button
 					variant="contained"
-					// onClick={() =>
-					// 	dialogType === 'edit'
-					// 		? handleUpdate(
-					// 				dialogData,
-					// 				setDialogData,
-					// 				handleToggle,
-					// 				dialogData,
-					// 				setAllUsers,
-					// 				setDialogData,
-					// 				emptyFormData
-					// 		  )
-					// 		: handleNew(
-					// 				dialogData,
-					// 				setDialogData,
-					// 				handleToggle,
-					// 				setAllUsers,
-					// 				setDialogData,
-					// 				emptyFormData
-					// 		  )
-					// }
+					onClick={() =>
+						handleCharacterUpdate(
+							setUserData,
+							userData,
+							userData.characters[characterIndex]._id,
+							writeDTAData(dialogType, dialogData)
+						)
+					}
 				>
 					Submit
 				</Button>

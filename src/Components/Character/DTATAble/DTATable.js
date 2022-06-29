@@ -18,13 +18,14 @@ const DTATable = (props) => {
 
 	// Create character from userData
 	let character = getCharacter(userData, characterIndex)
-	// Create empty dialogData
-	const emptyDialogData = createDTAData('', '', '', '', '', '', '', '', '', '')
 
 	// State for controlling the Dialogs
 	const [DTADialogOpen, setDTADialogOpen] = React.useState(false)
-	const [dialogData, setDialogData] = React.useState(emptyDialogData)
-	const [dialogType, setDialogType] = React.useState({ title: '', type: '' })
+	const [dialogData, setDialogData] = React.useState(createDTAData())
+	const [dialogType, setDialogType] = React.useState({
+		attribute: '',
+		type: ''
+	})
 
 	// Open and close the DTA Form
 	const handleDTADialogToggle = () => {
@@ -52,7 +53,7 @@ const DTATable = (props) => {
 						{character.stats.map((row, i) => (
 							<DTARow
 								key={i}
-								title={'stat'}
+								attribute={'stats'}
 								row={row}
 								character={character}
 								setUserData={setUserData}
@@ -71,7 +72,7 @@ const DTATable = (props) => {
 						{character.attributes.map((row, i) => (
 							<DTARow
 								key={i}
-								title={'attribute'}
+								attribute={'attributes'}
 								row={row}
 								character={character}
 								setUserData={setUserData}
@@ -86,8 +87,8 @@ const DTATable = (props) => {
 								<IconButton
 									onClick={() => {
 										handleDTADialogToggle()
-										setDialogData(emptyDialogData)
-										setDialogType({ title: 'skill', type: 'new' })
+										setDialogData(createDTAData())
+										setDialogType({ attribute: 'skills', type: 'new' })
 									}}
 								>
 									<AddIcon />
@@ -98,7 +99,7 @@ const DTATable = (props) => {
 						{character.skills.map((row, i) => (
 							<DTARow
 								key={i}
-								title={'skill'}
+								attribute={'skills'}
 								row={row}
 								character={character}
 								setUserData={setUserData}
@@ -112,8 +113,8 @@ const DTATable = (props) => {
 								<IconButton
 									onClick={() => {
 										handleDTADialogToggle()
-										setDialogData(emptyDialogData)
-										setDialogType({ title: 'skill being learned', type: 'new' })
+										setDialogData(createDTAData())
+										setDialogType({ attribute: 'skillsLearning', type: 'new' })
 									}}
 								>
 									<AddIcon />
@@ -124,7 +125,7 @@ const DTATable = (props) => {
 						{character.skillsLearning.map((row, i) => (
 							<SkillsLearningRow
 								key={i}
-								title={'skill being learned'}
+								attribute={'skillsLearning'}
 								row={row}
 								character={character}
 								setUserData={setUserData}
@@ -137,11 +138,13 @@ const DTATable = (props) => {
 				</Table>
 			</TableContainer>
 			<DTAForm
+				characterIndex={characterIndex}
 				setDialogData={setDialogData}
 				DTADialogOpen={DTADialogOpen}
 				handleToggle={handleDTADialogToggle}
 				dialogType={dialogType}
 				dialogData={dialogData}
+				userData={userData}
 				setUserData={setUserData}
 				setDialogType={setDialogType}
 			/>

@@ -4,7 +4,7 @@ import TableRow from '@mui/material/TableRow'
 import moment from 'moment'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { handleCharacterTrashToggle } from '../Utils'
+import { handleCharacterUpdate } from '../Utils'
 import { useNavigate } from 'react-router-dom'
 
 const UserRow = (props) => {
@@ -17,6 +17,9 @@ const UserRow = (props) => {
 		navigate(`/character/${row.characterName}`, { replace: true })
 	}
 
+	// create trashToggle object
+	const trashToggle = { isTrash: !userData.characters[characterIndex] }
+
 	return (
 		<React.Fragment>
 			<TableRow hover onClick={handleCharacterNavigation}>
@@ -25,7 +28,7 @@ const UserRow = (props) => {
 						aria-label="delete character"
 						size="small"
 						onClick={() =>
-							handleCharacterTrashToggle(setUserData, userData, row._id)
+							handleCharacterUpdate(setUserData, userData, row._id, trashToggle)
 						}
 					>
 						<DeleteIcon />
