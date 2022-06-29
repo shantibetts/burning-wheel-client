@@ -3,7 +3,8 @@ import Typography from '@mui/material/Typography'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
 import { getCharacter, handleChangeDense } from './../Utils'
-import DTATable from './DTATable'
+import DTATable from './DTATAble/DTATable'
+import SNDTable from './SNDTable/SNDTable'
 
 const Character = (props) => {
 	const { userData, setUserData, characterIndex, dense, setDense } = props
@@ -15,6 +16,38 @@ const Character = (props) => {
 		return (
 			<div>
 				<DTATable
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<SNDTable
+					tableType="relationships"
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<SNDTable
+					tableType="affiliations"
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<SNDTable
+					tableType="titles"
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<SNDTable
+					tableType="funds"
 					userData={userData}
 					setUserData={setUserData}
 					characterIndex={characterIndex}

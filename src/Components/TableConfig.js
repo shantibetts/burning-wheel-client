@@ -136,14 +136,14 @@ const dieTestArthaTableHeadCells = [
 // List of column names for Strength, Name, Description tables:
 const strengthNameDescTableHeadCells = [
 	{
-		id: 'shade',
+		id: 'icon',
 		align: 'left',
-		label: 'Shade'
+		label: ''
 	},
 	{
-		id: 'exponent',
+		id: 'strength',
 		align: 'left',
-		label: 'Exponent'
+		label: 'Strength'
 	},
 	{
 		id: 'name',
