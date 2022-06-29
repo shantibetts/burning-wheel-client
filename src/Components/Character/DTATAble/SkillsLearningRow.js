@@ -3,9 +3,17 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
+import { createDTAData } from './../../Utils'
 
 const DTARow = (props) => {
-	const { row, setUserData } = props
+	const {
+		title,
+		row,
+		setUserData,
+		handleDTADialogToggle,
+		setDialogData,
+		setDialogType
+	} = props
 
 	const handleSkillsLearningEditToggle = () => {}
 	const rowName = row.name.charAt(0).toUpperCase() + row.name.slice(1)
@@ -19,7 +27,11 @@ const DTARow = (props) => {
 					<IconButton
 						aria-label="fast edit"
 						size="small"
-						onClick={() => handleSkillsLearningEditToggle(setUserData)}
+						onClick={() => {
+							handleDTADialogToggle()
+							setDialogData(createDTAData(row.name, ...row.values))
+							setDialogType({ title: title, type: 'edit' })
+						}}
 					>
 						<EditIcon />
 					</IconButton>

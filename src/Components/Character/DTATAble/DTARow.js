@@ -3,6 +3,7 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
+import { createDTAData } from './../../Utils'
 
 const DTARow = (props) => {
 	const {
@@ -24,8 +25,8 @@ const DTARow = (props) => {
 						aria-label="fast edit"
 						size="small"
 						onClick={() => {
-							handleDTADialogToggle(setUserData)
-							setDialogData(row)
+							handleDTADialogToggle()
+							setDialogData(createDTAData(row.name, ...row.values))
 							setDialogType({ title: title, type: 'edit' })
 						}}
 					>

@@ -11,10 +11,10 @@ import { createDTAData } from './../../Utils'
 
 const DTAForm = (props) => {
 	const {
-		title,
 		handleToggle,
 		dialogType,
 		dialogData,
+		setDialogData,
 		DTADialogOpen,
 		setUserData,
 		setDialogType
@@ -23,30 +23,20 @@ const DTAForm = (props) => {
 	// Create empty form data
 	const emptyFormData = createDTAData('', '', '', '', '', '', '', '', '', '')
 
-	// State to track form input
-	const [formData, setFormData] = useState(emptyFormData)
-	console.log(dialogData, formData)
-	// Use Effect populates state when an edit opesn
-	React.useEffect(() => {
-		if (dialogType === 'edit' && DTADialogOpen) {
-			setFormData(createDTAData(dialogData.name, ...dialogData.values))
-		}
-	}, [DTADialogOpen])
-
 	// Handle functions set state to form values
 	const handleNameChange = (event) => {
-		const newData = { ...formData }
-		newData.userName = event.target.value
-		setFormData(newData)
+		const newData = { ...dialogData }
+		newData.name = event.target.value
+		setDialogData(newData)
 	}
 	const handleValuesChange = (event, index) => {
-		const newData = { ...formData }
+		const newData = { ...dialogData }
 		newData.values[index] = event.target.value
-		setFormData(newData)
+		setDialogData(newData)
 	}
 
 	// List of labels for DTA elements
-	const DTAlist = [
+	let DTAlist = [
 		'Shade',
 		'Exponent',
 		'Tax',
@@ -57,18 +47,24 @@ const DTAForm = (props) => {
 		'Persona',
 		'Deeds'
 	]
+	if (dialogType.title === 'skill being learned') {
+		DTAlist = ['Routine', 'Fate', 'Persona', 'Deeds']
+	}
 	// Array to create form elements
 	const formArray = [
 		{
 			label: 'Name',
-			value: formData.name,
-			disabled: title === 'Stats' || title === 'Attributes' ? true : false,
+			value: dialogData.name,
+			disabled:
+				dialogType.title === 'stat' || dialogType.title === 'attribute'
+					? true
+					: false,
 			onChange: handleNameChange
 		},
 		...DTAlist.map((value, index) => {
 			return {
 				label: value,
-				value: formData[`${value.toLowerCase()}`],
+				value: dialogData[`${value.toLowerCase()}`],
 				disabled: false,
 				onChange: (event) => handleValuesChange(event, index)
 			}
@@ -79,13 +75,15 @@ const DTAForm = (props) => {
 		<Dialog
 			open={DTADialogOpen}
 			onClose={() => {
-				setFormData(emptyFormData)
+				setDialogData(emptyFormData)
 				setDialogType('')
 				handleToggle()
 			}}
 		>
 			<DialogTitle>
-				{dialogType === 'edit' ? 'Edit User' : 'Add User'}
+				{dialogType.type === 'edit'
+					? `Edit ${dialogType.title}`
+					: `Add new ${dialogType.title}`}
 			</DialogTitle>
 			<DialogContent>
 				<Box
@@ -116,7 +114,7 @@ const DTAForm = (props) => {
 				<Button
 					variant="contained"
 					onClick={() => {
-						setFormData(emptyFormData)
+						setDialogData(emptyFormData)
 						setDialogType('')
 						handleToggle()
 					}}
@@ -128,20 +126,20 @@ const DTAForm = (props) => {
 					// onClick={() =>
 					// 	dialogType === 'edit'
 					// 		? handleUpdate(
-					// 				formData,
-					// 				setFormData,
+					// 				dialogData,
+					// 				setDialogData,
 					// 				handleToggle,
 					// 				dialogData,
 					// 				setAllUsers,
-					// 				setFormData,
+					// 				setDialogData,
 					// 				emptyFormData
 					// 		  )
 					// 		: handleNew(
-					// 				formData,
-					// 				setFormData,
+					// 				dialogData,
+					// 				setDialogData,
 					// 				handleToggle,
 					// 				setAllUsers,
-					// 				setFormData,
+					// 				setDialogData,
 					// 				emptyFormData
 					// 		  )
 					// }
