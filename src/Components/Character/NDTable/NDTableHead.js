@@ -2,14 +2,24 @@ import * as React from 'react'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
-import { strengthNameDescTableHeadCells } from '../../TableConfig'
+import {
+	nameDescTableHeadCells,
+	nameDescCallOnTableHeadCells
+} from '../../TableConfig'
 
 const NDTableHead = (props) => {
-	const { dense, setDense } = props
+	const { tableType, dense, setDense } = props
+
+	let headCells = nameDescTableHeadCells
+	console.log(tableType)
+	if (tableType === 'traits') {
+		headCells = nameDescCallOnTableHeadCells
+	}
+
 	return (
 		<TableHead>
 			<TableRow>
-				{strengthNameDescTableHeadCells.map((column) => (
+				{headCells.map((column) => (
 					<TableCell key={column.id} align={column.align}>
 						{column.label}
 					</TableCell>

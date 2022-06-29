@@ -160,6 +160,11 @@ const strengthNameDescTableHeadCells = [
 // List of column names for Name, Description tables:
 const nameDescTableHeadCells = [
 	{
+		id: 'icon',
+		align: 'left',
+		label: ''
+	},
+	{
 		id: 'name',
 		align: 'left',
 		label: 'Name'
@@ -170,10 +175,34 @@ const nameDescTableHeadCells = [
 		label: 'Description'
 	}
 ]
+// List of column names for Name, Description, Call On tables:
+const nameDescCallOnTableHeadCells = [
+	{
+		id: 'icon',
+		align: 'left',
+		label: ''
+	},
+	{
+		id: 'name',
+		align: 'left',
+		label: 'Name'
+	},
+	{
+		id: 'description',
+		align: 'left',
+		label: 'Description'
+	},
+	{
+		id: 'callOn',
+		align: 'left',
+		label: 'Call On'
+	}
+]
 
 export {
 	userTableHeadCells,
 	dieTestArthaTableHeadCells,
 	strengthNameDescTableHeadCells,
-	nameDescTableHeadCells
+	nameDescTableHeadCells,
+	nameDescCallOnTableHeadCells
 }

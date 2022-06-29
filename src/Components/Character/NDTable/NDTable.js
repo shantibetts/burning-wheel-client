@@ -45,7 +45,11 @@ const NDTable = (props) => {
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<NDTableHead dense={dense} setDense={setDense} />
+					<NDTableHead
+						dense={dense}
+						setDense={setDense}
+						tableType={tableType}
+					/>
 					<TableBody>
 						{character[`${tableType}`].map((row, i) => (
 							<NDRow

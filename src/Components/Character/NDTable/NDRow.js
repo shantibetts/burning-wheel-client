@@ -9,6 +9,20 @@ const NDRow = (props) => {
 
 	const handleNDEditToggle = () => {}
 
+	let rowDescription = row.description
+	let textDecoration = 'none'
+	let callOn = ''
+
+	if (row.action) {
+		rowDescription += ' ' + row.action
+		row.isActive
+			? (textDecoration = 'none')
+			: (textDecoration = 'strikethrough')
+	}
+	if (row.callOn) {
+		callOn = <TableCell> {row.callOn} </TableCell>
+	}
+
 	return (
 		<React.Fragment>
 			<TableRow hover>
@@ -21,9 +35,11 @@ const NDRow = (props) => {
 						<EditIcon />
 					</IconButton>
 				</TableCell>
-				<TableCell>{row.shade + row.strength}</TableCell>
 				<TableCell>{row.name}</TableCell>
-				<TableCell>{row.description}</TableCell>
+				<TableCell sx={{ textDecoration: textDecoration }}>
+					{rowDescription}
+				</TableCell>
+				{callOn}
 			</TableRow>
 		</React.Fragment>
 	)

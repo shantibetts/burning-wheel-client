@@ -5,6 +5,8 @@ import Switch from '@mui/material/Switch'
 import { getCharacter, handleChangeDense } from './../Utils'
 import DTATable from './DTATAble/DTATable'
 import SNDTable from './SNDTable/SNDTable'
+import NDTable from './NDTable/NDTable'
+import CharacterDetails from './CharacterDetails'
 
 const Character = (props) => {
 	const { userData, setUserData, characterIndex, dense, setDense } = props
@@ -15,6 +17,35 @@ const Character = (props) => {
 	if (getCharacter(userData, characterIndex) !== null) {
 		return (
 			<div>
+				<CharacterDetails
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+				/>
+				<NDTable
+					tableType="beliefs"
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<NDTable
+					tableType="instincts"
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<NDTable
+					tableType="traits"
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
 				<DTATable
 					userData={userData}
 					setUserData={setUserData}
@@ -48,6 +79,14 @@ const Character = (props) => {
 				/>
 				<SNDTable
 					tableType="funds"
+					userData={userData}
+					setUserData={setUserData}
+					characterIndex={characterIndex}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<NDTable
+					tableType="aliases"
 					userData={userData}
 					setUserData={setUserData}
 					characterIndex={characterIndex}
