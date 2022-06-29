@@ -11,7 +11,7 @@ const NDTableHead = (props) => {
 	const { tableType, dense, setDense } = props
 
 	let headCells = nameDescTableHeadCells
-	console.log(tableType)
+
 	if (tableType === 'traits') {
 		headCells = nameDescCallOnTableHeadCells
 	}

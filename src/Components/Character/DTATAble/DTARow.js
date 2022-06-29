@@ -5,10 +5,16 @@ import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
 
 const DTARow = (props) => {
-	const { row, setUserData } = props
+	const {
+		title,
+		row,
+		setUserData,
+		handleDTADialogToggle,
+		setDialogData,
+		setDialogType
+	} = props
 
 	const handleDTAEditToggle = () => {}
-	const rowName = row.name.charAt(0).toUpperCase() + row.name.slice(1)
 
 	return (
 		<React.Fragment>
@@ -17,12 +23,16 @@ const DTARow = (props) => {
 					<IconButton
 						aria-label="fast edit"
 						size="small"
-						onClick={() => handleDTAEditToggle(setUserData)}
+						onClick={() => {
+							handleDTADialogToggle(setUserData)
+							setDialogData(row)
+							setDialogType({ title: title, type: 'edit' })
+						}}
 					>
 						<EditIcon />
 					</IconButton>
 				</TableCell>
-				<TableCell>{rowName}</TableCell>
+				<TableCell>{row.name}</TableCell>
 				{row.values.map((value, i) => (
 					<TableCell key={i} align="left">
 						{value}

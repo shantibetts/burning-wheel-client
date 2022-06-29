@@ -43,9 +43,36 @@ const handleCharacterTrashToggle = (setUserData, userData, id) => {
 
 // *** Helper Functions ***
 
-// This function returns the character info based on userData and characterIndex
+// Returns the character info based on userData and characterIndex
 const getCharacter = (userData, characterIndex) => {
 	return userData.characters[characterIndex]
+}
+
+// Creates form data for DTA Tables
+const createDTAData = (
+	name,
+	shade,
+	exponent,
+	tax,
+	routine,
+	difficult,
+	challenging,
+	fate,
+	persona,
+	deeds
+) => {
+	return {
+		name,
+		shade,
+		exponent,
+		tax,
+		routine,
+		difficult,
+		challenging,
+		fate,
+		persona,
+		deeds
+	}
 }
 
 // *** Table Functions ****
@@ -66,20 +93,6 @@ function getComparator(order, orderBy) {
 	return order === 'desc'
 		? (a, b) => descendingComparator(a, b, orderBy)
 		: (a, b) => -descendingComparator(a, b, orderBy)
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort(array, comparator) {
-	const stabilizedThis = array.map((el, index) => [el, index])
-	stabilizedThis.sort((a, b) => {
-		const order = comparator(a[0], b[0])
-		if (order !== 0) {
-			return order
-		}
-		return a[1] - b[1]
-	})
-	return stabilizedThis.map((el) => el[0])
 }
 
 // This function handles the sort order
@@ -116,8 +129,8 @@ export {
 	fetchUser,
 	handleCharacterTrashToggle,
 	getCharacter,
+	createDTAData,
 	getComparator,
-	stableSort,
 	handleRequestSort,
 	handleChangePage,
 	handleChangeRowsPerPage,
