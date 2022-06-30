@@ -17,7 +17,6 @@ const DTARow = (props) => {
 	if (attribute === 'skillsLearning') {
 		rowCells = skillsLearningCells.slice(1)
 	}
-
 	return (
 		<React.Fragment>
 			<TableRow hover>

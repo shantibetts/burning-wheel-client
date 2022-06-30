@@ -20,10 +20,8 @@ const fetchUser = (setUserData, userName, navigate) => {
 
 // Update a character with whatever is in updateBody
 const handleCharacterUpdate = (setUserData, userData, id, updateBody) => {
-	// find index of row
+	// find index of character to be updated
 	const i = userData.characters.findIndex((character) => character._id === id)
-	// update DB with updateBody
-	console.log(updateBody)
 	fetch(apiUrl + `/characters/` + id, {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
@@ -35,6 +33,49 @@ const handleCharacterUpdate = (setUserData, userData, id, updateBody) => {
 			let updatedUser = { ...userData }
 			updatedUser.characters.splice(i, 1, data.character)
 			setUserData(updatedUser)
+		})
+		.catch((err) => {
+			console.log('something went wrong', err)
+		})
+}
+
+// Update a character with whatever is in updateBody
+const handleAttributeUpdate = (
+	setUserData,
+	userData,
+	characterId,
+	attribute,
+	updateBody,
+	handleToggle
+) => {
+	// find index of character to be updated
+	const i = userData.characters.findIndex(
+		(character) => character._id === characterId
+	)
+	// create object to make update request
+	console.log(updateBody)
+	const attributeArray = userData.characters[i][attribute].slice()
+	const attributeIndex = attributeArray.findIndex(
+		(each) => each.name === updateBody.name
+	)
+	console.log(attributeArray, attributeIndex)
+	const update = {
+		[attribute]: attributeArray.splice(attributeIndex, 1, updateBody)
+	}
+	console.log(update)
+
+	fetch(apiUrl + `/characters/` + characterId, {
+		method: 'PATCH',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(update)
+	})
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data)
+			let updatedUser = { ...userData }
+			updatedUser.characters.splice(i, 1, data.character)
+			setUserData(updatedUser)
+			handleToggle()
 		})
 		.catch((err) => {
 			console.log('something went wrong', err)
@@ -163,9 +204,9 @@ const handleChangeDense = (dense, setDense) => {
 export {
 	fetchUser,
 	handleCharacterUpdate,
+	handleAttributeUpdate,
 	getCharacter,
 	createEmptyTableData,
-	writeDTAData,
 	getComparator,
 	handleRequestSort,
 	handleChangePage,

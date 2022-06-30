@@ -62,6 +62,7 @@ const DTATable = (props) => {
 				</Table>
 			</TableContainer>
 			<DTAForm
+				attribute={attribute}
 				characterId={characterId}
 				dialogOpen={dialogOpen}
 				handleToggle={handleDialogToggle}

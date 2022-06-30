@@ -7,11 +7,7 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import {
-	handleCharacterUpdate,
-	createEmptyTableData,
-	writeDTAData
-} from './../../Utils'
+import { handleAttributeUpdate, createEmptyTableData } from './../../Utils'
 
 const DTAForm = (props) => {
 	const {
@@ -50,7 +46,9 @@ const DTAForm = (props) => {
 	}
 	const handleValuesChange = (event, attribute) => {
 		const newData = { ...dialogData }
-		newData[attribute.toLowerCase()] = event.target.value
+		newData[attribute.toLowerCase()] = parseInt(event.target.value)
+			? parseInt(event.target.value)
+			: event.target.value
 		setDialogData(newData)
 	}
 
@@ -66,9 +64,11 @@ const DTAForm = (props) => {
 		'Persona',
 		'Deeds'
 	]
+	// add roots for skills
 	if (dialogType.attribute === 'skills') {
 		DTAlist = ['Root1', 'Root2', ...DTAlist]
 	}
+	// list of labels for skillsLearning
 	if (dialogType.attribute === 'skillsLearning') {
 		DTAlist = ['Root1', 'Root2', 'Routine', 'Fate', 'Persona', 'Deeds']
 	}
@@ -78,10 +78,7 @@ const DTAForm = (props) => {
 			label: 'Name',
 			value: dialogData.name,
 			disabled:
-				dialogType.attribute === 'stats' ||
-				dialogType.attribute === 'attributes'
-					? true
-					: false,
+				attribute === 'stats' || attribute === 'attributes' ? true : false,
 			onChange: handleNameChange
 		},
 		...DTAlist.map((value) => {
@@ -153,11 +150,13 @@ const DTAForm = (props) => {
 				<Button
 					variant="contained"
 					onClick={() =>
-						handleCharacterUpdate(
+						handleAttributeUpdate(
 							setUserData,
 							userData,
 							characterId,
-							dialogData
+							attribute,
+							dialogData,
+							handleToggle
 						)
 					}
 				>

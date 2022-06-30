@@ -16,8 +16,6 @@ const NDTable = (props) => {
 	const { attribute, userData, setUserData, characterId, dense, setDense } =
 		props
 
-	console.log(attribute)
-
 	// Printable title and add-description
 	const title = attribute.charAt(0).toUpperCase() + attribute.slice(1)
 	const addTitle = `Add new ${attribute}`

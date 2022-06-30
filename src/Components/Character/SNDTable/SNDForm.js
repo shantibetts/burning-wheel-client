@@ -7,11 +7,7 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import {
-	handleCharacterUpdate,
-	createEmptyTableData,
-	writeDTAData
-} from './../../Utils'
+import { handleCharacterUpdate, createEmptyTableData } from './../../Utils'
 
 const SNDForm = (props) => {
 	const {
@@ -155,8 +151,7 @@ const SNDForm = (props) => {
 						handleCharacterUpdate(
 							setUserData,
 							userData,
-							userData.characters[characterId]._id,
-							writeDTAData(dialogType, dialogData)
+							userData.characters[characterId]._id
 						)
 					}
 				>
