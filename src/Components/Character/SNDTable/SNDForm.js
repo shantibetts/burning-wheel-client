@@ -64,6 +64,29 @@ const SNDForm = (props) => {
 	if (attribute === 'beliefs') {
 		SNDlist = ['Name', 'Description', 'Action', 'Active']
 	}
+	// Add delete button to edit dialog
+	let deleteButton = ''
+	if (dialogType === 'edit') {
+		deleteButton = (
+			<Button
+				variant="contained"
+				color="secondary"
+				onClick={() => {
+					handleAttributeUpdate(
+						setUserData,
+						userData,
+						characterId,
+						attribute,
+						dialogData,
+						handleToggle,
+						'delete'
+					)
+				}}
+			>
+				Delete
+			</Button>
+		)
+	}
 
 	return (
 		<Dialog
@@ -118,6 +141,7 @@ const SNDForm = (props) => {
 				</Box>
 			</DialogContent>
 			<DialogActions>
+				{deleteButton}
 				<Button
 					variant="contained"
 					onClick={() => {

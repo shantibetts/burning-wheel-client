@@ -60,6 +60,11 @@ const handleAttributeUpdate = (
 			(each) => each.name === updateBody.name
 		)
 		attributeArray.splice(attributeIndex, 1, updateBody)
+	} else if (dialogType === 'delete') {
+		const attributeIndex = attributeArray.findIndex(
+			(each) => each.name === updateBody.name
+		)
+		attributeArray.splice(attributeIndex, 1)
 	} else {
 		attributeArray.push(updateBody)
 	}

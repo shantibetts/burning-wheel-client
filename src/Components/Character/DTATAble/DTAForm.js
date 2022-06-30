@@ -91,6 +91,30 @@ const DTAForm = (props) => {
 		})
 	]
 
+	// Add delete button to edit dialog
+	let deleteButton = ''
+	if (dialogType === 'edit') {
+		deleteButton = (
+			<Button
+				variant="contained"
+				color="secondary"
+				onClick={() => {
+					handleAttributeUpdate(
+						setUserData,
+						userData,
+						characterId,
+						attribute,
+						dialogData,
+						handleToggle,
+						'delete'
+					)
+				}}
+			>
+				Delete
+			</Button>
+		)
+	}
+
 	return (
 		<Dialog
 			open={dialogOpen}
@@ -136,6 +160,7 @@ const DTAForm = (props) => {
 				</Box>
 			</DialogContent>
 			<DialogActions>
+				{deleteButton}
 				<Button
 					variant="contained"
 					onClick={() => {
