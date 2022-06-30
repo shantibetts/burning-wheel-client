@@ -53,16 +53,12 @@ const handleAttributeUpdate = (
 		(character) => character._id === characterId
 	)
 	// create object to make update request
-	console.log(updateBody)
 	const attributeArray = userData.characters[i][attribute].slice()
 	const attributeIndex = attributeArray.findIndex(
 		(each) => each.name === updateBody.name
 	)
-	console.log(attributeArray, attributeIndex)
-	const update = {
-		[attribute]: attributeArray.splice(attributeIndex, 1, updateBody)
-	}
-	console.log(update)
+	attributeArray.splice(attributeIndex, 1, updateBody)
+	const update = { [attribute]: attributeArray }
 
 	fetch(apiUrl + `/characters/` + characterId, {
 		method: 'PATCH',
@@ -102,7 +98,11 @@ const createEmptyTableData = () => {
 		persona: '',
 		deeds: '',
 		root1: '',
-		root2: ''
+		root2: '',
+		description: '',
+		callOn: '',
+		action: '',
+		isActive: ''
 	}
 }
 // Creates form data for DTA Tables
