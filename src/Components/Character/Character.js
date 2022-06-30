@@ -22,6 +22,7 @@ const Character = (props) => {
 					characterId={characterId}
 				/>
 				<SNDTable
+					type={'ND'}
 					attribute="beliefs"
 					userData={userData}
 					setUserData={setUserData}
@@ -30,6 +31,7 @@ const Character = (props) => {
 					setDense={setDense}
 				/>
 				<SNDTable
+					type={'ND'}
 					attribute="instincts"
 					userData={userData}
 					setUserData={setUserData}
@@ -38,6 +40,7 @@ const Character = (props) => {
 					setDense={setDense}
 				/>
 				<SNDTable
+					type={'NDC'}
 					attribute="traits"
 					userData={userData}
 					setUserData={setUserData}
@@ -78,6 +81,7 @@ const Character = (props) => {
 					setDense={setDense}
 				/>
 				<SNDTable
+					type={'SND'}
 					attribute="relationships"
 					userData={userData}
 					setUserData={setUserData}
@@ -86,6 +90,7 @@ const Character = (props) => {
 					setDense={setDense}
 				/>
 				<SNDTable
+					type={'SND'}
 					attribute="affiliations"
 					userData={userData}
 					setUserData={setUserData}
@@ -94,6 +99,7 @@ const Character = (props) => {
 					setDense={setDense}
 				/>
 				<SNDTable
+					type={'SND'}
 					attribute="titles"
 					userData={userData}
 					setUserData={setUserData}
@@ -102,6 +108,7 @@ const Character = (props) => {
 					setDense={setDense}
 				/>
 				<SNDTable
+					type={'SND'}
 					attribute="funds"
 					userData={userData}
 					setUserData={setUserData}
@@ -110,6 +117,7 @@ const Character = (props) => {
 					setDense={setDense}
 				/>
 				<SNDTable
+					type={'ND'}
 					attribute="aliases"
 					userData={userData}
 					setUserData={setUserData}

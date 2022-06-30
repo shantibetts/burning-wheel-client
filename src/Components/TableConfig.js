@@ -191,8 +191,8 @@ const skillsLearningCells = [
 	}
 ]
 
-// List of column names for Strength, Name, Description tables:
-const strengthNameDescTableHeadCells = [
+// List of column names for Strength, Name, Description, CallOn tables:
+const SNDCTableCells = () => [
 	{
 		id: 'icon',
 		align: 'left',
@@ -202,43 +202,6 @@ const strengthNameDescTableHeadCells = [
 		id: 'strength',
 		align: 'left',
 		label: 'Strength'
-	},
-	{
-		id: 'name',
-		align: 'left',
-		label: 'Name'
-	},
-	{
-		id: 'description',
-		align: 'left',
-		label: 'Description'
-	}
-]
-
-// List of column names for Name, Description tables:
-const nameDescTableHeadCells = [
-	{
-		id: 'icon',
-		align: 'left',
-		label: ''
-	},
-	{
-		id: 'name',
-		align: 'left',
-		label: 'Name'
-	},
-	{
-		id: 'description',
-		align: 'left',
-		label: 'Description'
-	}
-]
-// List of column names for Name, Description, Call On tables:
-const nameDescCallOnTableHeadCells = [
-	{
-		id: 'icon',
-		align: 'left',
-		label: ''
 	},
 	{
 		id: 'name',
@@ -261,7 +224,5 @@ export {
 	userTableHeadCells,
 	dieTestArthaCells,
 	skillsLearningCells,
-	strengthNameDescTableHeadCells,
-	nameDescTableHeadCells,
-	nameDescCallOnTableHeadCells
+	SNDCTableCells
 }

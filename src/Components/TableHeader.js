@@ -4,31 +4,11 @@ import { visuallyHidden } from '@mui/utils'
 import TableSortLabel from '@mui/material/TableSortLabel'
 import Box from '@mui/material/Box'
 import TableCell from '@mui/material/TableCell'
-import {
-	userTableHeadCells,
-	dieTestArthaCells,
-	strengthNameDescTableHeadCells,
-	nameDescTableHeadCells
-} from './TableConfig'
+import { userTableHeadCells } from './TableConfig'
 
 // Creates the Table Heading with sort and list functionality
 const TableHeader = (props) => {
 	const { order, orderBy, onRequestSort, dataName, tablet, desktop } = props
-
-	let tableHeadCells = []
-	// Table rows for User component
-	if (dataName === 'User') {
-		tableHeadCells = userTableHeadCells
-	}
-	if (dataName === 'dieTestArtha') {
-		tableHeadCells = dieTestArthaCells
-	}
-	if (dataName === 'strengthNameDesc') {
-		tableHeadCells = strengthNameDescTableHeadCells
-	}
-	if (dataName === 'nameDesc') {
-		tableHeadCells = nameDescTableHeadCells
-	}
 
 	const createSortHandler = (property) => (event) => {
 		onRequestSort(event, property)
@@ -39,7 +19,7 @@ const TableHeader = (props) => {
 			<TableRow>
 				<TableCell />
 				{/* This maps through the headCells array to create each header */}
-				{tableHeadCells.map((headCell) => (
+				{userTableHeadCells.map((headCell) => (
 					// Creates the Header itself
 					<TableCell
 						key={headCell.id}

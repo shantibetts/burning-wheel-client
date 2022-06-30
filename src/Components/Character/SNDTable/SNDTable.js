@@ -11,8 +11,15 @@ import SNDForm from './SNDForm'
 import TableToolbar from '../../TableToolbar'
 
 const SNDTable = (props) => {
-	const { attribute, userData, setUserData, characterId, dense, setDense } =
-		props
+	const {
+		type,
+		attribute,
+		userData,
+		setUserData,
+		characterId,
+		dense,
+		setDense
+	} = props
 
 	// Create character from userData
 	let character = getCharacter(userData, characterId)[attribute]
@@ -34,17 +41,22 @@ const SNDTable = (props) => {
 		<Paper sx={{ width: '100%', mb: 2 }}>
 			{/* Table toolbar and Title */}
 			<TableContainer>
-				<TableToolbar title={title} handleAdd={handleDialogToggle} />
+				<TableToolbar
+					attribute={attribute}
+					title={title}
+					handleAdd={handleDialogToggle}
+				/>
 				<Table
 					sx={{ minWidth: 370 }}
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<SNDTableHead dense={dense} setDense={setDense} />
+					<SNDTableHead type={type} dense={dense} setDense={setDense} />
 					<TableBody>
 						{character.map((row, i) => (
 							<SNDRow
 								key={i}
+								type={type}
 								attribute={attribute}
 								row={row}
 								character={character}
