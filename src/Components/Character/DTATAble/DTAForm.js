@@ -34,7 +34,7 @@ const DTAForm = (props) => {
 	if (attribute === 'skills') {
 		dialogTitle = 'skill'
 	}
-	if (attribute === 'skillLearning') {
+	if (attribute === 'skillsLearning') {
 		dialogTitle = 'skill being learned'
 	}
 
@@ -65,11 +65,11 @@ const DTAForm = (props) => {
 		'Deeds'
 	]
 	// add roots for skills
-	if (dialogType.attribute === 'skills') {
+	if (attribute === 'skills') {
 		DTAlist = ['Root1', 'Root2', ...DTAlist]
 	}
 	// list of labels for skillsLearning
-	if (dialogType.attribute === 'skillsLearning') {
+	if (attribute === 'skillsLearning') {
 		DTAlist = ['Root1', 'Root2', 'Routine', 'Fate', 'Persona', 'Deeds']
 	}
 	// Array to create form elements
@@ -101,7 +101,7 @@ const DTAForm = (props) => {
 			}}
 		>
 			<DialogTitle>
-				{dialogType.type === 'edit'
+				{dialogType === 'edit'
 					? `Edit ${dialogTitle}`
 					: `Add new ${dialogTitle}`}
 			</DialogTitle>
@@ -119,8 +119,7 @@ const DTAForm = (props) => {
 							<TextField
 								key={field.label}
 								required={
-									(dialogType.attribute === 'skills' ||
-										dialogType.attribute === 'skillsLearning') &&
+									(attribute === 'skills' || attribute === 'skillsLearning') &&
 									field.label === 'Root2'
 										? false
 										: true
