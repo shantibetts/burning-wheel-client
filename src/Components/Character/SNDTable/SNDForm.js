@@ -7,15 +7,16 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import { handleCharacterUpdate, createEmptyTableData } from './../../Utils'
+import { handleAttributeUpdate, createEmptyTableData } from '../../Utils'
 
 const SNDForm = (props) => {
 	const {
+		attribute,
 		handleToggle,
 		dialogType,
 		dialogData,
 		setDialogData,
-		DTADialogOpen,
+		dialogOpen,
 		setUserData,
 		userData,
 		setDialogType,
@@ -24,16 +25,16 @@ const SNDForm = (props) => {
 
 	// Create form title:
 	let dialogTitle = ''
-	if (dialogType.attribute === 'stats') {
+	if (attribute === 'stats') {
 		dialogTitle = 'stat'
 	}
-	if (dialogType.attribute === 'attributes') {
+	if (attribute === 'attributes') {
 		dialogTitle = 'attribute'
 	}
-	if (dialogType.attribute === 'skills') {
+	if (attribute === 'skills') {
 		dialogTitle = 'skill'
 	}
-	if (dialogType.attribute === 'skillLearning') {
+	if (attribute === 'skillLearning') {
 		dialogTitle = 'skill being learned'
 	}
 
@@ -45,12 +46,14 @@ const SNDForm = (props) => {
 	}
 	const handleValuesChange = (event, attribute) => {
 		const newData = { ...dialogData }
-		newData[`${attribute.toLowerCase()}`] = event.target.value
+		newData[attribute.toLowerCase()] = parseInt(event.target.value)
+			? parseInt(event.target.value)
+			: event.target.value
 		setDialogData(newData)
 	}
 
-	// List of labels for DTA elements
-	let DTAlist = [
+	// List of labels for SND elements
+	let SNDlist = [
 		'Shade',
 		'Exponent',
 		'Tax',
@@ -61,11 +64,13 @@ const SNDForm = (props) => {
 		'Persona',
 		'Deeds'
 	]
+	// add roots for skills
 	if (dialogType.attribute === 'skills') {
-		DTAlist = ['Root1', 'Root2', ...DTAlist]
+		SNDlist = ['Root1', 'Root2', ...SNDlist]
 	}
+	// list of labels for skillsLearning
 	if (dialogType.attribute === 'skillsLearning') {
-		DTAlist = ['Root1', 'Root2', 'Routine', 'Fate', 'Persona', 'Deeds']
+		SNDlist = ['Root1', 'Root2', 'Routine', 'Fate', 'Persona', 'Deeds']
 	}
 	// Array to create form elements
 	const formArray = [
@@ -73,16 +78,13 @@ const SNDForm = (props) => {
 			label: 'Name',
 			value: dialogData.name,
 			disabled:
-				dialogType.attribute === 'stats' ||
-				dialogType.attribute === 'attributes'
-					? true
-					: false,
+				attribute === 'stats' || attribute === 'attributes' ? true : false,
 			onChange: handleNameChange
 		},
-		...DTAlist.map((value) => {
+		...SNDlist.map((value) => {
 			return {
 				label: value,
-				value: dialogData[`${value.toLowerCase()}`],
+				value: dialogData[value.toLowerCase()],
 				disabled: false,
 				onChange: (event) => handleValuesChange(event, value)
 			}
@@ -91,7 +93,7 @@ const SNDForm = (props) => {
 
 	return (
 		<Dialog
-			open={DTADialogOpen}
+			open={dialogOpen}
 			onClose={() => {
 				setDialogData(createEmptyTableData())
 				setDialogType('')
@@ -148,10 +150,13 @@ const SNDForm = (props) => {
 				<Button
 					variant="contained"
 					onClick={() =>
-						handleCharacterUpdate(
+						handleAttributeUpdate(
 							setUserData,
 							userData,
-							userData.characters[characterId]._id
+							characterId,
+							attribute,
+							dialogData,
+							handleToggle
 						)
 					}
 				>

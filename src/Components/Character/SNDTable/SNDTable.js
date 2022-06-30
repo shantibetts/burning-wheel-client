@@ -3,46 +3,38 @@ import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 import TableBody from '@mui/material/TableBody'
+import TableRow from '@mui/material/TableRow'
 import { getCharacter, createEmptyTableData } from '../../Utils'
 import SNDRow from './SNDRow'
 import SNDTableHead from './SNDTableHead'
-import TableToolbar from './../../TableToolbar'
 import SNDForm from './SNDForm'
+import TableToolbar from '../../TableToolbar'
 
 const SNDTable = (props) => {
 	const { attribute, userData, setUserData, characterId, dense, setDense } =
 		props
 
-	// Printable title and add-description
-	const title = attribute.charAt(0).toUpperCase() + attribute.slice(1)
-	const addTitle = `Add new ${attribute}`
+	// Create character from userData
+	let character = getCharacter(userData, characterId)[attribute]
 
-	// Get current character data
-	let character = getCharacter(userData, characterId)
-	// console.log(character, character.skillsLearning)
+	// Create title from attribute
+	const title = attribute.charAt(0).toUpperCase() + attribute.slice(1)
 
 	// State for controlling the Dialogs
-	const [SNDDialogOpen, setSNDDialogOpen] = React.useState(false)
+	const [dialogOpen, setDialogOpen] = React.useState(false)
 	const [dialogData, setDialogData] = React.useState(createEmptyTableData())
-	const [dialogType, setDialogType] = React.useState({
-		attribute: '',
-		type: ''
-	})
+	const [dialogType, setDialogType] = React.useState('')
 
 	// Open and close the SND Form
-	const handleSNDDialogToggle = () => {
-		setSNDDialogOpen(!SNDDialogOpen)
+	const handleDialogToggle = () => {
+		setDialogOpen(!dialogOpen)
 	}
 
 	return (
 		<Paper sx={{ width: '100%', mb: 2 }}>
 			{/* Table toolbar and Title */}
-			<TableToolbar
-				title={title}
-				handleAdd={handleSNDDialogToggle}
-				addTitle={addTitle}
-			/>
 			<TableContainer>
+				<TableToolbar title={title} handleAdd={handleDialogToggle} />
 				<Table
 					sx={{ minWidth: 370 }}
 					aria-labelledby="tableTitle"
@@ -50,28 +42,33 @@ const SNDTable = (props) => {
 				>
 					<SNDTableHead dense={dense} setDense={setDense} />
 					<TableBody>
-						{character[`${attribute}`].map((row, i) => (
+						{character.map((row, i) => (
 							<SNDRow
 								key={i}
+								attribute={attribute}
 								row={row}
 								character={character}
 								setUserData={setUserData}
-								SNDDialogOpen={SNDDialogOpen}
+								handleDialogToggle={handleDialogToggle}
+								setDialogData={setDialogData}
+								setDialogType={setDialogType}
 							/>
 						))}
+						<TableRow />
 					</TableBody>
 				</Table>
 			</TableContainer>
 			<SNDForm
+				attribute={attribute}
 				characterId={characterId}
-				setDialogData={setDialogData}
-				SNDDialogOpen={SNDDialogOpen}
-				handleToggle={handleSNDDialogToggle}
+				dialogOpen={dialogOpen}
+				handleToggle={handleDialogToggle}
 				dialogType={dialogType}
+				setDialogType={setDialogType}
 				dialogData={dialogData}
+				setDialogData={setDialogData}
 				userData={userData}
 				setUserData={setUserData}
-				setDialogType={setDialogType}
 			/>
 		</Paper>
 	)

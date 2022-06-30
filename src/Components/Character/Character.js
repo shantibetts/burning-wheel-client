@@ -5,7 +5,6 @@ import Switch from '@mui/material/Switch'
 import { getCharacter, handleChangeDense } from './../Utils'
 import DTATable from './DTATAble/DTATable'
 import SNDTable from './SNDTable/SNDTable'
-import NDTable from './NDTable/NDTable'
 import CharacterDetails from './CharacterDetails'
 
 const Character = (props) => {
@@ -22,7 +21,7 @@ const Character = (props) => {
 					setUserData={setUserData}
 					characterId={characterId}
 				/>
-				<NDTable
+				<SNDTable
 					attribute="beliefs"
 					userData={userData}
 					setUserData={setUserData}
@@ -30,7 +29,7 @@ const Character = (props) => {
 					dense={dense}
 					setDense={setDense}
 				/>
-				<NDTable
+				<SNDTable
 					attribute="instincts"
 					userData={userData}
 					setUserData={setUserData}
@@ -38,7 +37,7 @@ const Character = (props) => {
 					dense={dense}
 					setDense={setDense}
 				/>
-				<NDTable
+				<SNDTable
 					attribute="traits"
 					userData={userData}
 					setUserData={setUserData}
@@ -110,7 +109,7 @@ const Character = (props) => {
 					dense={dense}
 					setDense={setDense}
 				/>
-				<NDTable
+				<SNDTable
 					attribute="aliases"
 					userData={userData}
 					setUserData={setUserData}
