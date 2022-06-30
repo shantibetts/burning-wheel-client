@@ -71,6 +71,7 @@ const SNDTable = (props) => {
 				</Table>
 			</TableContainer>
 			<SNDForm
+				type={type}
 				attribute={attribute}
 				characterId={characterId}
 				dialogOpen={dialogOpen}

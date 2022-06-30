@@ -11,6 +11,7 @@ import { handleAttributeUpdate, createEmptyTableData } from '../../Utils'
 
 const SNDForm = (props) => {
 	const {
+		type,
 		attribute,
 		handleToggle,
 		dialogType,
@@ -24,26 +25,11 @@ const SNDForm = (props) => {
 	} = props
 
 	// Create form title:
-	let dialogTitle = ''
-	if (attribute === 'stats') {
-		dialogTitle = 'stat'
-	}
-	if (attribute === 'attributes') {
-		dialogTitle = 'attribute'
-	}
-	if (attribute === 'skills') {
-		dialogTitle = 'skill'
-	}
-	if (attribute === 'skillLearning') {
-		dialogTitle = 'skill being learned'
+	let dialogTitle = attribute.slice(0, -1)
+	if (attribute === 'aliases') {
+		dialogTitle = 'alias'
 	}
 
-	// Handle functions set state to form values
-	const handleNameChange = (event) => {
-		const newData = { ...dialogData }
-		newData.name = event.target.value
-		setDialogData(newData)
-	}
 	const handleValuesChange = (event, attribute) => {
 		const newData = { ...dialogData }
 		newData[attribute.toLowerCase()] = parseInt(event.target.value)
@@ -52,44 +38,20 @@ const SNDForm = (props) => {
 		setDialogData(newData)
 	}
 
-	// List of labels for SND elements
-	let SNDlist = [
-		'Shade',
-		'Exponent',
-		'Tax',
-		'Routine',
-		'Difficult',
-		'Challenging',
-		'Fate',
-		'Persona',
-		'Deeds'
-	]
-	// add roots for skills
-	if (dialogType.attribute === 'skills') {
-		SNDlist = ['Root1', 'Root2', ...SNDlist]
+	// List of labels for standard SND form
+	let SNDlist = ['Shade', 'Exponent', 'Name', 'Description']
+	// List of labels for Traits form
+	if (dialogType.attribute === 'traits') {
+		SNDlist.push('Name', 'Description', 'Call-On')
 	}
-	// list of labels for skillsLearning
-	if (dialogType.attribute === 'skillsLearning') {
-		SNDlist = ['Root1', 'Root2', 'Routine', 'Fate', 'Persona', 'Deeds']
+	// List of labels for Beliefs form
+	if (dialogType.attribute === 'beliefs') {
+		SNDlist = ['Name', 'Description', 'Action', 'Active']
 	}
-	// Array to create form elements
-	const formArray = [
-		{
-			label: 'Name',
-			value: dialogData.name,
-			disabled:
-				attribute === 'stats' || attribute === 'attributes' ? true : false,
-			onChange: handleNameChange
-		},
-		...SNDlist.map((value) => {
-			return {
-				label: value,
-				value: dialogData[value.toLowerCase()],
-				disabled: false,
-				onChange: (event) => handleValuesChange(event, value)
-			}
-		})
-	]
+	// update SND list to standard ND form
+	if (type === 'ND') {
+		SNDlist.splice(0, 2)
+	}
 
 	return (
 		<Dialog
@@ -114,23 +76,15 @@ const SNDForm = (props) => {
 					noValidate
 					autoComplete="off"
 				>
-					{formArray.map((field) => {
+					{SNDlist.map((field) => {
 						return (
 							<TextField
-								key={field.label}
-								required={
-									(dialogType.attribute === 'skills' ||
-										dialogType.attribute === 'skillsLearning') &&
-									field.label === 'Root2'
-										? false
-										: true
-								}
-								id={field.label}
-								label={field.label}
-								value={field.value}
+								key={field}
+								id={field}
+								label={field}
+								value={dialogData[field.toLowerCase()]}
 								variant="outlined"
-								onChange={field.onChange}
-								disabled={field.disabled}
+								onChange={(event) => handleValuesChange(event, field)}
 							/>
 						)
 					})}
