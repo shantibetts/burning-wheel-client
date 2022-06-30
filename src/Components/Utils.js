@@ -46,7 +46,8 @@ const handleAttributeUpdate = (
 	characterId,
 	attribute,
 	updateBody,
-	handleToggle
+	handleToggle,
+	dialogType
 ) => {
 	// find index of character to be updated
 	const i = userData.characters.findIndex(
@@ -54,10 +55,14 @@ const handleAttributeUpdate = (
 	)
 	// create object to make update request
 	const attributeArray = userData.characters[i][attribute].slice()
-	const attributeIndex = attributeArray.findIndex(
-		(each) => each.name === updateBody.name
-	)
-	attributeArray.splice(attributeIndex, 1, updateBody)
+	if (dialogType === 'edit') {
+		const attributeIndex = attributeArray.findIndex(
+			(each) => each.name === updateBody.name
+		)
+		attributeArray.splice(attributeIndex, 1, updateBody)
+	} else {
+		attributeArray.push(updateBody)
+	}
 	const update = { [attribute]: attributeArray }
 
 	fetch(apiUrl + `/characters/` + characterId, {

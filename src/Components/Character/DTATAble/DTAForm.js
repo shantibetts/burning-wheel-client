@@ -155,7 +155,8 @@ const DTAForm = (props) => {
 							characterId,
 							attribute,
 							dialogData,
-							handleToggle
+							handleToggle,
+							dialogType
 						)
 					}
 				>

@@ -137,7 +137,8 @@ const SNDForm = (props) => {
 							characterId,
 							attribute,
 							dialogData,
-							handleToggle
+							handleToggle,
+							dialogType
 						)
 					}
 				>
