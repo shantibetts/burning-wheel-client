@@ -3,10 +3,10 @@ import Typography from '@mui/material/Typography'
 import { getCharacter } from '../Utils'
 
 const CharacterDetails = (props) => {
-	const { userData, setUserData, characterIndex } = props
+	const { userData, setUserData, characterId } = props
 
 	// Get current character data
-	let character = getCharacter(userData, characterIndex)
+	let character = getCharacter(userData, characterId)
 
 	// Turn lifepath names into a string
 	const lifepathArr = character.lifepaths.map((lifepath) => lifepath.name)

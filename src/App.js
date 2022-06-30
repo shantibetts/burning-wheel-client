@@ -11,7 +11,7 @@ import Character from './Components/Character/Character'
 function App() {
 	// User's info + list of characters
 	const [userData, setUserData] = React.useState(null)
-	const [characterIndex, setCharacterIndex] = React.useState([])
+	const [characterId, setCharacterId] = React.useState([])
 	const [dense, setDense] = React.useState(true)
 
 	// State for user's logged-in status
@@ -29,7 +29,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<NavBar userData={userData} setCharacterIndex={setCharacterIndex} />
+			<NavBar userData={userData} setCharacterId={setCharacterId} />
 			<Routes>
 				<Route
 					path="/"
@@ -50,7 +50,7 @@ function App() {
 							desktop={desktop}
 							userData={userData}
 							setUserData={setUserData}
-							setCharacterIndex={setCharacterIndex}
+							setCharacterId={setCharacterId}
 							dense={dense}
 							setDense={setDense}
 						/>
@@ -64,8 +64,8 @@ function App() {
 							desktop={desktop}
 							userData={userData}
 							setUserData={setUserData}
-							characterIndex={characterIndex}
-							setCharacterIndex={setCharacterIndex}
+							characterId={characterId}
+							setCharacterId={setCharacterId}
 							dense={dense}
 							setDense={setDense}
 						/>

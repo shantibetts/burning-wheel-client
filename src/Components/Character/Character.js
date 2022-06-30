@@ -9,87 +9,112 @@ import NDTable from './NDTable/NDTable'
 import CharacterDetails from './CharacterDetails'
 
 const Character = (props) => {
-	const { userData, setUserData, characterIndex, dense, setDense } = props
+	const { userData, setUserData, characterId, dense, setDense } = props
 
 	// Open dialog to add a new character
 	const handleAddCharacterDialogToggle = () => {}
 
-	if (getCharacter(userData, characterIndex) !== null) {
+	if (getCharacter(userData, characterId) !== null) {
 		return (
 			<div>
 				<CharacterDetails
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 				/>
 				<NDTable
-					tableType="beliefs"
+					attribute="beliefs"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<NDTable
-					tableType="instincts"
+					attribute="instincts"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<NDTable
-					tableType="traits"
+					attribute="traits"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<DTATable
+					attribute={'stats'}
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<DTATable
+					attribute={'attributes'}
+					userData={userData}
+					setUserData={setUserData}
+					characterId={characterId}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<DTATable
+					attribute={'skills'}
+					userData={userData}
+					setUserData={setUserData}
+					characterId={characterId}
+					dense={dense}
+					setDense={setDense}
+				/>
+				<DTATable
+					attribute={'skillsLearning'}
+					userData={userData}
+					setUserData={setUserData}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<SNDTable
-					tableType="relationships"
+					attribute="relationships"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<SNDTable
-					tableType="affiliations"
+					attribute="affiliations"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<SNDTable
-					tableType="titles"
+					attribute="titles"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<SNDTable
-					tableType="funds"
+					attribute="funds"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>
 				<NDTable
-					tableType="aliases"
+					attribute="aliases"
 					userData={userData}
 					setUserData={setUserData}
-					characterIndex={characterIndex}
+					characterId={characterId}
 					dense={dense}
 					setDense={setDense}
 				/>

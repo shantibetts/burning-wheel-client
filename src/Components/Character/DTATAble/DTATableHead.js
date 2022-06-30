@@ -2,7 +2,7 @@ import * as React from 'react'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
-import { dieTestArthaTableHeadCells } from './../../TableConfig'
+import { dieTestArthaCells } from './../../TableConfig'
 
 const DTATableHead = (props) => {
 	const { dense, setDense } = props
@@ -21,7 +21,7 @@ const DTATableHead = (props) => {
 				</TableCell>
 			</TableRow>
 			<TableRow>
-				{dieTestArthaTableHeadCells.map((column) => (
+				{dieTestArthaCells.map((column) => (
 					<TableCell key={column.id} align={column.align}>
 						{column.label}
 					</TableCell>

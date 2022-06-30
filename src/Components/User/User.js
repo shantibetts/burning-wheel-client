@@ -28,7 +28,7 @@ const User = (props) => {
 		desktop,
 		userData,
 		setUserData,
-		setCharacterIndex,
+		setCharacterId,
 		dense,
 		setDense
 	} = props
@@ -71,7 +71,6 @@ const User = (props) => {
 					<TableToolbar
 						title="Characters"
 						handleAdd={handleAddCharacterDialogToggle}
-						addTitle="Add new character"
 					/>
 					<TableContainer>
 						<Table
@@ -99,14 +98,13 @@ const User = (props) => {
 									.slice()
 									.sort(getComparator(order, orderBy))
 									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-									.map((row, characterIndex) => (
+									.map((row) => (
 										<UserRow
 											key={row._id}
 											row={row}
 											userData={userData}
 											setUserData={setUserData}
-											setCharacterIndex={setCharacterIndex}
-											characterIndex={characterIndex}
+											setCharacterId={setCharacterId}
 										/>
 									))}
 								{emptyRows > 0 && (

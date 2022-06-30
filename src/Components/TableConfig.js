@@ -23,7 +23,7 @@ const userTableHeadCells = [
 ]
 
 // List of column names for Die, Test and Artha tables:
-const dieTestArthaTableHeadCells = [
+const dieTestArthaCells = [
 	// 	{
 	// 		id: 'name',
 	// 		align: 'left',
@@ -133,6 +133,64 @@ const dieTestArthaTableHeadCells = [
 	}
 ]
 
+const skillsLearningCells = [
+	{
+		id: 'icon',
+		align: 'left',
+		label: ''
+	},
+	{
+		id: 'name',
+		align: 'left',
+		label: 'Name'
+	},
+	{
+		id: 'none',
+		align: 'left',
+		label: 'none'
+	},
+	{
+		id: 'none',
+		align: 'left',
+		label: 'none'
+	},
+	{
+		id: 'none',
+		align: 'left',
+		label: 'none'
+	},
+	{
+		id: 'routine',
+		align: 'left',
+		label: 'R'
+	},
+	{
+		id: 'none',
+		align: 'left',
+		label: 'none'
+	},
+	{
+		id: 'none',
+		align: 'left',
+		label: 'none'
+	},
+	{
+		id: 'fate',
+		align: 'left',
+		label: 'F'
+	},
+	{
+		id: 'persona',
+		align: 'left',
+		label: 'P'
+	},
+	{
+		id: 'deeds',
+		align: 'left',
+		label: 'D'
+	}
+]
+
 // List of column names for Strength, Name, Description tables:
 const strengthNameDescTableHeadCells = [
 	{
@@ -201,7 +259,8 @@ const nameDescCallOnTableHeadCells = [
 
 export {
 	userTableHeadCells,
-	dieTestArthaTableHeadCells,
+	dieTestArthaCells,
+	skillsLearningCells,
 	strengthNameDescTableHeadCells,
 	nameDescTableHeadCells,
 	nameDescCallOnTableHeadCells

@@ -4,21 +4,20 @@ import TableRow from '@mui/material/TableRow'
 import moment from 'moment'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { handleCharacterUpdate } from '../Utils'
+import { getCharacter, handleCharacterUpdate } from '../Utils'
 import { useNavigate } from 'react-router-dom'
 
 const UserRow = (props) => {
-	const { row, userData, setUserData, setCharacterIndex, characterIndex } =
-		props
+	const { row, userData, setUserData, setCharacterId } = props
 	const navigate = useNavigate()
 
 	const handleCharacterNavigation = () => {
-		setCharacterIndex(characterIndex)
-		navigate(`/character/${row.characterName}`, { replace: true })
+		setCharacterId(row._id)
+		navigate(`/character/${row.characterName}`)
 	}
 
 	// create trashToggle object
-	const trashToggle = { isTrash: !userData.characters[characterIndex] }
+	const trashToggle = { isTrash: !row.isTrash }
 
 	return (
 		<React.Fragment>

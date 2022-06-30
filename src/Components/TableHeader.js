@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import TableCell from '@mui/material/TableCell'
 import {
 	userTableHeadCells,
-	dieTestArthaTableHeadCells,
+	dieTestArthaCells,
 	strengthNameDescTableHeadCells,
 	nameDescTableHeadCells
 } from './TableConfig'
@@ -21,7 +21,7 @@ const TableHeader = (props) => {
 		tableHeadCells = userTableHeadCells
 	}
 	if (dataName === 'dieTestArtha') {
-		tableHeadCells = dieTestArthaTableHeadCells
+		tableHeadCells = dieTestArthaCells
 	}
 	if (dataName === 'strengthNameDesc') {
 		tableHeadCells = strengthNameDescTableHeadCells

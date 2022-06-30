@@ -13,14 +13,13 @@ import {
 	writeDTAData
 } from './../../Utils'
 
-const DTAForm = (props) => {
+const SNDForm = (props) => {
 	const {
-		attribute,
 		handleToggle,
 		dialogType,
 		dialogData,
 		setDialogData,
-		dialogOpen,
+		DTADialogOpen,
 		setUserData,
 		userData,
 		setDialogType,
@@ -29,16 +28,16 @@ const DTAForm = (props) => {
 
 	// Create form title:
 	let dialogTitle = ''
-	if (attribute === 'stats') {
+	if (dialogType.attribute === 'stats') {
 		dialogTitle = 'stat'
 	}
-	if (attribute === 'attributes') {
+	if (dialogType.attribute === 'attributes') {
 		dialogTitle = 'attribute'
 	}
-	if (attribute === 'skills') {
+	if (dialogType.attribute === 'skills') {
 		dialogTitle = 'skill'
 	}
-	if (attribute === 'skillLearning') {
+	if (dialogType.attribute === 'skillLearning') {
 		dialogTitle = 'skill being learned'
 	}
 
@@ -50,7 +49,7 @@ const DTAForm = (props) => {
 	}
 	const handleValuesChange = (event, attribute) => {
 		const newData = { ...dialogData }
-		newData[attribute.toLowerCase()] = event.target.value
+		newData[`${attribute.toLowerCase()}`] = event.target.value
 		setDialogData(newData)
 	}
 
@@ -87,7 +86,7 @@ const DTAForm = (props) => {
 		...DTAlist.map((value) => {
 			return {
 				label: value,
-				value: dialogData[value.toLowerCase()],
+				value: dialogData[`${value.toLowerCase()}`],
 				disabled: false,
 				onChange: (event) => handleValuesChange(event, value)
 			}
@@ -96,7 +95,7 @@ const DTAForm = (props) => {
 
 	return (
 		<Dialog
-			open={dialogOpen}
+			open={DTADialogOpen}
 			onClose={() => {
 				setDialogData(createEmptyTableData())
 				setDialogType('')
@@ -156,8 +155,8 @@ const DTAForm = (props) => {
 						handleCharacterUpdate(
 							setUserData,
 							userData,
-							characterId,
-							dialogData
+							userData.characters[characterId]._id,
+							writeDTAData(dialogType, dialogData)
 						)
 					}
 				>
@@ -168,4 +167,4 @@ const DTAForm = (props) => {
 	)
 }
 
-export default DTAForm
+export default SNDForm

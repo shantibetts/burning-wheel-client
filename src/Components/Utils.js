@@ -18,7 +18,7 @@ const fetchUser = (setUserData, userName, navigate) => {
 		})
 }
 
-// Delete a character from a user
+// Update a character with whatever is in updateBody
 const handleCharacterUpdate = (setUserData, userData, id, updateBody) => {
 	// find index of row
 	const i = userData.characters.findIndex((character) => character._id === id)
@@ -43,39 +43,25 @@ const handleCharacterUpdate = (setUserData, userData, id, updateBody) => {
 
 // *** Helper Functions ***
 
-// Returns the character info based on userData and characterIndex
-const getCharacter = (userData, characterIndex) => {
-	return userData.characters[characterIndex]
-}
+// Returns the character info based on userData and characterId
+const getCharacter = (userData, characterId) =>
+	userData.characters.find((character) => character._id === characterId)
 
 // Creates form data for DTA Tables
-const createDTAData = (
-	name = '',
-	shade = '',
-	exponent = '',
-	tax = '',
-	routine = '',
-	difficult = '',
-	challenging = '',
-	fate = '',
-	persona = '',
-	deeds = '',
-	root1 = '',
-	root2 = ''
-) => {
+const createEmptyTableData = () => {
 	return {
-		name,
-		shade,
-		exponent,
-		tax,
-		routine,
-		difficult,
-		challenging,
-		fate,
-		persona,
-		deeds,
-		root1,
-		root2
+		name: '',
+		shade: '',
+		exponent: '',
+		tax: '',
+		routine: '',
+		difficult: '',
+		challenging: '',
+		fate: '',
+		persona: '',
+		deeds: '',
+		root1: '',
+		root2: ''
 	}
 }
 // Creates form data for DTA Tables
@@ -178,7 +164,7 @@ export {
 	fetchUser,
 	handleCharacterUpdate,
 	getCharacter,
-	createDTAData,
+	createEmptyTableData,
 	writeDTAData,
 	getComparator,
 	handleRequestSort,

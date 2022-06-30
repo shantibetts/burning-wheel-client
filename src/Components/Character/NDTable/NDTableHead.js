@@ -8,11 +8,11 @@ import {
 } from '../../TableConfig'
 
 const NDTableHead = (props) => {
-	const { tableType, dense, setDense } = props
+	const { attribute, dense, setDense } = props
 
 	let headCells = nameDescTableHeadCells
 
-	if (tableType === 'traits') {
+	if (attribute === 'traits') {
 		headCells = nameDescCallOnTableHeadCells
 	}
 

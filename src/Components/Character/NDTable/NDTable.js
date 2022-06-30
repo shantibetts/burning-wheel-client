@@ -13,15 +13,17 @@ import NDTableHead from './NDTableHead'
 import TableToolbar from '../../TableToolbar'
 
 const NDTable = (props) => {
-	const { tableType, userData, setUserData, characterIndex, dense, setDense } =
+	const { attribute, userData, setUserData, characterId, dense, setDense } =
 		props
 
+	console.log(attribute)
+
 	// Printable title and add-description
-	const title = tableType.charAt(0).toUpperCase() + tableType.slice(1)
-	const addTitle = `Add new ${tableType}`
+	const title = attribute.charAt(0).toUpperCase() + attribute.slice(1)
+	const addTitle = `Add new ${attribute}`
 
 	// Get current character data
-	let character = getCharacter(userData, characterIndex)
+	let character = getCharacter(userData, characterId)
 	// console.log(character, character.skillsLearning)
 
 	// Open dialog to add a new character
@@ -48,10 +50,10 @@ const NDTable = (props) => {
 					<NDTableHead
 						dense={dense}
 						setDense={setDense}
-						tableType={tableType}
+						attribute={attribute}
 					/>
 					<TableBody>
-						{character[`${tableType}`].map((row, i) => (
+						{character[`${attribute}`].map((row, i) => (
 							<NDRow
 								key={i}
 								row={row}

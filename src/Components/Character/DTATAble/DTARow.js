@@ -3,41 +3,48 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
-import { createDTAData } from './../../Utils'
+import { dieTestArthaCells, skillsLearningCells } from './../../TableConfig'
 
 const DTARow = (props) => {
-	const {
-		attribute,
-		row,
-		handleDTADialogToggle,
-		setDialogData,
-		setDialogType
-	} = props
+	const { attribute, row, handleDialogToggle, setDialogData, setDialogType } =
+		props
+
+	// Remove _id from row
+	delete row._id
+
+	// Get list of cells to iterate over
+	let rowCells = dieTestArthaCells.slice(1)
+	if (attribute === 'skillsLearning') {
+		rowCells = skillsLearningCells.slice(1)
+	}
 
 	return (
 		<React.Fragment>
 			<TableRow hover>
 				<TableCell component="th" scope="row">
 					<IconButton
-						aria-label="fast edit"
+						aria-label="edit row"
 						size="small"
 						onClick={() => {
-							handleDTADialogToggle()
-							setDialogData(
-								createDTAData(row.name, ...row.values, row.root1, row.root2)
-							)
-							setDialogType({ attribute: attribute, type: 'edit' })
+							handleDialogToggle()
+							setDialogData(row)
+							setDialogType('edit')
 						}}
 					>
 						<EditIcon />
 					</IconButton>
 				</TableCell>
-				<TableCell>{row.name}</TableCell>
-				{row.values.map((value, i) => (
-					<TableCell key={i} align="left">
-						{value}
-					</TableCell>
-				))}
+				{rowCells.map((cell, i) => {
+					if (cell.id === 'empty') {
+						return <TableCell key={i} />
+					} else {
+						return (
+							<TableCell key={i} align={cell.align}>
+								{row[cell.id]}
+							</TableCell>
+						)
+					}
+				})}
 			</TableRow>
 		</React.Fragment>
 	)
