@@ -93,7 +93,10 @@ const DTAForm = (props) => {
 
 	// Add delete button to edit dialog
 	let deleteButton = ''
-	if (dialogType === 'edit') {
+	if (
+		dialogType === 'edit' &&
+		(attribute !== 'stats' || attribute !== 'attributes')
+	) {
 		deleteButton = (
 			<Button
 				variant="contained"

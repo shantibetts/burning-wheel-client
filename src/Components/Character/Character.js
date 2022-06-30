@@ -6,6 +6,8 @@ import { getCharacter, handleChangeDense } from './../Utils'
 import DTATable from './DTATAble/DTATable'
 import SNDTable from './SNDTable/SNDTable'
 import CharacterDetails from './CharacterDetails'
+import Button from '@mui/material/Button'
+import { Link as RouterLink } from 'react-router-dom'
 
 const Character = (props) => {
 	const { userData, setUserData, characterId, dense, setDense } = props
@@ -13,7 +15,7 @@ const Character = (props) => {
 	// Open dialog to add a new character
 	const handleAddCharacterDialogToggle = () => {}
 
-	if (getCharacter(userData, characterId) !== null) {
+	if (userData !== null && characterId !== null) {
 		return (
 			<div>
 				<CharacterDetails
@@ -145,6 +147,9 @@ const Character = (props) => {
 				<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
 					Something went wrong! Please report this bug.
 				</Typography>
+				<Button component={RouterLink} to="/">
+					Home
+				</Button>
 			</div>
 		)
 	}

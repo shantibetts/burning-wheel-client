@@ -19,7 +19,7 @@ const SNDRow = (props) => {
 	delete row._id
 
 	// Get list of cells to iterate over
-	let rowCells = SNDCTableCells().slice(1)
+	let rowCells = SNDCTableCells()
 	if (type === 'SND') {
 		rowCells.pop()
 	}

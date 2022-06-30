@@ -4,11 +4,11 @@ import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 import TableBody from '@mui/material/TableBody'
 import TableRow from '@mui/material/TableRow'
+import Typography from '@mui/material/Typography'
 import { getCharacter, createEmptyTableData } from '../../Utils'
 import SNDRow from './SNDRow'
 import SNDTableHead from './SNDTableHead'
 import SNDForm from './SNDForm'
-import TableToolbar from '../../TableToolbar'
 
 const SNDTable = (props) => {
 	const {
@@ -24,9 +24,6 @@ const SNDTable = (props) => {
 	// Create character from userData
 	let character = getCharacter(userData, characterId)[attribute]
 
-	// Create title from attribute
-	const title = attribute.charAt(0).toUpperCase() + attribute.slice(1)
-
 	// State for controlling the Dialogs
 	const [dialogOpen, setDialogOpen] = React.useState(false)
 	const [dialogData, setDialogData] = React.useState(createEmptyTableData())
@@ -37,21 +34,37 @@ const SNDTable = (props) => {
 		setDialogOpen(!dialogOpen)
 	}
 
+	// Title for table and add new button
+	let displayTitle = attribute.charAt(0).toUpperCase() + attribute.slice(1)
+	let tooltip = 'Add new ' + attribute.slice(0, -1)
+	if (attribute === 'SkillsLearning') {
+		tooltip = 'Add new skill'
+		displayTitle = 'Skills Being Learned'
+	}
+
 	return (
 		<Paper sx={{ width: '100%', mb: 2 }}>
-			{/* Table toolbar and Title */}
+			<Typography
+				sx={{ flex: '1 1 100%' }}
+				variant="h6"
+				id="tableTitle"
+				component="div"
+			>
+				{displayTitle}
+			</Typography>
 			<TableContainer>
-				<TableToolbar
-					attribute={attribute}
-					title={title}
-					handleAdd={handleDialogToggle}
-				/>
 				<Table
 					sx={{ minWidth: 370 }}
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<SNDTableHead type={type} dense={dense} setDense={setDense} />
+					<SNDTableHead
+						type={type}
+						tooltip={tooltip}
+						handleDialogToggle={handleDialogToggle}
+						dense={dense}
+						setDense={setDense}
+					/>
 					<TableBody>
 						{character.map((row, i) => (
 							<SNDRow

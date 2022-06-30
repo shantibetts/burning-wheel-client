@@ -10,20 +10,16 @@ const TableToolbar = (props) => {
 
 	let displayTitle = title
 	let tooltip = 'Add new ' + title.toLowerCase().slice(0, title.length - 1)
-	if (title === 'SkillsLearning') {
-		tooltip = 'Add new skill'
-		displayTitle = 'Skills Being Learned'
-	}
 
-	let addButton = (
-		<Tooltip title={tooltip}>
-			<IconButton onClick={handleAdd}>
-				<AddIcon />
-			</IconButton>
-		</Tooltip>
-	)
-	if (title === 'Stats' || title === 'Attributes') {
-		addButton = ''
+	let addButton = ''
+	if (title === 'Users') {
+		addButton = (
+			<Tooltip title={tooltip}>
+				<IconButton onClick={handleAdd}>
+					<AddIcon />
+				</IconButton>
+			</Tooltip>
+		)
 	}
 
 	return (

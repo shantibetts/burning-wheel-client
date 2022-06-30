@@ -194,11 +194,6 @@ const skillsLearningCells = [
 // List of column names for Strength, Name, Description, CallOn tables:
 const SNDCTableCells = () => [
 	{
-		id: 'icon',
-		align: 'left',
-		label: ''
-	},
-	{
 		id: 'strength',
 		align: 'left',
 		label: 'Strength'

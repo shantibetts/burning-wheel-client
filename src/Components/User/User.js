@@ -21,6 +21,8 @@ import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
 import UserRow from './UserRow'
 import TableToolbar from '../TableToolbar'
+import Button from '@mui/material/Button'
+import { Link as RouterLink } from 'react-router-dom'
 
 const User = (props) => {
 	const {
@@ -153,6 +155,9 @@ const User = (props) => {
 				<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
 					Something went wrong! Please report this bug.
 				</Typography>
+				<Button component={RouterLink} to="/">
+					Home
+				</Button>
 			</div>
 		)
 	}

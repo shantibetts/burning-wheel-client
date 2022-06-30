@@ -77,7 +77,6 @@ const handleAttributeUpdate = (
 	})
 		.then((res) => res.json())
 		.then((data) => {
-			console.log(data)
 			let updatedUser = { ...userData }
 			updatedUser.characters.splice(i, 1, data.character)
 			setUserData(updatedUser)
