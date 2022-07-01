@@ -1,21 +1,19 @@
 import * as React from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import Home from './Components/Home'
+import LogIn from './Components/LogIn'
 import NavBar from './Components/NavBar'
 import About from './Components/About'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import User from './Components/User/User'
 import Character from './Components/Character/Character'
+import { nullUser } from './Components/Utils'
 
 function App() {
 	// User's info + list of characters
-	const [userData, setUserData] = React.useState(null)
+	const [userData, setUserData] = React.useState(nullUser())
 	const [characterId, setCharacterId] = React.useState([])
 	const [dense, setDense] = React.useState(true)
-
-	// State for user's logged-in status
-	const [isLoggedIn, setIsLoggedIn] = React.useState(false)
 
 	// Media queries to set width
 	let tablet = useMediaQuery('(min-width:600px)')
@@ -34,11 +32,11 @@ function App() {
 				<Route
 					path="/"
 					element={
-						<Home
+						<LogIn
 							tablet={tablet}
 							desktop={desktop}
+							userData={userData}
 							setUserData={setUserData}
-							setIsLoggedIn={setIsLoggedIn}
 						/>
 					}
 				/>

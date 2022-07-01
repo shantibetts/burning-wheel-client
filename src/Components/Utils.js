@@ -89,19 +89,21 @@ const handleAttributeUpdate = (
 
 // *** Helper Functions ***
 
-// Changes string to camel case, credit to Christian C. Salvadó
-// from https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
-function camelize(str) {
-	return str
-		.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-			return index === 0 ? word.toLowerCase() : word.toUpperCase()
-		})
-		.replace(/\s+/g, '')
+// Null User state
+const nullUser = () => {
+	return {
+		_id: '',
+		name: '',
+		email: '',
+		email_is_verified: false,
+		password: '',
+		characters: [],
+		third_party_auth: [],
+		isLoggedIn: false,
+		date: '',
+		token: ''
+	}
 }
-
-// Returns the character info based on userData and characterId
-const getCharacter = (userData, characterId) =>
-	userData.characters.find((character) => character._id === characterId)
 
 // Creates form data for DTA Tables
 const createEmptyTableData = () => {
@@ -124,51 +126,20 @@ const createEmptyTableData = () => {
 		isActive: true
 	}
 }
-// Creates form data for DTA Tables
-const writeDTAData = (dialogType, dialogData) => {
-	if (dialogType.attribute === 'skillsLearning') {
-		const skillsLearning = {
-			name: dialogData.name,
-			root1: dialogData.root1,
-			values: [
-				dialogData.routine,
-				dialogData.fate,
-				dialogData.persona,
-				dialogData.deeds
-			]
-		}
-		if (dialogData.root2.length > 0) {
-			skillsLearning.root2 = dialogData.root2
-		}
-		const character = {}
-		character[`${dialogType.attribute}`] = skillsLearning
-		return character
-	} else {
-		const dta = {
-			name: dialogData.name,
-			values: [
-				dialogData.shade,
-				dialogData.exponent,
-				dialogData.tax,
-				dialogData.routine,
-				dialogData.difficult,
-				dialogData.challenging,
-				dialogData.fate,
-				dialogData.persona,
-				dialogData.deeds
-			]
-		}
-		if (dialogData.root1.length > 0) {
-			dta.root1 = dialogData.root1
-		}
-		if (dialogData.root2.length > 0) {
-			dta.root2 = dialogData.root2
-		}
-		const character = {}
-		character[`${dialogType.attribute}`] = dta
-		return character
-	}
+
+// Changes string to camel case, credit to Christian C. Salvadó
+// from https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
+function camelize(str) {
+	return str
+		.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+			return index === 0 ? word.toLowerCase() : word.toUpperCase()
+		})
+		.replace(/\s+/g, '')
 }
+
+// Returns the character info based on userData and characterId
+const getCharacter = (userData, characterId) =>
+	userData.characters.find((character) => character._id === characterId)
 
 // *** Table Functions ****
 
@@ -224,6 +195,7 @@ export {
 	fetchUser,
 	handleCharacterUpdate,
 	handleAttributeUpdate,
+	nullUser,
 	camelize,
 	getCharacter,
 	createEmptyTableData,

@@ -1,10 +1,12 @@
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { fetchUser } from './Utils'
+import { fetchUser, nullUser } from './Utils'
 import { useNavigate } from 'react-router-dom'
+import { GoogleLogin } from '@react-oauth/google'
 
-const Home = (props) => {
-	const { tablet, desktop, setUserData, setIsLoggedIn } = props
+const LogIn = (props) => {
+	const { tablet, desktop, userData, setUserData } = props
+
 	const navigate = useNavigate()
 
 	// Log In Error message
@@ -42,6 +44,22 @@ const Home = (props) => {
 			>
 				Log in with Google
 			</Button>
+			<GoogleLogin
+				onSuccess={(credentialResponse) => {
+					if (credentialResponse.credential) {
+						let newUser = nullUser()
+						newUser.token = credentialResponse.credential
+						setUserData(newUser)
+						console.log(newUser)
+					} else {
+						errorMessage = 'Log in did not return a user credential'
+					}
+				}}
+				onError={() => {
+					console.log('Login Failed')
+				}}
+			/>
+
 			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
 				{errorMessage}
 			</Typography>
@@ -49,4 +67,4 @@ const Home = (props) => {
 	)
 }
 
-export default Home
+export default LogIn
