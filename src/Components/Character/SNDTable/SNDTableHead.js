@@ -15,10 +15,10 @@ const SNDTableHead = (props) => {
 		tableCells.pop()
 	}
 	if (type === 'ND') {
-		tableCells = tableCells.slice(2, 4)
+		tableCells = tableCells.slice(1, 3)
 	}
 	if (type === 'NDC') {
-		tableCells.splice(1, 1)
+		tableCells.shift()
 	}
 
 	// Remove add new button from stats table
