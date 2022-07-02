@@ -1,26 +1,88 @@
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { fetchUser, nullUser } from './Utils'
+import TextField from '@mui/material/TextField'
+import { handleLogOut } from './Utils'
 import { useNavigate } from 'react-router-dom'
-import { GoogleLogin } from '@react-oauth/google'
+import apiUrl from '../apiUrl'
+// import { GoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
 
 const LogIn = (props) => {
 	const { tablet, desktop, userData, setUserData } = props
 
 	const navigate = useNavigate()
 
+	const handleLogInChange = (event, attribute) => {
+		const newData = { ...userData }
+		newData[attribute] = event.target.value
+		setUserData(newData)
+	}
+
 	// Log In Error message
 	let errorMessage = ''
 
 	// Logs user in and fetches user data and sets user state
 	const handleLogIn = () => {
-		// Display loading dial
-
-		// Get log-in data from google
-
-		// Fetch user info
-		errorMessage = fetchUser(setUserData, 'SBetts', navigate)
+		let userAndPass = { email: userData.email, password: userData.password }
+		axios
+			.post(apiUrl + `/login/`, userAndPass)
+			.then((res) => {
+				if (res.status === 200) {
+					console.log(res.data.user)
+					let newUser = res.data.user
+					newUser.loggedIn = true
+					setUserData(newUser)
+					navigate('/user/' + newUser.name)
+				}
+				errorMessage = 'something went wrong'
+			})
+			.catch((err) => {
+				console.log('something went wrong', err)
+				errorMessage = 'something went wrong' + err
+			})
 	}
+
+	const logInForm = (
+		<div className="logInForm">
+			<TextField
+				required={true}
+				name="email"
+				type="email"
+				label="email"
+				value={userData.email}
+				variant="outlined"
+				onChange={(event) => handleLogInChange(event, 'email')}
+			/>
+			<TextField
+				required={true}
+				ame="password"
+				type="password"
+				label="password"
+				value={userData.password}
+				variant="outlined"
+				onChange={(event) => handleLogInChange(event, 'password')}
+			/>
+			<Button
+				size="medium"
+				variant="outlined"
+				sx={{ m: 1 }}
+				onClick={handleLogIn}
+			>
+				Log in
+			</Button>
+		</div>
+	)
+
+	const logOutButton = (
+		<Button
+			size="medium"
+			variant="outlined"
+			sx={{ m: 1 }}
+			onClick={handleLogOut}
+		>
+			Log out
+		</Button>
+	)
 
 	return (
 		<div className="home">
@@ -35,16 +97,8 @@ const LogIn = (props) => {
 			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
 				Please log in to continue
 			</Typography>
-			<Button
-				href={'#'}
-				size="medium"
-				variant="outlined"
-				sx={{ m: 1 }}
-				onClick={handleLogIn}
-			>
-				Log in with Google
-			</Button>
-			<GoogleLogin
+			{userData.loggedIn ? logOutButton : logInForm}
+			{/* <GoogleLogin
 				onSuccess={(credentialResponse) => {
 					if (credentialResponse.credential) {
 						let newUser = nullUser()
@@ -58,8 +112,7 @@ const LogIn = (props) => {
 				onError={() => {
 					console.log('Login Failed')
 				}}
-			/>
-
+			/> */}
 			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
 				{errorMessage}
 			</Typography>

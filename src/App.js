@@ -25,9 +25,20 @@ function App() {
 		}
 	})
 
+	// Log out a user
+	const handleLogOut = () => {
+		// Send request to log out user
+		// reset userData state
+		// Navigate to log-in page
+	}
+
 	return (
 		<div className="App">
-			<NavBar userData={userData} setCharacterId={setCharacterId} />
+			<NavBar
+				userData={userData}
+				setCharacterId={setCharacterId}
+				handleLogOut={handleLogOut}
+			/>
 			<Routes>
 				<Route
 					path="/"
@@ -37,6 +48,7 @@ function App() {
 							desktop={desktop}
 							userData={userData}
 							setUserData={setUserData}
+							handleLogOut={handleLogOut}
 						/>
 					}
 				/>

@@ -1,22 +1,10 @@
 import apiUrl from '../apiUrl'
 
-// *** CRUD Functions ****
+// *** Log Out ***
 
-// Functions to GET user with characters from database
-const fetchUser = (setUserData, userName, navigate) => {
-	fetch(apiUrl + `/users/username/` + userName)
-		.then((res) => res.json())
-		.then((data) => {
-			setUserData(data.user)
-			console.log(data.user)
-			navigate(`/user/${userName}`, { replace: true })
-			return ''
-		})
-		.catch((err) => {
-			console.log('something went wrong', err)
-			return 'something went wrong' + err
-		})
-}
+const handleLogOut = () => {}
+
+// *** CRUD Functions ****
 
 // Update a character with whatever is in updateBody
 const handleCharacterUpdate = (setUserData, userData, id, updateBody) => {
@@ -99,7 +87,7 @@ const nullUser = () => {
 		password: '',
 		characters: [],
 		third_party_auth: [],
-		isLoggedIn: false,
+		loggedIn: false,
 		date: '',
 		token: ''
 	}
@@ -192,7 +180,7 @@ const handleChangeDense = (dense, setDense) => {
 }
 
 export {
-	fetchUser,
+	handleLogOut,
 	handleCharacterUpdate,
 	handleAttributeUpdate,
 	nullUser,

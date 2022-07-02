@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link as RouterLink, useLocation } from 'react-router-dom'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -9,9 +9,14 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { handleLogOut } from './Utils'
 
 const NavBar = (props) => {
-	const { userData, setCharacterIndex } = props
+	const { userData, setCharacterId } = props
+
+	// Constants
+	const navigate = useNavigate()
+
 	// States controlling for nav-bar menu
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
@@ -45,7 +50,7 @@ const NavBar = (props) => {
 				<MenuItem
 					key={i}
 					onClick={() => {
-						setCharacterIndex(i)
+						setCharacterId(character._id)
 						handleClose()
 					}}
 					component={RouterLink}
@@ -71,6 +76,18 @@ const NavBar = (props) => {
 		locationName = location.slice(11)
 		locationName = locationName.split('%20').join(' ')
 	}
+
+	const loginButton = (
+		<Button color="inherit" onClick={() => navigate('/')}>
+			Log in
+		</Button>
+	)
+
+	const logOutButton = (
+		<Button color="inherit" onClick={handleLogOut}>
+			Log out
+		</Button>
+	)
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -107,7 +124,7 @@ const NavBar = (props) => {
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 						{locationName}
 					</Typography>
-					<Button color="inherit">Login</Button>
+					{userData.loggedIn ? logOutButton : loginButton}
 				</Toolbar>
 			</AppBar>
 		</Box>
