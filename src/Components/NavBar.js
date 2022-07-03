@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { handleLogOut } from './Utils'
 
 const NavBar = (props) => {
-	const { userData, setCharacterId } = props
+	const { userData, setUserData, setCharacterId } = props
 
 	// Constants
 	const navigate = useNavigate()
@@ -36,7 +36,7 @@ const NavBar = (props) => {
 			<MenuItem
 				onClick={handleClose}
 				component={RouterLink}
-				to={'/user/' + userData.userName}
+				to={'/user/' + userData.name}
 			>
 				Character List
 			</MenuItem>
@@ -84,7 +84,10 @@ const NavBar = (props) => {
 	)
 
 	const logOutButton = (
-		<Button color="inherit" onClick={handleLogOut}>
+		<Button
+			color="inherit"
+			onClick={() => handleLogOut(userData.user, setUserData, navigate)}
+		>
 			Log out
 		</Button>
 	)

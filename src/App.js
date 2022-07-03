@@ -36,6 +36,7 @@ function App() {
 		<div className="App">
 			<NavBar
 				userData={userData}
+				setUserData={setUserData}
 				setCharacterId={setCharacterId}
 				handleLogOut={handleLogOut}
 			/>

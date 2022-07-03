@@ -1,8 +1,74 @@
+import axios from 'axios'
 import apiUrl from '../apiUrl'
+
+// *** Helper Functions ***
+
+// Null User state
+const nullUser = () => {
+	return {
+		_id: '',
+		name: '',
+		email: '',
+		email_is_verified: false,
+		password: '',
+		characters: [],
+		third_party_auth: [],
+		loggedIn: false,
+		date: '',
+		token: '',
+		user: {}
+	}
+}
+
+// Creates form data for DTA Tables
+const createEmptyTableData = () => {
+	return {
+		name: '',
+		shade: '',
+		exponent: '',
+		tax: '',
+		routine: '',
+		difficult: '',
+		challenging: '',
+		fate: '',
+		persona: '',
+		deeds: '',
+		root1: '',
+		root2: '',
+		description: '',
+		callOn: '',
+		action: '',
+		isActive: true
+	}
+}
+
+// Changes string to camel case, credit to Christian C. Salvadó
+// from https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
+function camelize(str) {
+	return str
+		.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+			return index === 0 ? word.toLowerCase() : word.toUpperCase()
+		})
+		.replace(/\s+/g, '')
+}
+
+// Returns the character info based on userData and characterId
+const getCharacter = (userData, characterId) =>
+	userData.characters.find((character) => character._id === characterId)
 
 // *** Log Out ***
 
-const handleLogOut = () => {}
+const handleLogOut = (user, setUserData, navigate) => {
+	axios
+		.post(apiUrl + `/logout/`, { user: user })
+		.then((res) => {
+			setUserData(nullUser())
+			navigate('/')
+		})
+		.catch((err) => {
+			console.log('something went wrong', err)
+		})
+}
 
 // *** CRUD Functions ****
 
@@ -74,60 +140,6 @@ const handleAttributeUpdate = (
 			console.log('something went wrong', err)
 		})
 }
-
-// *** Helper Functions ***
-
-// Null User state
-const nullUser = () => {
-	return {
-		_id: '',
-		name: '',
-		email: '',
-		email_is_verified: false,
-		password: '',
-		characters: [],
-		third_party_auth: [],
-		loggedIn: false,
-		date: '',
-		token: ''
-	}
-}
-
-// Creates form data for DTA Tables
-const createEmptyTableData = () => {
-	return {
-		name: '',
-		shade: '',
-		exponent: '',
-		tax: '',
-		routine: '',
-		difficult: '',
-		challenging: '',
-		fate: '',
-		persona: '',
-		deeds: '',
-		root1: '',
-		root2: '',
-		description: '',
-		callOn: '',
-		action: '',
-		isActive: true
-	}
-}
-
-// Changes string to camel case, credit to Christian C. Salvadó
-// from https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
-function camelize(str) {
-	return str
-		.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-			return index === 0 ? word.toLowerCase() : word.toUpperCase()
-		})
-		.replace(/\s+/g, '')
-}
-
-// Returns the character info based on userData and characterId
-const getCharacter = (userData, characterId) =>
-	userData.characters.find((character) => character._id === characterId)
 
 // *** Table Functions ****
 

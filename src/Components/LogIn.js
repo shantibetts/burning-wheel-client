@@ -23,14 +23,17 @@ const LogIn = (props) => {
 
 	// Logs user in and fetches user data and sets user state
 	const handleLogIn = () => {
-		let userAndPass = { email: userData.email, password: userData.password }
 		axios
-			.post(apiUrl + `/login/`, userAndPass)
+			.post(apiUrl + `/login/`, {
+				email: userData.email,
+				password: userData.password
+			})
 			.then((res) => {
 				if (res.status === 200) {
-					console.log(res.data.user)
-					let newUser = res.data.user
+					console.log(res.data.userData)
+					let newUser = res.data.userData
 					newUser.loggedIn = true
+					newUser.user = res.data.user
 					setUserData(newUser)
 					navigate('/user/' + newUser.name)
 				}
@@ -42,8 +45,11 @@ const LogIn = (props) => {
 			})
 	}
 
-	const logInForm = (
-		<div className="logInForm">
+	const logIn = (
+		<div className="logIn">
+			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+				Please log in to continue
+			</Typography>
 			<TextField
 				required={true}
 				name="email"
@@ -73,12 +79,12 @@ const LogIn = (props) => {
 		</div>
 	)
 
-	const logOutButton = (
+	const logOut = (
 		<Button
 			size="medium"
 			variant="outlined"
 			sx={{ m: 1 }}
-			onClick={handleLogOut}
+			onClick={() => handleLogOut(userData.user, setUserData, navigate)}
 		>
 			Log out
 		</Button>
@@ -94,10 +100,7 @@ const LogIn = (props) => {
 				Adapted from the Burning Wheel character sheet PDFs included with
 				Burning Wheel Gold.
 			</Typography>
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
-				Please log in to continue
-			</Typography>
-			{userData.loggedIn ? logOutButton : logInForm}
+			{userData.loggedIn ? logOut : logIn}
 			{/* <GoogleLogin
 				onSuccess={(credentialResponse) => {
 					if (credentialResponse.credential) {
