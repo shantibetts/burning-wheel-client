@@ -60,8 +60,9 @@ const getCharacter = (userData, characterId) =>
 
 const handleLogOut = (user, setUserData, navigate) => {
 	axios
-		.post(apiUrl + `/logout/`, { user: user })
+		.post(apiUrl + `auth/logout/`, { user: user })
 		.then((res) => {
+			console.log(res)
 			setUserData(nullUser())
 			navigate('/')
 		})
@@ -70,18 +71,31 @@ const handleLogOut = (user, setUserData, navigate) => {
 		})
 }
 
+const google = () => {
+	window.open()
+}
+
 // *** CRUD Functions ****
 
 // Update a character with whatever is in updateBody
-const handleCharacterUpdate = (setUserData, userData, id, updateBody) => {
+const handleCharacterUpdate = (
+	setUserData,
+	userData,
+	characterId,
+	updateBody
+) => {
 	// find index of character to be updated
-	const i = userData.characters.findIndex((character) => character._id === id)
-	fetch(apiUrl + `/characters/` + id, {
-		method: 'PATCH',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(updateBody)
-	})
-		.then((res) => res.json())
+	const i = userData.characters.findIndex(
+		(character) => character._id === characterId
+	)
+	axios
+		.patch(apiUrl + `/characters/` + characterId, { updateBody })
+		// fetch(apiUrl + `/characters/` + id, {
+		// 	method: 'PATCH',
+		// 	headers: { 'Content-Type': 'application/json' },
+		// 	body: JSON.stringify(updateBody)
+		// })
+		// 	.then((res) => res.json())
 		.then((data) => {
 			console.log(data)
 			let updatedUser = { ...userData }
@@ -111,26 +125,28 @@ const handleAttributeUpdate = (
 	const attributeArray = userData.characters[i][attribute].slice()
 	if (dialogType === 'edit') {
 		const attributeIndex = attributeArray.findIndex(
-			(each) => each.name === updateBody.name
+			(attribute) => attribute.name === updateBody.name
 		)
 		attributeArray.splice(attributeIndex, 1, updateBody)
 	} else if (dialogType === 'delete') {
 		const attributeIndex = attributeArray.findIndex(
-			(each) => each.name === updateBody.name
+			(attribute) => attribute.name === updateBody.name
 		)
 		attributeArray.splice(attributeIndex, 1)
 	} else {
 		attributeArray.push(updateBody)
 	}
 	const update = { [attribute]: attributeArray }
-
-	fetch(apiUrl + `/characters/` + characterId, {
-		method: 'PATCH',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(update)
-	})
-		.then((res) => res.json())
+	axios
+		.patch(apiUrl + `/characters/` + characterId, { updateBody })
+		// fetch(apiUrl + `/characters/` + characterId, {
+		// 	method: 'PATCH',
+		// 	headers: { 'Content-Type': 'application/json' },
+		// 	body: JSON.stringify(update)
+		// })
+		// 	.then((res) => res.json())
 		.then((data) => {
+			console.log(data)
 			let updatedUser = { ...userData }
 			updatedUser.characters.splice(i, 1, data.character)
 			setUserData(updatedUser)

@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField'
 import { handleLogOut } from './Utils'
 import { useNavigate } from 'react-router-dom'
 import apiUrl from '../apiUrl'
-// import { GoogleLogin } from '@react-oauth/google'
+import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 
 const LogIn = (props) => {
@@ -24,16 +24,16 @@ const LogIn = (props) => {
 	// Logs user in and fetches user data and sets user state
 	const handleLogIn = () => {
 		axios
-			.post(apiUrl + `/login/`, {
+			.post(apiUrl + `/auth/login/`, {
 				email: userData.email,
 				password: userData.password
 			})
 			.then((res) => {
+				console.log(res)
 				if (res.status === 200) {
-					console.log(res.data.userData)
-					let newUser = res.data.userData
+					console.log(res.data.user)
+					let newUser = res.data.user
 					newUser.loggedIn = true
-					newUser.user = res.data.user
 					setUserData(newUser)
 					navigate('/user/' + newUser.name)
 				}
@@ -43,6 +43,10 @@ const LogIn = (props) => {
 				console.log('something went wrong', err)
 				errorMessage = 'something went wrong' + err
 			})
+	}
+
+	const handleGoogleLogIn = () => {
+		window.open('http://localhost:8080/auth/google', '_self')
 	}
 
 	const logIn = (
@@ -76,6 +80,14 @@ const LogIn = (props) => {
 			>
 				Log in
 			</Button>
+			<Button
+				size="medium"
+				variant="outlined"
+				sx={{ m: 1 }}
+				onClick={handleGoogleLogIn}
+			>
+				Log in with Google
+			</Button>
 		</div>
 	)
 
@@ -101,13 +113,14 @@ const LogIn = (props) => {
 				Burning Wheel Gold.
 			</Typography>
 			{userData.loggedIn ? logOut : logIn}
-			{/* <GoogleLogin
+			<GoogleLogin
 				onSuccess={(credentialResponse) => {
 					if (credentialResponse.credential) {
-						let newUser = nullUser()
-						newUser.token = credentialResponse.credential
-						setUserData(newUser)
-						console.log(newUser)
+						console.log(credentialResponse)
+						// let newUser = nullUser()
+						// newUser.token = credentialResponse.credential
+						// setUserData(newUser)
+						// console.log(newUser)
 					} else {
 						errorMessage = 'Log in did not return a user credential'
 					}
@@ -115,7 +128,7 @@ const LogIn = (props) => {
 				onError={() => {
 					console.log('Login Failed')
 				}}
-			/> */}
+			/>
 			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
 				{errorMessage}
 			</Typography>
