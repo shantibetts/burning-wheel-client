@@ -6,9 +6,15 @@ import { useNavigate } from 'react-router-dom'
 import apiUrl from '../apiUrl'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 const LogIn = (props) => {
 	const { tablet, desktop, userData, setUserData } = props
+
+	// const cookie = cookieClient.load('https://accounts.google.com')
+	const [cookies, setCookie, removeCookie] = useCookies([
+		'https://accounts.google.com'
+	])
 
 	const navigate = useNavigate()
 
@@ -30,12 +36,15 @@ const LogIn = (props) => {
 			})
 			.then((res) => {
 				console.log(res)
-				if (res.status === 200) {
-					console.log(res.data.user)
-					let newUser = res.data.user
-					newUser.loggedIn = true
+				if (res.status === 204) {
+					// console.log(res.data.user)
+					// let newUser = res.data.user
+					// newUser.loggedIn = true
+					const newUser = { ...userData }
+					userData.loggedIn = true
 					setUserData(newUser)
-					navigate('/user/' + newUser.name)
+					// navigate('/user/' + newUser.name)
+					navigate('/')
 				}
 				errorMessage = 'something went wrong'
 			})
@@ -45,8 +54,32 @@ const LogIn = (props) => {
 			})
 	}
 
+	// logs user in with google OAuth
 	const handleGoogleLogIn = () => {
+		const newUser = { ...userData }
+		userData.loggedIn = true
+		setUserData(newUser)
 		window.open('http://localhost:8080/auth/google', '_self')
+	}
+
+	// fetches userData
+	const handleUserFetch = () => {
+		axios
+			.get(apiUrl + `/users/login/`, { withCredentials: true })
+			.then((res) => {
+				if (res.status === 200) {
+					const newUser = res.data.user
+					newUser.loggedIn = true
+					console.log(newUser)
+					setUserData(newUser)
+				} else {
+					throw new Error('authentication has failed')
+				}
+			})
+			.catch((err) => {
+				console.log('something went wrong', err)
+				errorMessage = 'something went wrong' + err
+			})
 	}
 
 	const logIn = (
@@ -87,6 +120,14 @@ const LogIn = (props) => {
 				onClick={handleGoogleLogIn}
 			>
 				Log in with Google
+			</Button>
+			<Button
+				size="medium"
+				variant="outlined"
+				sx={{ m: 1 }}
+				onClick={handleUserFetch}
+			>
+				Fetch user data
 			</Button>
 		</div>
 	)

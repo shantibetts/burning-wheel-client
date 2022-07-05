@@ -7,7 +7,7 @@ import About from './Components/About'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import User from './Components/User/User'
 import Character from './Components/Character/Character'
-import { nullUser } from './Components/Utils'
+import { nullUser, handleLogOut } from './Components/Utils'
 
 function App() {
 	// User's info + list of characters
@@ -23,13 +23,29 @@ function App() {
 		if (tablet || desktop) {
 			setDense(false)
 		}
-	})
+	}, [])
 
-	// Log out a user
-	const handleLogOut = () => {
-		// Send request to log out user
-		// reset userData state
-		// Navigate to log-in page
+	let home = (
+		<LogIn
+			tablet={tablet}
+			desktop={desktop}
+			userData={userData}
+			setUserData={setUserData}
+			handleLogOut={handleLogOut}
+		/>
+	)
+	if (userData.loggedIn) {
+		home = (
+			<User
+				tablet={tablet}
+				desktop={desktop}
+				userData={userData}
+				setUserData={setUserData}
+				setCharacterId={setCharacterId}
+				dense={dense}
+				setDense={setDense}
+			/>
+		)
 	}
 
 	return (
@@ -41,32 +57,7 @@ function App() {
 				handleLogOut={handleLogOut}
 			/>
 			<Routes>
-				<Route
-					path="/"
-					element={
-						<LogIn
-							tablet={tablet}
-							desktop={desktop}
-							userData={userData}
-							setUserData={setUserData}
-							handleLogOut={handleLogOut}
-						/>
-					}
-				/>
-				<Route
-					path="/user/:user"
-					element={
-						<User
-							tablet={tablet}
-							desktop={desktop}
-							userData={userData}
-							setUserData={setUserData}
-							setCharacterId={setCharacterId}
-							dense={dense}
-							setDense={setDense}
-						/>
-					}
-				/>
+				<Route path="/" element={home} />
 				<Route
 					path="/character/:name"
 					element={

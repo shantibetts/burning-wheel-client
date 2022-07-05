@@ -60,7 +60,7 @@ const getCharacter = (userData, characterId) =>
 
 const handleLogOut = (user, setUserData, navigate) => {
 	axios
-		.post(apiUrl + `auth/logout/`, { user: user })
+		.post(apiUrl + `auth/logout/`, { withCredentails: true, user: user })
 		.then((res) => {
 			console.log(res)
 			setUserData(nullUser())
@@ -69,10 +69,6 @@ const handleLogOut = (user, setUserData, navigate) => {
 		.catch((err) => {
 			console.log('something went wrong', err)
 		})
-}
-
-const google = () => {
-	window.open()
 }
 
 // *** CRUD Functions ****
