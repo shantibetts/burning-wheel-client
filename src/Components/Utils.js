@@ -135,12 +135,13 @@ const handleAttributeUpdate = (
 	} else {
 		attributeArray.push(updateBody)
 	}
-	const update = { [attribute]: JSON.stringify(updateBody) }
+	const update = { [attribute]: updateBody }
 
 	axios
 		.patch(apiUrl + `/characters/` + characterId, {
 			withCredentials: true,
-			update
+			updateBody: update,
+			user: userData.user
 		})
 		// fetch(apiUrl + `/characters/` + characterId, {
 		// 	method: 'PATCH',
@@ -151,7 +152,7 @@ const handleAttributeUpdate = (
 		.then((data) => {
 			console.log(data)
 			let updatedUser = { ...userData }
-			updatedUser.characters.splice(i, 1, data.character)
+			updatedUser.characters.splice(i, 1, data.data.character)
 			setUserData(updatedUser)
 			handleToggle()
 		})
