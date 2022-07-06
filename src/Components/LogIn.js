@@ -6,15 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import apiUrl from '../apiUrl'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
-import { useCookies } from 'react-cookie'
+// import { useCookies } from 'react-cookie'
 
 const LogIn = (props) => {
 	const { tablet, desktop, userData, setUserData } = props
 
-	// const cookie = cookieClient.load('https://accounts.google.com')
-	const [cookies, setCookie, removeCookie] = useCookies([
-		'https://accounts.google.com'
-	])
+	// const [cookies, setCookie, removeCookie] = useCookies([
+	// 	'https://accounts.google.com'
+	// ])
 
 	const navigate = useNavigate()
 
@@ -68,7 +67,8 @@ const LogIn = (props) => {
 			.get(apiUrl + `/users/login/`, { withCredentials: true })
 			.then((res) => {
 				if (res.status === 200) {
-					const newUser = res.data.user
+					const newUser = res.data.userData
+					newUser.user = res.data.user
 					newUser.loggedIn = true
 					console.log(newUser)
 					setUserData(newUser)

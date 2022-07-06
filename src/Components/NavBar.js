@@ -9,7 +9,14 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { handleLogOut } from './Utils'
+// import { handleLogOut } from './Utils'
+
+// Hacks
+import { nullUser } from './Utils'
+import axios from 'axios'
+import apiUrl from '../apiUrl'
+
+// hacks
 
 const NavBar = (props) => {
 	const { userData, setUserData, setCharacterId } = props
@@ -27,6 +34,19 @@ const NavBar = (props) => {
 	}
 	const handleClose = () => {
 		setAnchorEl(null)
+	}
+
+	const handleLogOut = (setUserData, navigate) => {
+		axios
+			.post(apiUrl + `/auth/logout/`, { withCredentails: true })
+			.then((res) => {
+				console.log(res)
+				setUserData(nullUser())
+				navigate('/')
+			})
+			.catch((err) => {
+				console.log('something went wrong', err)
+			})
 	}
 
 	// Set Username
@@ -84,10 +104,7 @@ const NavBar = (props) => {
 	)
 
 	const logOutButton = (
-		<Button
-			color="inherit"
-			onClick={() => handleLogOut(userData.user, setUserData, navigate)}
-		>
+		<Button color="inherit" onClick={() => handleLogOut(setUserData, navigate)}>
 			Log out
 		</Button>
 	)

@@ -60,7 +60,7 @@ const getCharacter = (userData, characterId) =>
 
 const handleLogOut = (user, setUserData, navigate) => {
 	axios
-		.post(apiUrl + `auth/logout/`, { withCredentails: true, user: user })
+		.post(apiUrl + `/auth/logout/`, { withCredentails: true })
 		.then((res) => {
 			console.log(res)
 			setUserData(nullUser())
@@ -85,7 +85,10 @@ const handleCharacterUpdate = (
 		(character) => character._id === characterId
 	)
 	axios
-		.patch(apiUrl + `/characters/` + characterId, { updateBody })
+		.patch(apiUrl + `/characters/` + characterId, {
+			withCredentials: true,
+			updateBody
+		})
 		// fetch(apiUrl + `/characters/` + id, {
 		// 	method: 'PATCH',
 		// 	headers: { 'Content-Type': 'application/json' },
@@ -132,9 +135,13 @@ const handleAttributeUpdate = (
 	} else {
 		attributeArray.push(updateBody)
 	}
-	const update = { [attribute]: attributeArray }
+	const update = { [attribute]: JSON.stringify(updateBody) }
+
 	axios
-		.patch(apiUrl + `/characters/` + characterId, { updateBody })
+		.patch(apiUrl + `/characters/` + characterId, {
+			withCredentials: true,
+			update
+		})
 		// fetch(apiUrl + `/characters/` + characterId, {
 		// 	method: 'PATCH',
 		// 	headers: { 'Content-Type': 'application/json' },
