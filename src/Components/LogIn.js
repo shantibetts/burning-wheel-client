@@ -67,8 +67,7 @@ const LogIn = (props) => {
 			.get(apiUrl + `/users/login/`, { withCredentials: true })
 			.then((res) => {
 				if (res.status === 200) {
-					const newUser = res.data.userData
-					newUser.user = res.data.user
+					const newUser = res.data.user
 					newUser.loggedIn = true
 					console.log(newUser)
 					setUserData(newUser)
@@ -88,6 +87,7 @@ const LogIn = (props) => {
 				Please log in to continue
 			</Typography>
 			<TextField
+				disabled={true}
 				required={true}
 				name="email"
 				type="email"
@@ -97,6 +97,7 @@ const LogIn = (props) => {
 				onChange={(event) => handleLogInChange(event, 'email')}
 			/>
 			<TextField
+				disabled={true}
 				required={true}
 				ame="password"
 				type="password"
@@ -106,6 +107,7 @@ const LogIn = (props) => {
 				onChange={(event) => handleLogInChange(event, 'password')}
 			/>
 			<Button
+				disabled={true}
 				size="medium"
 				variant="outlined"
 				sx={{ m: 1 }}
@@ -154,7 +156,7 @@ const LogIn = (props) => {
 				Burning Wheel Gold.
 			</Typography>
 			{userData.loggedIn ? logOut : logIn}
-			<GoogleLogin
+			{/* <GoogleLogin
 				onSuccess={(credentialResponse) => {
 					if (credentialResponse.credential) {
 						console.log(credentialResponse)
@@ -169,7 +171,7 @@ const LogIn = (props) => {
 				onError={() => {
 					console.log('Login Failed')
 				}}
-			/>
+			/> */}
 			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
 				{errorMessage}
 			</Typography>

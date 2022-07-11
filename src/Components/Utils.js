@@ -120,28 +120,29 @@ const handleAttributeUpdate = (
 	const i = userData.characters.findIndex(
 		(character) => character._id === characterId
 	)
-	// create object to make update request
+	// Copy array for attribute to modify
 	const attributeArray = userData.characters[i][attribute].slice()
+	// Find index inside attribute array to modify
+	const attributeIndex = attributeArray.findIndex(
+		(attribute) => attribute.name === updateBody.name
+	)
 	if (dialogType === 'edit') {
-		const attributeIndex = attributeArray.findIndex(
-			(attribute) => attribute.name === updateBody.name
-		)
+		// Edit: replace old with update
 		attributeArray.splice(attributeIndex, 1, updateBody)
 	} else if (dialogType === 'delete') {
-		const attributeIndex = attributeArray.findIndex(
-			(attribute) => attribute.name === updateBody.name
-		)
+		// Delete: delete object at that index
 		attributeArray.splice(attributeIndex, 1)
 	} else {
+		// Add: add to end of list
 		attributeArray.push(updateBody)
 	}
-	const update = { [attribute]: updateBody }
+	// create object to make update request
+	const update = { [attribute]: attributeArray }
 
 	axios
 		.patch(apiUrl + `/characters/` + characterId, {
 			withCredentials: true,
-			updateBody: update,
-			user: userData.user
+			updateBody: update
 		})
 		// fetch(apiUrl + `/characters/` + characterId, {
 		// 	method: 'PATCH',
