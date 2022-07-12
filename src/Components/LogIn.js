@@ -29,23 +29,22 @@ const LogIn = (props) => {
 	// Logs user in and fetches user data and sets user state
 	const handleLogIn = () => {
 		axios
-			.post(apiUrl + `/auth/login/`, {
+			.post(apiUrl + `/auth/local/`, {
 				email: userData.email,
-				password: userData.password
+				password: userData.password,
+				withCredentials: true
 			})
 			.then((res) => {
-				console.log(res)
-				if (res.status === 204) {
-					// console.log(res.data.user)
-					// let newUser = res.data.user
-					// newUser.loggedIn = true
-					const newUser = { ...userData }
-					userData.loggedIn = true
+				if (res.status === 200) {
+					console.log(res)
+					let newUser = res.data.userData
+					newUser.loggedIn = true
 					setUserData(newUser)
 					// navigate('/user/' + newUser.name)
-					navigate('/')
+					// navigate('/')
+				} else {
+					errorMessage = 'something went wrong'
 				}
-				errorMessage = 'something went wrong'
 			})
 			.catch((err) => {
 				console.log('something went wrong', err)
@@ -83,11 +82,10 @@ const LogIn = (props) => {
 
 	const logIn = (
 		<div className="logIn">
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+			<Typography variant="h5" sx={{ pt: 2, pb: 4 }}>
 				Please log in to continue
 			</Typography>
 			<TextField
-				disabled={true}
 				required={true}
 				name="email"
 				type="email"
@@ -97,7 +95,6 @@ const LogIn = (props) => {
 				onChange={(event) => handleLogInChange(event, 'email')}
 			/>
 			<TextField
-				disabled={true}
 				required={true}
 				ame="password"
 				type="password"
@@ -107,7 +104,6 @@ const LogIn = (props) => {
 				onChange={(event) => handleLogInChange(event, 'password')}
 			/>
 			<Button
-				disabled={true}
 				size="medium"
 				variant="outlined"
 				sx={{ m: 1 }}
@@ -154,6 +150,20 @@ const LogIn = (props) => {
 				The unoficial, online Burning Wheel Gold (+Codex) character sheet.
 				Adapted from the Burning Wheel character sheet PDFs included with
 				Burning Wheel Gold.
+			</Typography>
+			<Typography variant="h5" sx={{ pt: 4, pb: 2 }}>
+				Under Development!
+			</Typography>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+				This project, especially the authentication aspect is currently under
+				development. To preview the project, including example characters,
+				please log in with the following credentials:
+			</Typography>
+			<Typography variant="body1" sx={{ pt: 2 }}>
+				Email: test@test.com
+			</Typography>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+				Password: test1
 			</Typography>
 			{userData.loggedIn ? logOut : logIn}
 			{/* <GoogleLogin
