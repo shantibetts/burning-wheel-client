@@ -82,7 +82,7 @@ const LogIn = (props) => {
 
 	const logIn = (
 		<div className="logIn">
-			<Typography variant="h5" sx={{ pt: 2, pb: 4 }}>
+			{/* <Typography variant="h5" sx={{ pt: 2, pb: 4 }}>
 				Please log in to continue
 			</Typography>
 			<TextField
@@ -105,15 +105,15 @@ const LogIn = (props) => {
 				variant="outlined"
 				onChange={(event) => handleLogInChange(event, 'password')}
 			/>
-			{/* <Button
+			<Button
 				size="medium"
 				variant="outlined"
 				sx={{ m: 1 }}
 				onClick={handleLogIn}
 			>
 				Log in
-			</Button> */}
-			{/* <Button
+			</Button>
+			<Button
 				size="medium"
 				variant="outlined"
 				sx={{ m: 1 }}
@@ -127,7 +127,7 @@ const LogIn = (props) => {
 				sx={{ m: 1 }}
 				onClick={handleUserFetch}
 			>
-				Log in
+				Try Demo
 			</Button>
 		</div>
 	)
@@ -149,17 +149,9 @@ const LogIn = (props) => {
 				Welcome!
 			</Typography>
 			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
-				The unoficial, online Burning Wheel Gold (+Codex) character sheet.
+				The unofficial, online Burning Wheel Gold (+Codex) character sheet.
 				Adapted from the Burning Wheel character sheet PDFs included with
 				Burning Wheel Gold.
-			</Typography>
-			<Typography variant="h5" sx={{ pt: 4, pb: 2 }}>
-				Under Development!
-			</Typography>
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
-				The authentication aspect of this project is currently under
-				development. To preview the project, including example characters,
-				please ignore the form and click the log in button.
 			</Typography>
 			{userData.loggedIn ? logOut : logIn}
 			{/* <GoogleLogin
