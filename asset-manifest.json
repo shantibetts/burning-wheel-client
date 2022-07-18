@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/burning-wheel-community/static/css/main.073c9b0a.css",
-    "main.js": "/burning-wheel-community/static/js/main.0a4fda4c.js",
+    "main.js": "/burning-wheel-community/static/js/main.c38f7972.js",
     "index.html": "/burning-wheel-community/index.html",
     "main.073c9b0a.css.map": "/burning-wheel-community/static/css/main.073c9b0a.css.map",
-    "main.0a4fda4c.js.map": "/burning-wheel-community/static/js/main.0a4fda4c.js.map"
+    "main.c38f7972.js.map": "/burning-wheel-community/static/js/main.c38f7972.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.0a4fda4c.js"
+    "static/js/main.c38f7972.js"
   ]
 }
