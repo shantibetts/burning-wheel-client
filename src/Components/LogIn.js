@@ -63,7 +63,7 @@ const LogIn = (props) => {
 	// fetches userData
 	const handleUserFetch = () => {
 		axios
-			.get(apiUrl + `/users/login/`, { withCredentials: true })
+			.get(apiUrl + `/users/email/test@test.com`, { withCredentials: true })
 			.then((res) => {
 				if (res.status === 200) {
 					const newUser = res.data.user
@@ -87,6 +87,7 @@ const LogIn = (props) => {
 			</Typography>
 			<TextField
 				required={true}
+				disabled
 				name="email"
 				type="email"
 				label="email"
@@ -96,6 +97,7 @@ const LogIn = (props) => {
 			/>
 			<TextField
 				required={true}
+				disabled
 				ame="password"
 				type="password"
 				label="password"
@@ -103,29 +105,29 @@ const LogIn = (props) => {
 				variant="outlined"
 				onChange={(event) => handleLogInChange(event, 'password')}
 			/>
-			<Button
+			{/* <Button
 				size="medium"
 				variant="outlined"
 				sx={{ m: 1 }}
 				onClick={handleLogIn}
 			>
 				Log in
-			</Button>
-			<Button
+			</Button> */}
+			{/* <Button
 				size="medium"
 				variant="outlined"
 				sx={{ m: 1 }}
 				onClick={handleGoogleLogIn}
 			>
 				Log in with Google
-			</Button>
+			</Button> */}
 			<Button
 				size="medium"
 				variant="outlined"
 				sx={{ m: 1 }}
 				onClick={handleUserFetch}
 			>
-				Fetch user data
+				Log in
 			</Button>
 		</div>
 	)
@@ -155,15 +157,9 @@ const LogIn = (props) => {
 				Under Development!
 			</Typography>
 			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
-				This project, especially the authentication aspect is currently under
+				The authentication aspect of this project is currently under
 				development. To preview the project, including example characters,
-				please log in with the following credentials:
-			</Typography>
-			<Typography variant="body1" sx={{ pt: 2 }}>
-				Email: test@test.com
-			</Typography>
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
-				Password: test1
+				please ignore the form and click the log in button.
 			</Typography>
 			{userData.loggedIn ? logOut : logIn}
 			{/* <GoogleLogin

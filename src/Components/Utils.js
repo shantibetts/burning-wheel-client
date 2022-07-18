@@ -59,16 +59,18 @@ const getCharacter = (userData, characterId) =>
 // *** Log Out ***
 
 const handleLogOut = (user, setUserData, navigate) => {
-	axios
-		.post(apiUrl + `/auth/logout/`, { withCredentails: true })
-		.then((res) => {
-			console.log(res)
-			setUserData(nullUser())
-			navigate('/')
-		})
-		.catch((err) => {
-			console.log('something went wrong', err)
-		})
+	// axios
+	// 	.post(apiUrl + `/auth/logout/`, { withCredentails: true })
+	// 	.then((res) => {
+	// 		console.log(res)
+	// 		setUserData(nullUser())
+	// 		navigate('/')
+	// 	})
+	// 	.catch((err) => {
+	// 		console.log('something went wrong', err)
+	// 	})
+	setUserData(nullUser())
+	navigate('/')
 }
 
 // *** CRUD Functions ****

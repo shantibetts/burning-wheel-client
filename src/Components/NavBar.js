@@ -49,22 +49,17 @@ const NavBar = (props) => {
 			})
 	}
 
-	// Set Username
+	// Set Username & Characters
 	let userName = ''
-	if (userData !== null) {
+	let characters = ''
+	if (userData.name !== '') {
+		// Set navigate to home
 		userName = (
-			<MenuItem
-				onClick={handleClose}
-				component={RouterLink}
-				to={'/user/' + userData.name}
-			>
+			<MenuItem onClick={handleClose} component={RouterLink} to={'/'}>
 				Character List
 			</MenuItem>
 		)
-	}
-	// set Characters
-	let characters = ''
-	if (userData !== null) {
+		// Set navigate to characters
 		characters = userData.characters.map((character, i) => {
 			return (
 				<MenuItem
@@ -85,12 +80,11 @@ const NavBar = (props) => {
 	// Set location Name based on route for title to display
 	let location = useLocation().pathname
 	let locationName = ''
-	if (location === '/') {
+	if (location === '/' && userData.name === '') {
 		locationName = 'Burning Wheel CharSheet'
 	}
-	if (location.slice(0, 6) === '/user/') {
-		locationName = location.slice(6)
-		locationName = locationName.split('%20').join(' ')
+	if (location === '/' && userData.name !== '') {
+		locationName = userData.name
 	}
 	if (location.slice(0, 11) === '/character/') {
 		locationName = location.slice(11)
