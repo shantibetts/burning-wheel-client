@@ -5,7 +5,7 @@ import TableHead from '@mui/material/TableHead'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
-import { SNDCTableCells } from './../../TableConfig'
+import { SNDCTableCells } from '../../TableConfig'
 
 const SNDTableHead = (props) => {
 	const { type, tooltip, handleDialogToggle, dense, setDense } = props

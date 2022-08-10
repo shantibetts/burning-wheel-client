@@ -1,9 +1,9 @@
 import { useAuthContext } from './useAuthContext'
-import { useWorkoutsContext } from './useWorkoutsContext'
+import { useCharactersContext } from './useCharactersContext'
 
 export const useLogout = () => {
 	const { dispatch } = useAuthContext()
-	const { dispatch: workoutsDispatch } = useWorkoutsContext()
+	const { dispatch: workoutsDispatch } = useCharactersContext()
 
 	const logout = () => {
 		// remove user from storage

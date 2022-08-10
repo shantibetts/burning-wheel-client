@@ -7,10 +7,10 @@ import { useAuthContext } from './hooks/useAuthContext'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 // Pages and Components
-import NavBar from './Components/NavBar'
+import NavBar from './components/NavBar'
 import About from './pages/About'
 import Home from './pages/Home'
-import Character from './Components/Character/Character'
+import Character from './pages/Character'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 

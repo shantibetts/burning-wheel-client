@@ -13,14 +13,14 @@ import {
 	handleChangePage,
 	handleChangeRowsPerPage,
 	handleChangeDense
-} from '../Components/Utils'
-import TableHeader from '../Components/TableHeader'
+} from '../components/Utils'
+import TableHeader from '../components/TableHeader'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
-import UserRow from '../Components/User/UserRow'
-import TableToolbar from '../Components/TableToolbar'
+import UserRow from '../components/User/UserRow'
+import TableToolbar from '../components/TableToolbar'
 import Button from '@mui/material/Button'
 import { Link as RouterLink } from 'react-router-dom'
 

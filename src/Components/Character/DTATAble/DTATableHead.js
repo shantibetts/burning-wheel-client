@@ -5,7 +5,7 @@ import TableHead from '@mui/material/TableHead'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
-import { dieTestArthaCells } from './../../TableConfig'
+import { dieTestArthaCells } from '../../TableConfig'
 
 const DTATableHead = (props) => {
 	const { attribute, tooltip, handleDialogToggle, dense, setDense } = props
