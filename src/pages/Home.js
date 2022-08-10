@@ -13,18 +13,18 @@ import {
 	handleChangePage,
 	handleChangeRowsPerPage,
 	handleChangeDense
-} from '../Utils'
-import TableHeader from '../TableHeader'
+} from '../Components/Utils'
+import TableHeader from '../Components/TableHeader'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
-import UserRow from './UserRow'
-import TableToolbar from '../TableToolbar'
+import UserRow from '../Components/User/UserRow'
+import TableToolbar from '../Components/TableToolbar'
 import Button from '@mui/material/Button'
 import { Link as RouterLink } from 'react-router-dom'
 
-const User = (props) => {
+const Home = (props) => {
 	const {
 		tablet,
 		desktop,
@@ -163,4 +163,4 @@ const User = (props) => {
 	}
 }
 
-export default User
+export default Home
