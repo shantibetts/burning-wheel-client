@@ -61,7 +61,7 @@ const Login = (props) => {
 			>
 				Try Demo
 			</Button>
-			<form className="login" onSubmit={handleSubmit}>
+			<form className="login" >
 				<Typography variant="h5" sx={{ pt: 2, pb: 4 }}>
 					Please log in to continue
 				</Typography>
@@ -86,6 +86,7 @@ const Login = (props) => {
 					variant="outlined"
 					sx={{ m: 1 }}
 					disabled={isLoading}
+					onClick={handleSubmit}
 				>
 					Log in
 				</Button>

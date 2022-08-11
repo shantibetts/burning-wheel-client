@@ -90,9 +90,14 @@ const NavBar = () => {
 	// }
 
 	const loginButton = (
-		<Button color="inherit" onClick={() => navigate('/')}>
-			Log in
-		</Button>
+		<div className="login">
+			<Button color="inherit" onClick={() => navigate('/login')}>
+				Log in
+			</Button>
+			<Button color="inherit" onClick={() => navigate('/signup')}>
+				Sign up
+			</Button>
+		</div>
 	)
 
 	const logOutButton = (

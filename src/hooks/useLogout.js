@@ -3,14 +3,15 @@ import { useCharactersContext } from './useCharactersContext'
 
 export const useLogout = () => {
 	const { dispatch } = useAuthContext()
-	const { dispatch: workoutsDispatch } = useCharactersContext()
+	const { dispatch: CharactersDispatch } = useCharactersContext()
 
 	const logout = () => {
 		// remove user from storage
 		localStorage.removeItem('user')
+		localStorage.removeItem('characters')
 		// dispatch logout action
 		dispatch({ type: 'LOGOUT' })
-		workoutsDispatch({ type: 'SET_WORKOUTS', payload: null })
+		CharactersDispatch({ type: 'SET_CHARACTERS', payload: null })
 	}
 
 	return { logout }

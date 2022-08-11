@@ -4,7 +4,7 @@ import TableRow from '@mui/material/TableRow'
 import moment from 'moment'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { getCharacter, handleCharacterUpdate } from '../Utils'
+import { getCharacter, handleCharacterUpdate } from './Utils'
 import { useNavigate } from 'react-router-dom'
 
 const UserRow = (props) => {
@@ -34,7 +34,7 @@ const UserRow = (props) => {
 					</IconButton>
 				</TableCell>
 				<TableCell component="th" scope="row">
-					{row.characterName}
+					{row.name}
 				</TableCell>
 				<TableCell align="left">{row.game}</TableCell>
 				<TableCell align="left">

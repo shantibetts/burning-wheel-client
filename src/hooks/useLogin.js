@@ -11,6 +11,7 @@ export const useLogin = () => {
 		// set initial state for new signup - currently loading and no error
 		setIsLoading(true)
 		setError(null)
+		console.log('log in starting for ', email, password)
 
 		// make signup request
 		const response = await fetch('/api/user/login', {
