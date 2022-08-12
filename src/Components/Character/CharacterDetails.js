@@ -1,12 +1,12 @@
+// Context
+import { useCharactersContext } from './../../hooks/useCharactersContext'
+
+// MUI Components
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { getCharacter } from '../Utils'
 
-const CharacterDetails = (props) => {
-	const { userData, setUserData, characterId } = props
-
-	// Get current character data
-	let character = getCharacter(userData, characterId)
+const CharacterDetails = () => {
+	const { character } = useCharactersContext()
 
 	// Turn lifepath names into a string
 	const lifepathArr = character.lifepaths.map((lifepath) => lifepath.name)

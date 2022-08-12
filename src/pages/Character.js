@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+// Context
+import { useCharactersContext } from '../hooks/useCharactersContext'
+import { useDisplayContext } from '../hooks/useDisplayContext'
+
 // MUI Components
 import Typography from '@mui/material/Typography'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -11,11 +15,15 @@ import SNDTable from '../components/Character/SNDTable/SNDTable'
 import CharacterDetails from '../components/Character/CharacterDetails'
 
 const Character = () => {
-	// dummy state for dense - make context?
-	const [dense, setDense] = useState(false)
-	const characterId = null
+	const { dense, displayDispatch } = useDisplayContext()
+
 	// State for API load error
 	const [error, setError] = useState(null)
+
+	// Toggle dense padding
+	const handleDenseToggle = () => {
+		displayDispatch({ type: 'SET_DENSE', payload: !dense })
+	}
 
 	// Error message
 	const errorMessage = (
@@ -32,7 +40,7 @@ const Character = () => {
 	return (
 		<div>
 			<CharacterDetails />
-			<SNDTable type={'ND'} attribute="beliefs" characterId={characterId} />
+			<SNDTable type={'ND'} attribute="beliefs" />
 			<SNDTable type={'ND'} attribute="instincts" />
 			<SNDTable type={'NDC'} attribute="traits" />
 			<DTATable attribute={'stats'} />
@@ -45,7 +53,7 @@ const Character = () => {
 			<SNDTable type={'SND'} attribute="funds" />
 			<SNDTable type={'ND'} attribute="aliases" />
 			<FormControlLabel
-				control={<Switch checked={dense} onChange={setDense(!dense)} />}
+				control={<Switch checked={dense} onChange={handleDenseToggle} />}
 				label="Dense padding"
 			/>
 			{error && errorMessage}

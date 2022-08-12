@@ -58,11 +58,11 @@ const Home = ({ setCharacterId }) => {
 
 			if (response.ok) {
 				setError(null)
-				charactersDispatch({ type: 'SET_CHARACTERS', payload: json })
-				let rowsToDisplay = json.characters.filter(
-					(character) => !character.isTrash
-				)
-				setRows(rowsToDisplay)
+				charactersDispatch({
+					type: 'SET_CHARACTER_LIST',
+					payload: json.characterList
+				})
+				setRows(json.characterList)
 				localStorage.setItem('characters', JSON.stringify(json))
 			} else {
 				setError(json.error)
@@ -139,11 +139,7 @@ const Home = ({ setCharacterId }) => {
 								.sort(getComparator(order, orderBy))
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((row) => (
-									<UserRow
-										key={row._id}
-										row={row}
-										setCharacterId={setCharacterId}
-									/>
+									<UserRow key={row._id} row={row} />
 								))}
 							{emptyRows > 0 && (
 								<TableRow

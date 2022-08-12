@@ -2,17 +2,25 @@ import * as React from 'react'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 
+// Context
+import { useCharactersContext } from '../hooks/useCharactersContext'
+
 // MUI components
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 
-const UserRow = ({ row, setCharacterId }) => {
+const UserRow = ({ row }) => {
+	const { characterList, charactersDispatch } = useCharactersContext()
+
 	const navigate = useNavigate()
 
 	const handleCharacterNavigation = () => {
-		setCharacterId(row._id)
+		const currentCharacter = characterList.find(
+			(character) => (character._id = row._id)
+		)
+		charactersDispatch({ action: 'SET_CHARACTER', payload: currentCharacter })
 		navigate(`/character/${row.name}`)
 	}
 
