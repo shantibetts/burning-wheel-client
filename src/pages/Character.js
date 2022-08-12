@@ -10,7 +10,7 @@ import DTATable from '../components/Character/DTATAble/DTATable'
 import SNDTable from '../components/Character/SNDTable/SNDTable'
 import CharacterDetails from '../components/Character/CharacterDetails'
 
-const Character = ({ characterId }) => {
+const Character = () => {
 	// dummy state for dense - make context?
 	const [dense, setDense] = useState(false)
 	// State for API load error

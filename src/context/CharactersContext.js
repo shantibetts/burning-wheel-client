@@ -3,7 +3,6 @@ import { createContext, useReducer, useEffect } from 'react'
 export const CharactersContext = createContext()
 
 export const charactersReducer = (state, action) => {
-	console.log(state)
 	const newState = { ...state }
 	switch (action.type) {
 		case 'SET_CHARACTERS':
