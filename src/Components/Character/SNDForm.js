@@ -2,7 +2,6 @@ import { handleAttributeUpdate, camelize, createEmptyTableData } from '../Utils'
 
 // Context and Hooks
 import { useCharactersContext } from './../../hooks/useCharactersContext'
-import { useDisplayContext } from '../../hooks/useDisplayContext'
 import { useAttributeUpdate } from '../../hooks/useAttributeUpdate'
 
 // MUI Components
@@ -27,7 +26,6 @@ const SNDForm = ({
 	setDialogType
 }) => {
 	const { character } = useCharactersContext()
-	const { dense } = useDisplayContext()
 	const { attributeUpdate, error, isLoading } = useAttributeUpdate()
 
 	// Create form title:

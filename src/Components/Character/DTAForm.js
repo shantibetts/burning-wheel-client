@@ -1,5 +1,10 @@
-import * as React from 'react'
-import { useState } from 'react'
+import { handleAttributeUpdate, createEmptyTableData } from '../Utils'
+
+// Context and Hooks
+import { useCharactersContext } from './../../hooks/useCharactersContext'
+import { useAttributeUpdate } from '../../hooks/useAttributeUpdate'
+
+// MUI Components
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -7,21 +12,18 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import { handleAttributeUpdate, createEmptyTableData } from '../Utils'
 
-const DTAForm = (props) => {
-	const {
-		attribute,
-		handleToggle,
-		dialogType,
-		dialogData,
-		setDialogData,
-		dialogOpen,
-		setUserData,
-		userData,
-		setDialogType,
-		characterId
-	} = props
+const DTAForm = ({
+	attribute,
+	handleToggle,
+	dialogType,
+	dialogData,
+	setDialogData,
+	dialogOpen,
+	setDialogType
+}) => {
+	const { character } = useCharactersContext()
+	const { attributeUpdate, error, isLoading } = useAttributeUpdate()
 
 	// Create form title:
 	let dialogTitle = ''
@@ -98,21 +100,7 @@ const DTAForm = (props) => {
 		(attribute !== 'stats' || attribute !== 'attributes')
 	) {
 		deleteButton = (
-			<Button
-				variant="contained"
-				color="secondary"
-				onClick={() => {
-					handleAttributeUpdate(
-						setUserData,
-						userData,
-						characterId,
-						attribute,
-						dialogData,
-						handleToggle,
-						'delete'
-					)
-				}}
-			>
+			<Button variant="contained" color="secondary" onClick={() => {}}>
 				Delete
 			</Button>
 		)
@@ -174,20 +162,7 @@ const DTAForm = (props) => {
 				>
 					Cancel
 				</Button>
-				<Button
-					variant="contained"
-					onClick={() =>
-						handleAttributeUpdate(
-							setUserData,
-							userData,
-							characterId,
-							attribute,
-							dialogData,
-							handleToggle,
-							dialogType
-						)
-					}
-				>
+				<Button variant="contained" onClick={() => {}}>
 					Submit
 				</Button>
 			</DialogActions>

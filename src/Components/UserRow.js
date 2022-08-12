@@ -20,7 +20,10 @@ const UserRow = ({ row }) => {
 		const currentCharacter = characterList.find(
 			(character) => (character._id = row._id)
 		)
-		charactersDispatch({ action: 'SET_CHARACTER', payload: currentCharacter })
+		charactersDispatch({
+			type: 'SET_CHARACTER',
+			payload: currentCharacter
+		})
 		navigate(`/character/${row.name}`)
 	}
 

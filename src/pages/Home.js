@@ -63,7 +63,6 @@ const Home = ({ setCharacterId }) => {
 					payload: json.characterList
 				})
 				setRows(json.characterList)
-				localStorage.setItem('characters', JSON.stringify(json))
 			} else {
 				setError(json.error)
 			}
