@@ -28,7 +28,7 @@ export const charactersReducer = (state, action) => {
 }
 
 export const CharactersContextProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(charactersReducer, {
+	const [state, charactersDispatch] = useReducer(charactersReducer, {
 		characters: null,
 		currentCharacter: null
 	})
@@ -36,14 +36,14 @@ export const CharactersContextProvider = ({ children }) => {
 	useEffect(() => {
 		// on page load, check to see if characters are present in local storage
 		const characters = JSON.parse(localStorage.getItem('characters'))
-		// if characters are present, use dispatch to set characters
+		// if characters are present, use charactersDispatch to set characters
 		if (characters) {
-			dispatch({ type: 'SET_CHARACTERS', payload: characters })
+			charactersDispatch({ type: 'SET_CHARACTERS', payload: characters })
 		}
 	}, [])
 
 	return (
-		<CharactersContext.Provider value={{ ...state, dispatch }}>
+		<CharactersContext.Provider value={{ ...state, charactersDispatch }}>
 			{children}
 		</CharactersContext.Provider>
 	)

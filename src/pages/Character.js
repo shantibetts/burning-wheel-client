@@ -13,6 +13,7 @@ import CharacterDetails from '../components/Character/CharacterDetails'
 const Character = () => {
 	// dummy state for dense - make context?
 	const [dense, setDense] = useState(false)
+	const characterId = null
 	// State for API load error
 	const [error, setError] = useState(null)
 

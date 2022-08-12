@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
 	getComparator,
 	handleRequestSort,
 	handleChangePage,
-	handleChangeRowsPerPage,
-	handleChangeDense
+	handleChangeRowsPerPage
 } from '../components/Utils'
+
+// Context
 import { useCharactersContext } from '../hooks/useCharactersContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { useDisplayContext } from '../hooks/useDisplayContext'
 
 // MUI Components
 import Box from '@mui/material/Box'
@@ -31,9 +32,9 @@ import TableToolbar from '../components/TableToolbar'
 
 const Home = ({ setCharacterId }) => {
 	// Get context
-	const { dispatch } = useCharactersContext()
+	const { charactersDispatch } = useCharactersContext()
 	const { user } = useAuthContext()
-	console.log(useAuthContext())
+	const { dense, displayDispatch } = useDisplayContext()
 
 	// States for controlling the Table
 	const [rows, setRows] = useState([])
@@ -41,8 +42,7 @@ const Home = ({ setCharacterId }) => {
 	const [orderBy, setOrderBy] = useState('characterName')
 	const [page, setPage] = useState(0)
 	const [rowsPerPage, setRowsPerPage] = useState(5)
-	// dummy state for dense - add to user?
-	const [dense, setDense] = useState(false)
+
 	// State for API load error
 	const [error, setError] = useState(null)
 
@@ -58,7 +58,7 @@ const Home = ({ setCharacterId }) => {
 
 			if (response.ok) {
 				setError(null)
-				dispatch({ type: 'SET_CHARACTERS', payload: json })
+				charactersDispatch({ type: 'SET_CHARACTERS', payload: json })
 				let rowsToDisplay = json.characters.filter(
 					(character) => !character.isTrash
 				)
@@ -71,20 +71,15 @@ const Home = ({ setCharacterId }) => {
 		if (user) {
 			fetchCharacters()
 		}
-	}, [dispatch, user])
-
-	// old use effect
-	// useEffect(() => {
-	// 	if (userData) {
-	// 		let rowsToDisplay = userData.characters.filter(
-	// 			(character) => !character.isTrash
-	// 		)
-	// 		setRows(rowsToDisplay)
-	// 	}
-	// }, [userData])
+	}, [charactersDispatch, user])
 
 	// Open dialog to add a new character
 	const handleAddCharacterDialogToggle = () => {}
+
+	// Toggle dense padding
+	const handleDenseToggle = () => {
+		displayDispatch({ type: 'SET_DENSE', payload: !dense })
+	}
 
 	// Adding propTypes for the TableHead Component
 	TableHeader.propTypes = {
@@ -177,12 +172,7 @@ const Home = ({ setCharacterId }) => {
 				/>
 			</Paper>
 			<FormControlLabel
-				control={
-					<Switch
-						checked={dense}
-						onChange={() => handleChangeDense(dense, setDense)}
-					/>
-				}
+				control={<Switch checked={dense} onChange={handleDenseToggle} />}
 				label="Dense padding"
 			/>
 			{error && errorMessage}

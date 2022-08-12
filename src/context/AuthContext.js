@@ -20,21 +20,21 @@ export const authReducer = (state, action) => {
 
 // AuthContextProvider provides Auth Context to all children (of app)
 export const AuthContextProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(authReducer, {
+	const [state, authDispatch] = useReducer(authReducer, {
 		user: null
 	})
 
 	useEffect(() => {
 		// check local storage for any users
 		const user = JSON.parse(localStorage.getItem('user'))
-		// if user is present, run login dispatch to log them in
+		// if user is present, run login authDispatch to log them in
 		if (user) {
-			dispatch({ type: 'LOGIN', payload: user })
+			authDispatch({ type: 'LOGIN', payload: user })
 		}
 	}, [])
 
 	return (
-		<AuthContext.Provider value={{ ...state, dispatch }}>
+		<AuthContext.Provider value={{ ...state, authDispatch }}>
 			{children}
 		</AuthContext.Provider>
 	)

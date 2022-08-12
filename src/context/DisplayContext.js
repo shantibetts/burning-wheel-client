@@ -1,5 +1,8 @@
 import { createContext, useReducer, useEffect } from 'react'
 
+// MUI Components
+import useMediaQuery from '@mui/material/useMediaQuery'
+
 // DisplayContext exported to be available to any children of App
 export const DisplayContext = createContext()
 
@@ -8,8 +11,7 @@ export const displayReducer = (state, action) => {
 	const newState = { ...state }
 	switch (action.type) {
 		case 'SET_DENSE':
-			const { dense } = action.payload
-			newState.dense = dense
+			newState.dense = action.payload
 			return newState
 		default:
 			return state
@@ -18,21 +20,22 @@ export const displayReducer = (state, action) => {
 
 // DisplayContextProvider provides Display Context to all children (of app)
 export const DisplayContextProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(displayReducer, {
+	const [state, displayDispatch] = useReducer(displayReducer, {
 		dense: true
 	})
 
+	// Media queries to set width
+	let tablet = useMediaQuery('(min-width:600px)')
+	let desktop = useMediaQuery('(min-width:900px)')
+
 	useEffect(() => {
-		// check local storage for any users
-		const user = JSON.parse(localStorage.getItem('user'))
-		// if user is present, run login dispatch to log them in
-		if (user) {
-			dispatch({ type: 'LOGIN', payload: user })
+		if (tablet || desktop) {
+			displayDispatch({ type: 'SET_DENSE', payload: false })
 		}
 	}, [])
 
 	return (
-		<DisplayContext.Provider value={{ ...state, dispatch }}>
+		<DisplayContext.Provider value={{ ...state, displayDispatch }}>
 			{children}
 		</DisplayContext.Provider>
 	)
