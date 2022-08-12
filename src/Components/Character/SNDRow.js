@@ -3,7 +3,7 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
-import { SNDCTableCells } from '../../TableConfig'
+import { SNDCTableCells } from '../TableConfig'
 
 const SNDRow = (props) => {
 	const {

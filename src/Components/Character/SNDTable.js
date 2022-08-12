@@ -1,28 +1,33 @@
-import * as React from 'react'
+import { useState } from 'react'
+import { createEmptyTableData } from '../Utils'
+
+// Context
+import { useCharactersContext } from './../../hooks/useCharactersContext'
+import { useDisplayContext } from '../../hooks/useDisplayContext'
+
+// MUI Components
 import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 import TableBody from '@mui/material/TableBody'
 import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
-import { getCharacter, createEmptyTableData } from '../../Utils'
-import DTARow from './DTARow'
-import DTATableHead from './DTATableHead'
-import DTAForm from './DTAForm'
 
-const DTATable = (props) => {
-	const { attribute, userData, setUserData, characterId, dense, setDense } =
-		props
+// Components
+import SNDRow from './SNDRow'
+import SNDTableHead from './SNDTableHead'
+import SNDForm from './SNDForm'
 
-	// Create character from userData
-	let character = getCharacter(userData, characterId)[attribute]
+const SNDTable = ({ type, attribute }) => {
+	const { character } = useCharactersContext()
+	const { dense } = useDisplayContext()
 
 	// State for controlling the Dialogs
-	const [dialogOpen, setDialogOpen] = React.useState(false)
-	const [dialogData, setDialogData] = React.useState(createEmptyTableData())
-	const [dialogType, setDialogType] = React.useState('')
+	const [dialogOpen, setDialogOpen] = useState(false)
+	const [dialogData, setDialogData] = useState(createEmptyTableData())
+	const [dialogType, setDialogType] = useState('')
 
-	// Open and close the DTA Form
+	// Open and close the SND Form
 	const handleDialogToggle = () => {
 		setDialogOpen(!dialogOpen)
 	}
@@ -30,7 +35,7 @@ const DTATable = (props) => {
 	// Title for table and add new button
 	let displayTitle = attribute.charAt(0).toUpperCase() + attribute.slice(1)
 	let tooltip = 'Add new ' + attribute.slice(0, -1)
-	if (attribute === 'skillsLearning') {
+	if (attribute === 'SkillsLearning') {
 		tooltip = 'Add new skill'
 		displayTitle = 'Skills Being Learned'
 	}
@@ -51,21 +56,18 @@ const DTATable = (props) => {
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<DTATableHead
-						attribute={attribute}
+					<SNDTableHead
+						type={type}
 						tooltip={tooltip}
 						handleDialogToggle={handleDialogToggle}
-						dense={dense}
-						setDense={setDense}
 					/>
 					<TableBody>
-						{character.map((row, i) => (
-							<DTARow
+						{character[attribute].map((row, i) => (
+							<SNDRow
 								key={i}
+								type={type}
 								attribute={attribute}
 								row={row}
-								character={character}
-								setUserData={setUserData}
 								handleDialogToggle={handleDialogToggle}
 								setDialogData={setDialogData}
 								setDialogType={setDialogType}
@@ -75,20 +77,18 @@ const DTATable = (props) => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<DTAForm
+			<SNDForm
+				type={type}
 				attribute={attribute}
-				characterId={characterId}
 				dialogOpen={dialogOpen}
 				handleToggle={handleDialogToggle}
 				dialogType={dialogType}
 				setDialogType={setDialogType}
 				dialogData={dialogData}
 				setDialogData={setDialogData}
-				userData={userData}
-				setUserData={setUserData}
 			/>
 		</Paper>
 	)
 }
 
-export default DTATable
+export default SNDTable

@@ -10,8 +10,8 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
 
 // Components
-import DTATable from '../components/Character/DTATAble/DTATable'
-import SNDTable from '../components/Character/SNDTable/SNDTable'
+import DTATable from '../components/Character/DTATable'
+import SNDTable from '../components/Character/SNDTable'
 import CharacterDetails from '../components/Character/CharacterDetails'
 
 const Character = () => {

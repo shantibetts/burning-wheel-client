@@ -9,11 +9,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import {
-	handleAttributeUpdate,
-	camelize,
-	createEmptyTableData
-} from '../../Utils'
+import { handleAttributeUpdate, camelize, createEmptyTableData } from '../Utils'
 
 const SNDForm = (props) => {
 	const {
