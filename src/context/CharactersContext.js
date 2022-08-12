@@ -3,21 +3,26 @@ import { createContext, useReducer, useEffect } from 'react'
 export const CharactersContext = createContext()
 
 export const charactersReducer = (state, action) => {
+	console.log(state)
+	const newState = { ...state }
 	switch (action.type) {
 		case 'SET_CHARACTERS':
-			return {
-				characters: action.payload
-			}
+			const { characters } = action.payload
+			newState.characters = characters
+			return newState
 		case 'CREATE_CHARACTER':
-			return {
-				characters: [action.payload, ...state.characters]
-			}
+			const { character } = action.payload
+			newState.characters = [character, ...state.characters]
+			return newState
 		case 'DELETE_CHARACTER':
-			return {
-				characters: state.characters.filter(
-					(character) => character._id !== action.payload._id
-				)
-			}
+			newState.characters = state.characters.filter(
+				(character) => character._id !== action.payload._id
+			)
+			return newState
+		case 'SET_CURRENT_CHARACTER':
+			const { characterId } = action.payload
+			newState.characterId = characterId
+			return newState
 		default:
 			return state
 	}
@@ -25,7 +30,8 @@ export const charactersReducer = (state, action) => {
 
 export const CharactersContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(charactersReducer, {
-		characters: null
+		characters: null,
+		currentCharacter: null
 	})
 
 	useEffect(() => {

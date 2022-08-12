@@ -29,10 +29,11 @@ import TableHeader from '../components/TableHeader'
 import UserRow from '../components/UserRow'
 import TableToolbar from '../components/TableToolbar'
 
-const Home = () => {
+const Home = ({ setCharacterId }) => {
 	// Get context
 	const { dispatch } = useCharactersContext()
 	const { user } = useAuthContext()
+	console.log(useAuthContext())
 
 	// States for controlling the Table
 	const [rows, setRows] = useState([])
@@ -62,6 +63,7 @@ const Home = () => {
 					(character) => !character.isTrash
 				)
 				setRows(rowsToDisplay)
+				localStorage.setItem('characters', JSON.stringify(json))
 			} else {
 				setError(json.error)
 			}
@@ -142,7 +144,11 @@ const Home = () => {
 								.sort(getComparator(order, orderBy))
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((row) => (
-									<UserRow key={row._id} row={row} />
+									<UserRow
+										key={row._id}
+										row={row}
+										setCharacterId={setCharacterId}
+									/>
 								))}
 							{emptyRows > 0 && (
 								<TableRow

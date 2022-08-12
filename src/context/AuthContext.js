@@ -5,11 +5,15 @@ export const AuthContext = createContext()
 
 // AuthReducer sets state based on switch function
 export const authReducer = (state, action) => {
+	console.log(state)
+	const newState = {...state}
 	switch (action.type) {
 		case 'LOGIN':
-			return { user: action.payload }
+			newState.user = action.payload
+			return newState
 		case 'LOGOUT':
-			return { user: null }
+			newState.user = null
+			return newState
 		default:
 			return state
 	}
@@ -17,7 +21,9 @@ export const authReducer = (state, action) => {
 
 // AuthContextProvider provides Auth Context to all children (of app)
 export const AuthContextProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(authReducer, { user: null })
+	const [state, dispatch] = useReducer(authReducer, {
+		user: null
+	})
 
 	useEffect(() => {
 		// check local storage for any users
