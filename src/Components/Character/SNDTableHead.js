@@ -7,9 +7,7 @@ import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
 import { SNDCTableCells } from '../TableConfig'
 
-const SNDTableHead = (props) => {
-	const { type, tooltip, handleDialogToggle, dense, setDense } = props
-
+const SNDTableHead = ({ type, tooltip, handleDialogToggle }) => {
 	let tableCells = SNDCTableCells()
 	if (type === 'SND') {
 		tableCells.pop()

@@ -5,16 +5,14 @@ import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
 import { SNDCTableCells } from '../TableConfig'
 
-const SNDRow = (props) => {
-	const {
-		attribute,
-		type,
-		row,
-		handleDialogToggle,
-		setDialogData,
-		setDialogType
-	} = props
-
+const SNDRow = ({
+	type,
+	attribute,
+	row,
+	handleDialogToggle,
+	setDialogData,
+	setDialogType
+}) => {
 	// Remove _id from row
 	delete row._id
 
