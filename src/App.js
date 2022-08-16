@@ -27,7 +27,10 @@ function App() {
 					path="/signup"
 					element={!user ? <Signup /> : <Navigate to="/" />}
 				/>
-				<Route path="/character/:name" element={<Character />} />
+				<Route
+					path="/character/:name"
+					element={user ? <Character /> : <Navigate to="/" />}
+				/>
 				<Route path="/about" element={<About />} />
 			</Routes>
 		</div>

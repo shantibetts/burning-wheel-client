@@ -12,6 +12,7 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
+import Typography from '@mui/material/Typography'
 
 const DTAForm = ({
 	attribute,
@@ -52,6 +53,15 @@ const DTAForm = ({
 			? parseInt(event.target.value)
 			: event.target.value
 		setDialogData(newData)
+	}
+
+	const handleUpdate = () => {
+		const attributeArray = character[attribute]
+		const index = attributeArray.findIndex((a) => (a._id = dialogData._id))
+		attributeArray.splice(index, 1, dialogData)
+		const updatePackage = { [attribute]: attributeArray }
+		console.log(updatePackage)
+		attributeUpdate(updatePackage)
 	}
 
 	// List of labels for DTA elements
@@ -105,6 +115,18 @@ const DTAForm = ({
 			</Button>
 		)
 	}
+
+	// Error message
+	const errorMessage = (
+		<div>
+			<Typography variant="h2" sx={{ py: 3 }}>
+				Error
+			</Typography>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+				{error}
+			</Typography>
+		</div>
+	)
 
 	return (
 		<Dialog
@@ -162,10 +184,11 @@ const DTAForm = ({
 				>
 					Cancel
 				</Button>
-				<Button variant="contained" onClick={() => {}}>
+				<Button variant="contained" onClick={handleUpdate} disabled={isLoading}>
 					Submit
 				</Button>
 			</DialogActions>
+			{error && errorMessage}
 		</Dialog>
 	)
 }

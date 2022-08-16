@@ -25,6 +25,8 @@ export const charactersReducer = (state, action) => {
 			newState.character = action.payload
 			localStorage.setItem('characters', JSON.stringify(newState))
 			return newState
+		case 'ATTRIBUTE_UPDATE':
+			newState.character = { ...newState.character, ...action.payload }
 		default:
 			return state
 	}

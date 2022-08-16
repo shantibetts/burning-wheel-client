@@ -34,6 +34,7 @@ export const useAttributeUpdate = () => {
 		}
 		// Response is valid:
 		if (response.ok) {
+			console.log(json)
 			// update characters context
 			charactersDispatch({ type: 'ATTRIBUTE_UPDATE', payload: json.character })
 			setIsLoading(false)

@@ -16,9 +16,6 @@ const DTARow = ({
 	setDialogData,
 	setDialogType
 }) => {
-	// Remove _id from row
-	delete row._id
-
 	// Get list of cells to iterate over
 	let rowCells = dieTestArthaCells.slice(1)
 	if (attribute === 'skillsLearning') {
