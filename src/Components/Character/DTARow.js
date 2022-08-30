@@ -8,6 +8,7 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
+import Tooltip from '@mui/material/Tooltip'
 
 const DTARow = ({
 	attribute,
@@ -25,17 +26,19 @@ const DTARow = ({
 		<React.Fragment>
 			<TableRow hover>
 				<TableCell component="th" scope="row">
-					<IconButton
-						aria-label="edit row"
-						size="small"
-						onClick={() => {
-							handleDialogToggle()
-							setDialogData(row)
-							setDialogType('edit')
-						}}
-					>
-						<EditIcon />
-					</IconButton>
+					<Tooltip title={'Edit ' + row.name.toLowerCase()}>
+						<IconButton
+							aria-label="edit row"
+							size="small"
+							onClick={() => {
+								handleDialogToggle()
+								setDialogData(row)
+								setDialogType('edit')
+							}}
+						>
+							<EditIcon />
+						</IconButton>
+					</Tooltip>
 				</TableCell>
 				{rowCells.map((cell, i) => {
 					if (cell.id === 'empty') {

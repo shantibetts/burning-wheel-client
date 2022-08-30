@@ -40,18 +40,18 @@ const Character = () => {
 	return (
 		<div>
 			<CharacterDetails />
-			<SNDTable type={'ND'} attribute="beliefs" />
-			<SNDTable type={'ND'} attribute="instincts" />
-			<SNDTable type={'NDC'} attribute="traits" />
-			<DTATable attribute={'stats'} />
-			<DTATable attribute={'attributes'} />
-			<DTATable attribute={'skills'} />
-			<DTATable attribute={'skillsLearning'} />
-			<SNDTable type={'SND'} attribute="relationships" />
-			<SNDTable type={'SND'} attribute="affiliations" />
-			<SNDTable type={'SND'} attribute="titles" />
-			<SNDTable type={'SND'} attribute="funds" />
-			<SNDTable type={'ND'} attribute="aliases" />
+			<SNDTable type="ND" attribute="beliefs" />
+			<SNDTable type="ND" attribute="instincts" />
+			<SNDTable type="NDC" attribute="traits" />
+			<DTATable attribute="stats" />
+			<DTATable attribute="attributes" />
+			<DTATable attribute="skills" />
+			<DTATable attribute="skillsLearning" />
+			<SNDTable type="SND" attribute="relationships" />
+			<SNDTable type="SND" attribute="affiliations" />
+			<SNDTable type="SND" attribute="titles" />
+			<SNDTable type="SND" attribute="funds" />
+			<SNDTable type="ND" attribute="aliases" />
 			<FormControlLabel
 				control={<Switch checked={dense} onChange={handleDenseToggle} />}
 				label="Dense padding"

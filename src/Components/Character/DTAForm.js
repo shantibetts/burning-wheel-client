@@ -55,13 +55,19 @@ const DTAForm = ({
 		setDialogData(newData)
 	}
 
-	const handleUpdate = () => {
-		const attributeArray = character[attribute]
-		const index = attributeArray.findIndex((a) => (a._id = dialogData._id))
-		attributeArray.splice(index, 1, dialogData)
-		const updatePackage = { [attribute]: attributeArray }
+	const handleUpdate = async () => {
+		const updatePackage = {}
+		if (dialogType == 'edit') {
+			const attributeArray = character[attribute]
+			const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+			attributeArray.splice(index, 1, dialogData)
+			updatePackage[attribute] = attributeArray
+		} else {
+			updatePackage[attribute] = [...character[attribute], dialogData]
+		}
 		console.log(updatePackage)
-		attributeUpdate(updatePackage)
+		await attributeUpdate(updatePackage)
+		handleToggle()
 	}
 
 	// List of labels for DTA elements

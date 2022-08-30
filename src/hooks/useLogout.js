@@ -11,7 +11,7 @@ export const useLogout = () => {
 		localStorage.removeItem('characters')
 		// dispatch logout actions
 		authDispatch({ type: 'LOGOUT' })
-		charactersDispatch({ type: 'SET_CHARACTERS', payload: null })
+		charactersDispatch({ type: 'SET_STATE', payload: null })
 	}
 
 	return { logout }
