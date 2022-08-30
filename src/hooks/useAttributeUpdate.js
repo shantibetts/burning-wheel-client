@@ -7,8 +7,7 @@ export const useAttributeUpdate = () => {
 	const [isLoading, setIsLoading] = useState(null)
 	const { user } = useAuthContext()
 
-	const { character, charactersList, charactersDispatch } =
-		useCharactersContext()
+	const { character, charactersDispatch } = useCharactersContext()
 
 	const attributeUpdate = async (update) => {
 		// set initial state - currently loading and no error

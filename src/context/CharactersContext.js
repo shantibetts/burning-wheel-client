@@ -12,7 +12,7 @@ export const charactersReducer = (state, action) => {
 			localStorage.setItem('characters', JSON.stringify(newState))
 			return newState
 		case 'CREATE_CHARACTER':
-			newState.characters = [action.payload, ...state.characterList]
+			newState.characterList = [action.payload, ...state.characterList]
 			localStorage.setItem('characters', JSON.stringify(newState))
 			return newState
 		case 'DELETE_CHARACTER':
@@ -26,8 +26,11 @@ export const charactersReducer = (state, action) => {
 			localStorage.setItem('characters', JSON.stringify(newState))
 			return newState
 		case 'ATTRIBUTE_UPDATE':
-			newState.character = { ...newState.character, ...action.payload }
+			console.log(action.payload)
+			Object.assign(newState.character, action.payload)
 			localStorage.setItem('characters', JSON.stringify(newState))
+			console.log('State update!', newState)
+			return newState
 		default:
 			return state
 	}

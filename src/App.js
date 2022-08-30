@@ -31,7 +31,7 @@ function App() {
 				/>
 				<Route
 					path="/character/:name"
-					element={character ? <Character /> : <Navigate to="/" />}
+					element={user ? <Character /> : <Navigate to="/" />}
 				/>
 				<Route path="/about" element={<About />} />
 			</Routes>

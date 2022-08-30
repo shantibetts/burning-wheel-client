@@ -65,7 +65,16 @@ const DTAForm = ({
 		} else {
 			updatePackage[attribute] = [...character[attribute], dialogData]
 		}
-		console.log(updatePackage)
+		await attributeUpdate(updatePackage)
+		handleToggle()
+	}
+
+	const handleDelete = async () => {
+		const updatePackage = {}
+		const attributeArray = character[attribute]
+		const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+		attributeArray.splice(index, 1)
+		updatePackage[attribute] = attributeArray
 		await attributeUpdate(updatePackage)
 		handleToggle()
 	}
@@ -116,7 +125,7 @@ const DTAForm = ({
 		(attribute !== 'stats' || attribute !== 'attributes')
 	) {
 		deleteButton = (
-			<Button variant="contained" color="secondary" onClick={() => {}}>
+			<Button variant="contained" color="secondary" onClick={handleDelete}>
 				Delete
 			</Button>
 		)
