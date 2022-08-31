@@ -1,4 +1,4 @@
-import { handleAttributeUpdate, camelize, createEmptyTableData } from '../Utils'
+import { camelize, createEmptyTableData } from '../Utils'
 
 // Context and Hooks
 import { useCharactersContext } from './../../hooks/useCharactersContext'
@@ -48,6 +48,31 @@ const SNDForm = ({
 		setDialogData(newData)
 	}
 
+	// Functions to update database
+	const handleUpdate = async () => {
+		const updatePackage = {}
+		if (dialogType == 'edit') {
+			const attributeArray = character[attribute]
+			const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+			attributeArray.splice(index, 1, dialogData)
+			updatePackage[attribute] = attributeArray
+		} else {
+			updatePackage[attribute] = [...character[attribute], dialogData]
+		}
+		await attributeUpdate(updatePackage)
+		handleToggle()
+	}
+
+	const handleDelete = async () => {
+		const updatePackage = {}
+		const attributeArray = character[attribute]
+		const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+		attributeArray.splice(index, 1)
+		updatePackage[attribute] = attributeArray
+		await attributeUpdate(updatePackage)
+		handleToggle()
+	}
+
 	// List of labels for standard SND form
 	let SNDlist = ['Shade', 'Exponent', 'Name', 'Description']
 	// update SND list to standard ND form
@@ -56,7 +81,7 @@ const SNDForm = ({
 	}
 	// List of labels for Traits form
 	if (attribute === 'traits') {
-		SNDlist = ['Name', 'Description', 'Call On']
+		SNDlist = ['Name', 'Description', 'Effect']
 	}
 	// List of labels for Beliefs form
 	if (attribute === 'beliefs') {
@@ -66,7 +91,7 @@ const SNDForm = ({
 	let deleteButton = ''
 	if (dialogType === 'edit') {
 		deleteButton = (
-			<Button variant="contained" color="secondary" onClick={() => {}}>
+			<Button variant="contained" color="secondary" onClick={handleDelete}>
 				Delete
 			</Button>
 		)
@@ -117,7 +142,9 @@ const SNDForm = ({
 									label={field}
 									value={dialogData[camelize(field)]}
 									variant="outlined"
-									onChange={(event) => handleValuesChange(event, field)}
+									onChange={(event) =>
+										handleValuesChange(event, camelize(field))
+									}
 								/>
 							)
 						}
@@ -136,7 +163,7 @@ const SNDForm = ({
 				>
 					Cancel
 				</Button>
-				<Button variant="contained" onClick={() => {}}>
+				<Button variant="contained" onClick={handleUpdate}>
 					Submit
 				</Button>
 			</DialogActions>
