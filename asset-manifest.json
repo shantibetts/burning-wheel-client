@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/burning-wheel-community/static/css/main.073c9b0a.css",
-    "main.js": "/burning-wheel-community/static/js/main.26624b54.js",
+    "main.css": "/burning-wheel-community/static/css/main.1aea61ca.css",
+    "main.js": "/burning-wheel-community/static/js/main.779f35b2.js",
+    "static/media/no-avatar.png": "/burning-wheel-community/static/media/no-avatar.ee3ecac6f3945026d5a9.png",
+    "static/media/shanti.jpeg": "/burning-wheel-community/static/media/shanti.91f52070ed230e0aeae1.jpeg",
     "index.html": "/burning-wheel-community/index.html",
-    "main.073c9b0a.css.map": "/burning-wheel-community/static/css/main.073c9b0a.css.map",
-    "main.26624b54.js.map": "/burning-wheel-community/static/js/main.26624b54.js.map"
+    "main.1aea61ca.css.map": "/burning-wheel-community/static/css/main.1aea61ca.css.map",
+    "main.779f35b2.js.map": "/burning-wheel-community/static/js/main.779f35b2.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.26624b54.js"
+    "static/css/main.1aea61ca.css",
+    "static/js/main.779f35b2.js"
   ]
 }
