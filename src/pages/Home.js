@@ -57,7 +57,6 @@ const Home = ({ setCharacterId }) => {
 			const json = await response.json()
 
 			if (response.ok) {
-				console.log(json)
 				setError(null)
 				charactersDispatch({
 					type: 'SET_CHARACTER_LIST',

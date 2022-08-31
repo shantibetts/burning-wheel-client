@@ -8,8 +8,8 @@ import { useCharactersContext } from '../hooks/useCharactersContext'
 // MUI components
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
+// import IconButton from '@mui/material/IconButton'
+// import DeleteIcon from '@mui/icons-material/Delete'
 
 const UserRow = ({ row }) => {
 	const { characterList, charactersDispatch } = useCharactersContext()
@@ -27,7 +27,7 @@ const UserRow = ({ row }) => {
 		navigate(`/character/${row.name}`)
 	}
 
-	const handleCharacterDelete = async () => {}
+	// const handleCharacterDelete = async () => {}
 
 	return (
 		<React.Fragment>

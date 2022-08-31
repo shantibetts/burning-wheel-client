@@ -1,5 +1,5 @@
 {
-	"proxy": "http://localhost:8080",
+	"proxy": "https://burning-wheel-community-api.herokuapp.com",
 	"name": "burning-wheel-community",
 	"version": "0.1.0",
 	"homepage": "https://shantibetts.github.io/burning-wheel-community",

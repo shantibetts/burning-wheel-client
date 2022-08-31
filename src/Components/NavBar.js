@@ -19,7 +19,7 @@ const NavBar = () => {
 	// Global states and functions
 	const { logout } = useLogout()
 	const { user } = useAuthContext()
-	const { characters } = useAuthContext()
+	const { character } = useCharactersContext()
 
 	// States controlling for nav-bar menu
 	const [anchorEl, setAnchorEl] = React.useState(null)
@@ -41,53 +41,15 @@ const NavBar = () => {
 		logout()
 	}
 
-	// // Set Username
-	// let userName = ''
-	// if (userData !== null) {
-	// 	userName = (
-	// 		<MenuItem
-	// 			onClick={handleClose}
-	// 			component={RouterLink}
-	// 			to={'/user/' + userData.name}
-	// 		>
-	// 			Character List
-	// 		</MenuItem>
-	// 	)
-	// }
-	// // set Characters
-	// let characters = ''
-	// if (userData !== null) {
-	// 	characters = userData.characters.map((character, i) => {
-	// 		return (
-	// 			<MenuItem
-	// 				key={i}
-	// 				onClick={() => {
-	// 					setCharacterId(character._id)
-	// 					handleClose()
-	// 				}}
-	// 				component={RouterLink}
-	// 				to={'/character/' + character.characterName}
-	// 			>
-	// 				{character.characterName}
-	// 			</MenuItem>
-	// 		)
-	// 	})
-	// }
-
-	// // Set location Name based on route for title to display
-	// let location = useLocation().pathname
-	// let locationName = ''
-	// if (location === '/') {
-	// 	locationName = 'Burning Wheel CharSheet'
-	// }
-	// if (location.slice(0, 6) === '/user/') {
-	// 	locationName = location.slice(6)
-	// 	locationName = locationName.split('%20').join(' ')
-	// }
-	// if (location.slice(0, 11) === '/character/') {
-	// 	locationName = location.slice(11)
-	// 	locationName = locationName.split('%20').join(' ')
-	// }
+	// Set location Name based on route for title to display
+	let location = useLocation().pathname
+	let locationName = 'Burning Wheel CharSheet'
+	if (user && location === '/') {
+		locationName = user.email
+	}
+	if (character && location.charAt(1) === 'c') {
+		locationName = character.name
+	}
 
 	const loginButton = (
 		<div className="login">
@@ -132,14 +94,12 @@ const NavBar = () => {
 						<MenuItem onClick={handleClose} component={RouterLink} to="/">
 							Home
 						</MenuItem>
-						{/* {userName} */}
-						{characters}
 						<MenuItem onClick={handleClose} component={RouterLink} to="/about">
 							About
 						</MenuItem>
 					</Menu>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						{/* {locationName} */}
+						{locationName}
 					</Typography>
 					{user ? logOutButton : loginButton}
 				</Toolbar>

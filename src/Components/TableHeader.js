@@ -8,7 +8,7 @@ import { userTableHeadCells } from './TableConfig'
 
 // Creates the Table Heading with sort and list functionality
 const TableHeader = (props) => {
-	const { order, orderBy, onRequestSort, dataName, tablet, desktop } = props
+	const { order, orderBy, onRequestSort } = props
 
 	const createSortHandler = (property) => (event) => {
 		onRequestSort(event, property)
