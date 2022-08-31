@@ -1,77 +1,37 @@
-import * as React from 'react'
+import { useState } from 'react'
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
-import LogIn from './Components/LogIn'
-import NavBar from './Components/NavBar'
-import About from './Components/About'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import User from './Components/User/User'
-import Character from './Components/Character/Character'
-import { nullUser, handleLogOut } from './Components/Utils'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useAuthContext } from './hooks/useAuthContext'
+import { useCharactersContext } from './hooks/useCharactersContext'
+
+// Pages and Components
+import NavBar from './components/NavBar'
+import About from './pages/About'
+import Home from './pages/Home'
+import Character from './pages/Character'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
-	// User's info + list of characters
-	const [userData, setUserData] = React.useState(nullUser())
-	const [characterId, setCharacterId] = React.useState([])
-	const [dense, setDense] = React.useState(true)
-
-	// Media queries to set width
-	let tablet = useMediaQuery('(min-width:600px)')
-	let desktop = useMediaQuery('(min-width:900px)')
-
-	React.useEffect(() => {
-		if (tablet || desktop) {
-			setDense(false)
-		}
-	}, [])
-
-	let home = (
-		<LogIn
-			tablet={tablet}
-			desktop={desktop}
-			userData={userData}
-			setUserData={setUserData}
-			handleLogOut={handleLogOut}
-		/>
-	)
-	if (userData.loggedIn) {
-		home = (
-			<User
-				tablet={tablet}
-				desktop={desktop}
-				userData={userData}
-				setUserData={setUserData}
-				setCharacterId={setCharacterId}
-				dense={dense}
-				setDense={setDense}
-			/>
-		)
-	}
+	const { user } = useAuthContext()
+	const { character } = useCharactersContext()
 
 	return (
 		<div className="App">
-			<NavBar
-				userData={userData}
-				setUserData={setUserData}
-				setCharacterId={setCharacterId}
-				handleLogOut={handleLogOut}
-			/>
+			<NavBar />
 			<Routes>
-				<Route path="/" element={home} />
+				<Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+				<Route
+					path="/login"
+					element={!user ? <Login /> : <Navigate to="/" />}
+				/>
+				<Route
+					path="/signup"
+					element={!user ? <Signup /> : <Navigate to="/" />}
+				/>
 				<Route
 					path="/character/:name"
-					element={
-						<Character
-							tablet={tablet}
-							desktop={desktop}
-							userData={userData}
-							setUserData={setUserData}
-							characterId={characterId}
-							setCharacterId={setCharacterId}
-							dense={dense}
-							setDense={setDense}
-						/>
-					}
+					element={user ? <Character /> : <Navigate to="/" />}
 				/>
 				<Route path="/about" element={<About />} />
 			</Routes>

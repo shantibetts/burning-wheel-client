@@ -1,33 +1,31 @@
-import * as React from 'react'
+import { useState } from 'react'
+import { createEmptyTableData } from '../Utils'
+
+// Context
+import { useCharactersContext } from './../../hooks/useCharactersContext'
+import { useDisplayContext } from '../../hooks/useDisplayContext'
+
+// MUI Components
 import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 import TableBody from '@mui/material/TableBody'
 import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
-import { getCharacter, createEmptyTableData } from '../../Utils'
+
+// Components
 import SNDRow from './SNDRow'
 import SNDTableHead from './SNDTableHead'
 import SNDForm from './SNDForm'
 
-const SNDTable = (props) => {
-	const {
-		type,
-		attribute,
-		userData,
-		setUserData,
-		characterId,
-		dense,
-		setDense
-	} = props
-
-	// Create character from userData
-	let character = getCharacter(userData, characterId)[attribute]
+const SNDTable = ({ type, attribute }) => {
+	const { character } = useCharactersContext()
+	const { dense } = useDisplayContext()
 
 	// State for controlling the Dialogs
-	const [dialogOpen, setDialogOpen] = React.useState(false)
-	const [dialogData, setDialogData] = React.useState(createEmptyTableData())
-	const [dialogType, setDialogType] = React.useState('')
+	const [dialogOpen, setDialogOpen] = useState(false)
+	const [dialogData, setDialogData] = useState(createEmptyTableData())
+	const [dialogType, setDialogType] = useState('')
 
 	// Open and close the SND Form
 	const handleDialogToggle = () => {
@@ -62,18 +60,14 @@ const SNDTable = (props) => {
 						type={type}
 						tooltip={tooltip}
 						handleDialogToggle={handleDialogToggle}
-						dense={dense}
-						setDense={setDense}
 					/>
 					<TableBody>
-						{character.map((row, i) => (
+						{character[attribute].map((row, i) => (
 							<SNDRow
 								key={i}
 								type={type}
 								attribute={attribute}
 								row={row}
-								character={character}
-								setUserData={setUserData}
 								handleDialogToggle={handleDialogToggle}
 								setDialogData={setDialogData}
 								setDialogType={setDialogType}
@@ -86,15 +80,12 @@ const SNDTable = (props) => {
 			<SNDForm
 				type={type}
 				attribute={attribute}
-				characterId={characterId}
 				dialogOpen={dialogOpen}
 				handleToggle={handleDialogToggle}
 				dialogType={dialogType}
 				setDialogType={setDialogType}
 				dialogData={dialogData}
 				setDialogData={setDialogData}
-				userData={userData}
-				setUserData={setUserData}
 			/>
 		</Paper>
 	)

@@ -1,17 +1,22 @@
 import * as React from 'react'
+import { dieTestArthaCells, skillsLearningCells } from '../TableConfig'
+
+// Context
+
+// MUI Components
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
-import { dieTestArthaCells, skillsLearningCells } from './../../TableConfig'
+import Tooltip from '@mui/material/Tooltip'
 
-const DTARow = (props) => {
-	const { attribute, row, handleDialogToggle, setDialogData, setDialogType } =
-		props
-
-	// Remove _id from row
-	delete row._id
-
+const DTARow = ({
+	attribute,
+	row,
+	handleDialogToggle,
+	setDialogData,
+	setDialogType
+}) => {
 	// Get list of cells to iterate over
 	let rowCells = dieTestArthaCells.slice(1)
 	if (attribute === 'skillsLearning') {
@@ -21,17 +26,19 @@ const DTARow = (props) => {
 		<React.Fragment>
 			<TableRow hover>
 				<TableCell component="th" scope="row">
-					<IconButton
-						aria-label="edit row"
-						size="small"
-						onClick={() => {
-							handleDialogToggle()
-							setDialogData(row)
-							setDialogType('edit')
-						}}
-					>
-						<EditIcon />
-					</IconButton>
+					<Tooltip title={'Edit ' + row.name.toLowerCase()}>
+						<IconButton
+							aria-label="edit row"
+							size="small"
+							onClick={() => {
+								handleDialogToggle()
+								setDialogData(row)
+								setDialogType('edit')
+							}}
+						>
+							<EditIcon />
+						</IconButton>
+					</Tooltip>
 				</TableCell>
 				{rowCells.map((cell, i) => {
 					if (cell.id === 'empty') {

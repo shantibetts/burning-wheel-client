@@ -12,7 +12,7 @@ const TableToolbar = (props) => {
 	let tooltip = 'Add new ' + title.toLowerCase().slice(0, title.length - 1)
 
 	let addButton = ''
-	if (title === 'Users') {
+	if (title === 'Characters') {
 		addButton = (
 			<Tooltip title={tooltip}>
 				<IconButton onClick={handleAdd}>

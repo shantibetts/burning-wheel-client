@@ -1,5 +1,10 @@
-import * as React from 'react'
-import { useState } from 'react'
+import { camelize, createEmptyTableData } from '../Utils'
+
+// Context and Hooks
+import { useCharactersContext } from './../../hooks/useCharactersContext'
+import { useAttributeUpdate } from '../../hooks/useAttributeUpdate'
+
+// MUI Components
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -9,26 +14,19 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import {
-	handleAttributeUpdate,
-	camelize,
-	createEmptyTableData
-} from '../../Utils'
 
-const SNDForm = (props) => {
-	const {
-		type,
-		attribute,
-		handleToggle,
-		dialogType,
-		dialogData,
-		setDialogData,
-		dialogOpen,
-		setUserData,
-		userData,
-		setDialogType,
-		characterId
-	} = props
+const SNDForm = ({
+	type,
+	attribute,
+	handleToggle,
+	dialogType,
+	dialogData,
+	setDialogData,
+	dialogOpen,
+	setDialogType
+}) => {
+	const { character } = useCharactersContext()
+	const { attributeUpdate, error, isLoading } = useAttributeUpdate()
 
 	// Create form title:
 	let dialogTitle = attribute.slice(0, -1)
@@ -50,6 +48,31 @@ const SNDForm = (props) => {
 		setDialogData(newData)
 	}
 
+	// Functions to update database
+	const handleUpdate = async () => {
+		const updatePackage = {}
+		if (dialogType == 'edit') {
+			const attributeArray = character[attribute]
+			const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+			attributeArray.splice(index, 1, dialogData)
+			updatePackage[attribute] = attributeArray
+		} else {
+			updatePackage[attribute] = [...character[attribute], dialogData]
+		}
+		await attributeUpdate(updatePackage)
+		handleToggle()
+	}
+
+	const handleDelete = async () => {
+		const updatePackage = {}
+		const attributeArray = character[attribute]
+		const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+		attributeArray.splice(index, 1)
+		updatePackage[attribute] = attributeArray
+		await attributeUpdate(updatePackage)
+		handleToggle()
+	}
+
 	// List of labels for standard SND form
 	let SNDlist = ['Shade', 'Exponent', 'Name', 'Description']
 	// update SND list to standard ND form
@@ -58,7 +81,7 @@ const SNDForm = (props) => {
 	}
 	// List of labels for Traits form
 	if (attribute === 'traits') {
-		SNDlist = ['Name', 'Description', 'Call On']
+		SNDlist = ['Name', 'Description', 'Effect']
 	}
 	// List of labels for Beliefs form
 	if (attribute === 'beliefs') {
@@ -68,21 +91,7 @@ const SNDForm = (props) => {
 	let deleteButton = ''
 	if (dialogType === 'edit') {
 		deleteButton = (
-			<Button
-				variant="contained"
-				color="secondary"
-				onClick={() => {
-					handleAttributeUpdate(
-						setUserData,
-						userData,
-						characterId,
-						attribute,
-						dialogData,
-						handleToggle,
-						'delete'
-					)
-				}}
-			>
+			<Button variant="contained" color="secondary" onClick={handleDelete}>
 				Delete
 			</Button>
 		)
@@ -133,7 +142,9 @@ const SNDForm = (props) => {
 									label={field}
 									value={dialogData[camelize(field)]}
 									variant="outlined"
-									onChange={(event) => handleValuesChange(event, field)}
+									onChange={(event) =>
+										handleValuesChange(event, camelize(field))
+									}
 								/>
 							)
 						}
@@ -152,20 +163,7 @@ const SNDForm = (props) => {
 				>
 					Cancel
 				</Button>
-				<Button
-					variant="contained"
-					onClick={() =>
-						handleAttributeUpdate(
-							setUserData,
-							userData,
-							characterId,
-							attribute,
-							dialogData,
-							handleToggle,
-							dialogType
-						)
-					}
-				>
+				<Button variant="contained" onClick={handleUpdate}>
 					Submit
 				</Button>
 			</DialogActions>

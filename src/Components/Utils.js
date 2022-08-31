@@ -3,23 +3,6 @@ import apiUrl from '../apiUrl'
 
 // *** Helper Functions ***
 
-// Null User state
-const nullUser = () => {
-	return {
-		_id: '',
-		name: '',
-		email: '',
-		email_is_verified: false,
-		password: '',
-		characters: [],
-		third_party_auth: [],
-		loggedIn: false,
-		date: '',
-		token: '',
-		user: {}
-	}
-}
-
 // Creates form data for DTA Tables
 const createEmptyTableData = () => {
 	return {
@@ -50,27 +33,6 @@ function camelize(str) {
 			return index === 0 ? word.toLowerCase() : word.toUpperCase()
 		})
 		.replace(/\s+/g, '')
-}
-
-// Returns the character info based on userData and characterId
-const getCharacter = (userData, characterId) =>
-	userData.characters.find((character) => character._id === characterId)
-
-// *** Log Out ***
-
-const handleLogOut = (user, setUserData, navigate) => {
-	// axios
-	// 	.post(apiUrl + `/auth/logout/`, { withCredentails: true })
-	// 	.then((res) => {
-	// 		console.log(res)
-	// 		setUserData(nullUser())
-	// 		navigate('/')
-	// 	})
-	// 	.catch((err) => {
-	// 		console.log('something went wrong', err)
-	// 	})
-	setUserData(nullUser())
-	navigate('/')
 }
 
 // *** CRUD Functions ****
@@ -209,22 +171,11 @@ const handleChangeRowsPerPage = (event, setRowsPerPage, setPage) => {
 	setPage(0)
 }
 
-// Toggles the padding
-const handleChangeDense = (dense, setDense) => {
-	setDense(!dense)
-}
-
 export {
-	handleLogOut,
-	handleCharacterUpdate,
-	handleAttributeUpdate,
-	nullUser,
 	camelize,
-	getCharacter,
 	createEmptyTableData,
 	getComparator,
 	handleRequestSort,
 	handleChangePage,
-	handleChangeRowsPerPage,
-	handleChangeDense
+	handleChangeRowsPerPage
 }

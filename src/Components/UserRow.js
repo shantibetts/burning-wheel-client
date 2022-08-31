@@ -1,23 +1,33 @@
 import * as React from 'react'
-import TableCell from '@mui/material/TableCell'
-import TableRow from '@mui/material/TableRow'
 import moment from 'moment'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { getCharacter, handleCharacterUpdate } from '../Utils'
 import { useNavigate } from 'react-router-dom'
 
-const UserRow = (props) => {
-	const { row, userData, setUserData, setCharacterId } = props
+// Context
+import { useCharactersContext } from '../hooks/useCharactersContext'
+
+// MUI components
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+
+const UserRow = ({ row }) => {
+	const { characterList, charactersDispatch } = useCharactersContext()
+
 	const navigate = useNavigate()
 
 	const handleCharacterNavigation = () => {
-		setCharacterId(row._id)
-		navigate(`/character/${row.characterName}`)
+		const currentCharacter = characterList.find(
+			(character) => (character._id = row._id)
+		)
+		charactersDispatch({
+			type: 'SET_CHARACTER',
+			payload: currentCharacter
+		})
+		navigate(`/character/${row.name}`)
 	}
 
-	// create trashToggle object
-	const trashToggle = { isTrash: !row.isTrash }
+	const handleCharacterDelete = async () => {}
 
 	return (
 		<React.Fragment>
@@ -26,15 +36,13 @@ const UserRow = (props) => {
 					{/* <IconButton
 						aria-label="delete character"
 						size="small"
-						onClick={() =>
-							handleCharacterUpdate(setUserData, userData, row._id, trashToggle)
-						}
+						onClick={handleCharacterDelete}
 					>
 						<DeleteIcon />
 					</IconButton> */}
 				</TableCell>
 				<TableCell component="th" scope="row">
-					{row.characterName}
+					{row.name}
 				</TableCell>
 				<TableCell align="left">{row.game}</TableCell>
 				<TableCell align="left">

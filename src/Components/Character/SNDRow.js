@@ -3,21 +3,16 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
-import { SNDCTableCells } from '../../TableConfig'
+import { SNDCTableCells } from '../TableConfig'
 
-const SNDRow = (props) => {
-	const {
-		attribute,
-		type,
-		row,
-		handleDialogToggle,
-		setDialogData,
-		setDialogType
-	} = props
-
-	// Remove _id from row
-	delete row._id
-
+const SNDRow = ({
+	type,
+	attribute,
+	row,
+	handleDialogToggle,
+	setDialogData,
+	setDialogType
+}) => {
 	// Get list of cells to iterate over
 	let rowCells = SNDCTableCells()
 	if (type === 'SND') {

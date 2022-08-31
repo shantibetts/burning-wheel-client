@@ -1,16 +1,15 @@
-import * as React from 'react'
+import { dieTestArthaCells } from '../TableConfig'
+
+// MUI Components
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
-import { dieTestArthaCells } from './../../TableConfig'
 
-const DTATableHead = (props) => {
-	const { attribute, tooltip, handleDialogToggle, dense, setDense } = props
-
-	// Remove add new button from stats table
+const DTATableHead = ({ attribute, tooltip, handleDialogToggle }) => {
+	// Add new button for all but stats table
 	let addButton = (
 		<Tooltip title={tooltip}>
 			<IconButton onClick={handleDialogToggle}>

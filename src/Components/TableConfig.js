@@ -209,9 +209,9 @@ const SNDCTableCells = () => [
 		label: 'Description'
 	},
 	{
-		id: 'callOn',
+		id: 'effect',
 		align: 'left',
-		label: 'Call On'
+		label: 'Effect'
 	}
 ]
 

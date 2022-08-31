@@ -1,5 +1,10 @@
-import * as React from 'react'
-import { useState } from 'react'
+import { handleAttributeUpdate, createEmptyTableData } from '../Utils'
+
+// Context and Hooks
+import { useCharactersContext } from './../../hooks/useCharactersContext'
+import { useAttributeUpdate } from '../../hooks/useAttributeUpdate'
+
+// MUI Components
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -7,21 +12,19 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import { handleAttributeUpdate, createEmptyTableData } from './../../Utils'
+import Typography from '@mui/material/Typography'
 
-const DTAForm = (props) => {
-	const {
-		attribute,
-		handleToggle,
-		dialogType,
-		dialogData,
-		setDialogData,
-		dialogOpen,
-		setUserData,
-		userData,
-		setDialogType,
-		characterId
-	} = props
+const DTAForm = ({
+	attribute,
+	handleToggle,
+	dialogType,
+	dialogData,
+	setDialogData,
+	dialogOpen,
+	setDialogType
+}) => {
+	const { character } = useCharactersContext()
+	const { attributeUpdate, error, isLoading } = useAttributeUpdate()
 
 	// Create form title:
 	let dialogTitle = ''
@@ -50,6 +53,30 @@ const DTAForm = (props) => {
 			? parseInt(event.target.value)
 			: event.target.value
 		setDialogData(newData)
+	}
+
+	const handleUpdate = async () => {
+		const updatePackage = {}
+		if (dialogType == 'edit') {
+			const attributeArray = character[attribute]
+			const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+			attributeArray.splice(index, 1, dialogData)
+			updatePackage[attribute] = attributeArray
+		} else {
+			updatePackage[attribute] = [...character[attribute], dialogData]
+		}
+		await attributeUpdate(updatePackage)
+		handleToggle()
+	}
+
+	const handleDelete = async () => {
+		const updatePackage = {}
+		const attributeArray = character[attribute]
+		const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+		attributeArray.splice(index, 1)
+		updatePackage[attribute] = attributeArray
+		await attributeUpdate(updatePackage)
+		handleToggle()
 	}
 
 	// List of labels for DTA elements
@@ -98,25 +125,23 @@ const DTAForm = (props) => {
 		(attribute !== 'stats' || attribute !== 'attributes')
 	) {
 		deleteButton = (
-			<Button
-				variant="contained"
-				color="secondary"
-				onClick={() => {
-					handleAttributeUpdate(
-						setUserData,
-						userData,
-						characterId,
-						attribute,
-						dialogData,
-						handleToggle,
-						'delete'
-					)
-				}}
-			>
+			<Button variant="contained" color="secondary" onClick={handleDelete}>
 				Delete
 			</Button>
 		)
 	}
+
+	// Error message
+	const errorMessage = (
+		<div>
+			<Typography variant="h2" sx={{ py: 3 }}>
+				Error
+			</Typography>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+				{error}
+			</Typography>
+		</div>
+	)
 
 	return (
 		<Dialog
@@ -174,23 +199,11 @@ const DTAForm = (props) => {
 				>
 					Cancel
 				</Button>
-				<Button
-					variant="contained"
-					onClick={() =>
-						handleAttributeUpdate(
-							setUserData,
-							userData,
-							characterId,
-							attribute,
-							dialogData,
-							handleToggle,
-							dialogType
-						)
-					}
-				>
+				<Button variant="contained" onClick={handleUpdate} disabled={isLoading}>
 					Submit
 				</Button>
 			</DialogActions>
+			{error && errorMessage}
 		</Dialog>
 	)
 }
