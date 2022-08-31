@@ -33,13 +33,13 @@ const UserRow = ({ row }) => {
 		<React.Fragment>
 			<TableRow hover onClick={handleCharacterNavigation}>
 				<TableCell>
-					<IconButton
+					{/* <IconButton
 						aria-label="delete character"
 						size="small"
 						onClick={handleCharacterDelete}
 					>
 						<DeleteIcon />
-					</IconButton>
+					</IconButton> */}
 				</TableCell>
 				<TableCell component="th" scope="row">
 					{row.name}

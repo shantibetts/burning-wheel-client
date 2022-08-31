@@ -1,6 +1,6 @@
 let apiUrl
 const apiUrls = {
-	production: 'https://vast-tundra-01728.herokuapp.com',
+	production: 'https://burning-wheel-community-api.herokuapp.com',
 	development: 'http://localhost:8080'
 	// development: 'https://vast-tundra-01728.herokuapp.com'
 }
