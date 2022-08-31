@@ -14,13 +14,19 @@ const CharacterDetails = () => {
 
 	return (
 		<Paper>
-			<Typography variant="body1">Stock: {character.stock}</Typography>
+			<Typography variant="body1" sx={{ pt: 4 }}>
+				Stock: {character.stock}
+			</Typography>
 			<Typography variant="body1">Age: {character.age}</Typography>
 			<Typography variant="body1">Lifepaths: {lifepaths}</Typography>
-			<Typography variant="h6">Artha</Typography>
+			<Typography variant="h6" sx={{ pt: 2 }}>
+				Artha
+			</Typography>
 			<Typography variant="body1">Fate: {character.artha[0]}</Typography>
 			<Typography variant="body1">Persona: {character.artha[1]}</Typography>
-			<Typography variant="body1">Deeds: {character.artha[2]}</Typography>
+			<Typography variant="body1" sx={{ pb: 4 }}>
+				Deeds: {character.artha[2]}
+			</Typography>
 		</Paper>
 	)
 }

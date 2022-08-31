@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-// import headshot from './../images/shanti.jpg'
+import headshot from '../images/shanti.jpeg'
 
 const About = (props) => {
 	return (
@@ -9,7 +9,7 @@ const About = (props) => {
 			<Typography variant="h2" sx={{ py: 3 }}>
 				About
 			</Typography>
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4, px: 4 }}>
 				The unoficial, online Burning Wheel Gold (+Codex) character sheet.
 				Adapted from the Burning Wheel character sheet PDFs included with
 				Burning Wheel Gold. V1: Display and edit character information according
@@ -20,7 +20,7 @@ const About = (props) => {
 			<Typography variant="h2" sx={{ py: 3 }}>
 				Credits
 			</Typography>
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4, px: 4 }}>
 				Burning Wheel is a fantasy roleplaying game first published in 2002.
 				Since then, the game and its supplements have gone on to win critical
 				notoriety, a handful of awards and respect from the RPG community. In
@@ -48,15 +48,15 @@ const About = (props) => {
 			>
 				Burning Wheel Forums
 			</Button>
-			<Typography variant="body2" sx={{ pt: 2, pb: 4 }}>
+			<Typography variant="body2" sx={{ pt: 2, pb: 4, px: 4 }}>
 				Burning Wheel is copyright © 2022 Luke Crane
 			</Typography>
 			<br />
 			<Typography variant="h2" sx={{ py: 3 }}>
 				About the Author
 			</Typography>
-			{/* <img src={headshot} alt="A headshot of Shanti" /> */}
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+			<img className="portrait" src={headshot} alt="A headshot of Shanti" />
+			<Typography variant="body1" sx={{ pt: 2, pb: 4, px: 4 }}>
 				Shanti Betts is a full stack developer with a background in Mechnaical
 				Engineering and security design. Passionate about leading teams in a
 				collaborative environment to collectively cultivate new products and

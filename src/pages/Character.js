@@ -1,5 +1,8 @@
+import noAvatar from '../images/no-avatar.png'
+
 // Context
 import { useDisplayContext } from '../hooks/useDisplayContext'
+import { useCharactersContext } from '../hooks/useCharactersContext'
 
 // MUI Components
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -12,6 +15,7 @@ import CharacterDetails from '../components/Character/CharacterDetails'
 
 const Character = () => {
 	const { dense, displayDispatch } = useDisplayContext()
+	const { character } = useCharactersContext()
 
 	// Toggle dense padding
 	const handleDenseToggle = () => {
@@ -20,6 +24,11 @@ const Character = () => {
 
 	return (
 		<div>
+			<img
+				className="portrait"
+				src={character.portrait ? character.portrait : noAvatar}
+				alt="A headshot of Shanti"
+			/>
 			<CharacterDetails />
 			<SNDTable type="ND" attribute="beliefs" />
 			<SNDTable type="ND" attribute="instincts" />
