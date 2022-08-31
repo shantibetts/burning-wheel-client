@@ -1,4 +1,4 @@
-import { handleAttributeUpdate, createEmptyTableData } from '../Utils'
+import { createEmptyTableData } from '../Utils'
 
 // Context and Hooks
 import { useCharactersContext } from './../../hooks/useCharactersContext'
@@ -57,9 +57,9 @@ const DTAForm = ({
 
 	const handleUpdate = async () => {
 		const updatePackage = {}
-		if (dialogType == 'edit') {
+		if (dialogType === 'edit') {
 			const attributeArray = character[attribute]
-			const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+			const index = attributeArray.findIndex((a) => a._id === dialogData._id)
 			attributeArray.splice(index, 1, dialogData)
 			updatePackage[attribute] = attributeArray
 		} else {
@@ -72,7 +72,7 @@ const DTAForm = ({
 	const handleDelete = async () => {
 		const updatePackage = {}
 		const attributeArray = character[attribute]
-		const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+		const index = attributeArray.findIndex((a) => a._id === dialogData._id)
 		attributeArray.splice(index, 1)
 		updatePackage[attribute] = attributeArray
 		await attributeUpdate(updatePackage)

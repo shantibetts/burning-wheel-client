@@ -51,9 +51,9 @@ const SNDForm = ({
 	// Functions to update database
 	const handleUpdate = async () => {
 		const updatePackage = {}
-		if (dialogType == 'edit') {
+		if (dialogType === 'edit') {
 			const attributeArray = character[attribute]
-			const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+			const index = attributeArray.findIndex((a) => a._id === dialogData._id)
 			attributeArray.splice(index, 1, dialogData)
 			updatePackage[attribute] = attributeArray
 		} else {
@@ -66,7 +66,7 @@ const SNDForm = ({
 	const handleDelete = async () => {
 		const updatePackage = {}
 		const attributeArray = character[attribute]
-		const index = attributeArray.findIndex((a) => a._id == dialogData._id)
+		const index = attributeArray.findIndex((a) => a._id === dialogData._id)
 		attributeArray.splice(index, 1)
 		updatePackage[attribute] = attributeArray
 		await attributeUpdate(updatePackage)

@@ -1,8 +1,6 @@
-import { useState } from 'react'
 import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
-import { useCharactersContext } from './hooks/useCharactersContext'
 
 // Pages and Components
 import NavBar from './components/NavBar'
@@ -14,7 +12,6 @@ import Signup from './pages/Signup'
 
 function App() {
 	const { user } = useAuthContext()
-	const { character } = useCharactersContext()
 
 	return (
 		<div className="App">
