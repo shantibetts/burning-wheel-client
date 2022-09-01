@@ -1,5 +1,3 @@
-import noAvatar from '../images/no-avatar.png'
-
 // Context
 import { useDisplayContext } from '../hooks/useDisplayContext'
 import { useCharactersContext } from '../hooks/useCharactersContext'
@@ -24,11 +22,6 @@ const Character = () => {
 
 	return (
 		<div>
-			<img
-				className="portrait"
-				src={character.portrait ? character.portrait : noAvatar}
-				alt="A headshot of Shanti"
-			/>
 			<CharacterDetails />
 			<SNDTable type="ND" attribute="beliefs" />
 			<SNDTable type="ND" attribute="instincts" />

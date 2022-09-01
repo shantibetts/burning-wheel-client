@@ -5,6 +5,7 @@ import { useLogin } from './../hooks/useLogin'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import Paper from '@mui/material/Paper'
 
 const Login = (props) => {
 	const [email, setEmail] = useState('')
@@ -22,14 +23,14 @@ const Login = (props) => {
 	}
 
 	return (
-		<div className="home">
+		<Paper className="home">
 			<Typography variant="h2" sx={{ py: 3 }}>
 				Welcome!
 			</Typography>
 			<Typography variant="h4" sx={{ py: 3 }}>
 				What is Burning Wheel?
 			</Typography>
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4, px: 4 }}>
 				Burning Wheel is an award-winning fantasy roleplaying game in which
 				players take on the roles of vibrant, dynamic characters whose very
 				beliefs propel the story forward. Starting with a simple D6 dice pool
@@ -41,7 +42,7 @@ const Login = (props) => {
 			<Typography variant="h4" sx={{ py: 3 }}>
 				Why the Burning Wheel CharSheet?
 			</Typography>
-			<Typography variant="body1" sx={{ pt: 2, pb: 4 }}>
+			<Typography variant="body1" sx={{ pt: 2, pb: 4, px: 4 }}>
 				For all but the simplest role playing games, tracking changes to
 				characters is usually something between a headache and a chore! The
 				complexity and character-driven nature of Burning Wheel makes it all the
@@ -61,7 +62,7 @@ const Login = (props) => {
 			>
 				Try Demo
 			</Button>
-			<form className="login" >
+			<form className="login">
 				<Typography variant="h5" sx={{ pt: 2, pb: 4 }}>
 					Please log in to continue
 				</Typography>
@@ -96,7 +97,7 @@ const Login = (props) => {
 					</Typography>
 				)}
 			</form>
-		</div>
+		</Paper>
 	)
 }
 
