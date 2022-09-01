@@ -1,4 +1,4 @@
-import noAvatar from '../images/no-avatar.png'
+import noAvatar from '../../images/no-avatar.png'
 
 // Context
 import { useCharactersContext } from './../../hooks/useCharactersContext'
