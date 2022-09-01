@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
 // Pages and Components
-import NavBar from './components/NavBar'
+import NavBar from './Components/NavBar'
 import About from './pages/About'
 import Home from './pages/Home'
 import Character from './pages/Character'

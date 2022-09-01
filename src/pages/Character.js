@@ -9,9 +9,9 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
 
 // Components
-import DTATable from '../components/Character/DTATable'
-import SNDTable from '../components/Character/SNDTable'
-import CharacterDetails from '../components/Character/CharacterDetails'
+import DTATable from '../Components/Character/DTATable'
+import SNDTable from '../Components/Character/SNDTable'
+import CharacterDetails from '../Components/Character/CharacterDetails'
 
 const Character = () => {
 	const { dense, displayDispatch } = useDisplayContext()
