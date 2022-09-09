@@ -6,6 +6,7 @@ import { HashRouter } from 'react-router-dom'
 import { CharactersContextProvider } from './context/CharactersContext'
 import { AuthContextProvider } from './context/AuthContext'
 import { DisplayContextProvider } from './context/DisplayContext'
+import { FormContextProvider } from './context/FormContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -13,9 +14,11 @@ root.render(
 		<DisplayContextProvider>
 			<AuthContextProvider>
 				<CharactersContextProvider>
-					<HashRouter>
-						<App />
-					</HashRouter>
+					<FormContextProvider>
+						<HashRouter>
+							<App />
+						</HashRouter>
+					</FormContextProvider>
 				</CharactersContextProvider>
 			</AuthContextProvider>
 		</DisplayContextProvider>

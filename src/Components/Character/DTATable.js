@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { createEmptyTableData } from '../Utils'
+import { createEmptyFormData } from '../Utils'
 
 // Context
 import { useCharactersContext } from './../../hooks/useCharactersContext'
@@ -24,7 +24,7 @@ const DTATable = ({ attribute }) => {
 
 	// State for controlling the Dialogs
 	const [dialogOpen, setDialogOpen] = useState(false)
-	const [dialogData, setDialogData] = useState(createEmptyTableData())
+	const [dialogData, setDialogData] = useState(createEmptyFormData())
 	const [dialogType, setDialogType] = useState('')
 
 	// Open and close the DTA Form

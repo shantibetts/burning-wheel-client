@@ -1,5 +1,8 @@
 import { dieTestArthaCells } from '../TableConfig'
 
+// Context
+import { useFormContext } from '../../hooks/useFormContext'
+
 // MUI Components
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
@@ -9,22 +12,22 @@ import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
 
 const DTATableHead = ({ attribute, tooltip, handleDialogToggle }) => {
-	// Add new button for all but stats table
-	let addButton = (
+	// Form dispatch from context
+	const { formDispatch } = useFormContext()
+
+	// Add new button
+	const addButton = (
 		<Tooltip title={tooltip}>
 			<IconButton onClick={handleDialogToggle}>
 				<AddIcon />
 			</IconButton>
 		</Tooltip>
 	)
-	if (attribute === 'stats') {
-		addButton = ''
-	}
 
 	return (
 		<TableHead>
 			<TableRow>
-				<TableCell>{addButton}</TableCell>
+				<TableCell>{attribute === 'stats' ? '' : addButton}</TableCell>
 				<TableCell />
 				<TableCell align="center" colSpan={3}>
 					Die Pool
@@ -37,9 +40,10 @@ const DTATableHead = ({ attribute, tooltip, handleDialogToggle }) => {
 				</TableCell>
 			</TableRow>
 			<TableRow>
-				{dieTestArthaCells.map((column) => (
-					<TableCell key={column.id} align={column.align}>
-						{column.label}
+				<TableCell />
+				{dieTestArthaCells.map((cell) => (
+					<TableCell key={cell} align="left">
+						{cell === 'Name' ? cell : cell.charAt(0)}
 					</TableCell>
 				))}
 			</TableRow>

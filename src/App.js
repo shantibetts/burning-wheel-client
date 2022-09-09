@@ -1,5 +1,7 @@
 import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom'
+
+// Context
 import { useAuthContext } from './hooks/useAuthContext'
 
 // Pages and Components

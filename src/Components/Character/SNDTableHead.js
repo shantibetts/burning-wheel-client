@@ -1,28 +1,38 @@
 import * as React from 'react'
+import { SNDETableTypes } from '../TableConfig'
+import { capitalize } from '../Utils'
+
+// Context
+import { useFormContext } from '../../hooks/useFormContext'
+
+// MUI Components
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
-import { SNDCTableCells } from '../TableConfig'
 
-const SNDTableHead = ({ type, tooltip, handleDialogToggle }) => {
-	let tableCells = SNDCTableCells()
-	if (type === 'SND') {
-		tableCells.pop()
-	}
-	if (type === 'ND') {
-		tableCells = tableCells.slice(1, 3)
-	}
-	if (type === 'NDC') {
-		tableCells.shift()
-	}
+const SNDTableHead = ({ tooltip, attribute }) => {
+	// Form dispatch from context
+	const { formDispatch } = useFormContext()
+
+	let tableCells = SNDETableTypes[attribute]
 
 	// Remove add new button from stats table
 	let addButton = (
 		<Tooltip title={tooltip}>
-			<IconButton onClick={handleDialogToggle}>
+			<IconButton
+				onClick={() => {
+					formDispatch({
+						type: 'NEW',
+						payload: {
+							formAttribute: attribute,
+							formFields: tableCells
+						}
+					})
+				}}
+			>
 				<AddIcon />
 			</IconButton>
 		</Tooltip>
@@ -32,10 +42,10 @@ const SNDTableHead = ({ type, tooltip, handleDialogToggle }) => {
 		<TableHead>
 			<TableRow>
 				<TableCell>{addButton}</TableCell>
-				{tableCells.map((column) => {
+				{tableCells.map((cell) => {
 					return (
-						<TableCell key={column.id} align={column.align}>
-							{column.label}
+						<TableCell key={cell} align="left">
+							{capitalize(cell)}
 						</TableCell>
 					)
 				})}

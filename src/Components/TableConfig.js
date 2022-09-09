@@ -24,113 +24,16 @@ const userTableHeadCells = [
 
 // List of column names for Die, Test and Artha tables:
 const dieTestArthaCells = [
-	// 	{
-	// 		id: 'name',
-	// 		align: 'left',
-	// 		label: 'Name'
-	// 	},
-	// 	{
-	// 		id: 'shade',
-	// 		align: 'left',
-	// 		label: 'Shade'
-	// 	},
-	// 	{
-	// 		id: 'exponent',
-	// 		align: 'left',
-	// 		label: 'Exponent'
-	// 	},
-	// 	{
-	// 		id: 'tax',
-	// 		align: 'left',
-	// 		label: 'Tax'
-	// 	},
-	// 	{
-	// 		id: 'routine',
-	// 		align: 'left',
-	// 		label: 'Routine'
-	// 	},
-	// 	{
-	// 		id: 'difficult',
-	// 		align: 'left',
-	// 		label: 'Difficult'
-	// 	},
-	// 	{
-	// 		id: 'challenging',
-	// 		align: 'left',
-	// 		label: 'Challenging'
-	// 	},
-	// 	{
-	// 		id: 'fate',
-	// 		align: 'left',
-	// 		label: 'Fate'
-	// 	},
-	// 	{
-	// 		id: 'persona',
-	// 		align: 'left',
-	// 		label: 'Persona'
-	// 	},
-	// 	{
-	// 		id: 'deeds',
-	// 		align: 'left',
-	// 		label: 'Deeds'
-	// 	}
-	// ]
-
-	{
-		id: 'icon',
-		align: 'left',
-		label: ''
-	},
-	{
-		id: 'name',
-		align: 'left',
-		label: 'Name'
-	},
-	{
-		id: 'shade',
-		align: 'left',
-		label: 'S'
-	},
-	{
-		id: 'exponent',
-		align: 'left',
-		label: 'E'
-	},
-	{
-		id: 'tax',
-		align: 'left',
-		label: 'T'
-	},
-	{
-		id: 'routine',
-		align: 'left',
-		label: 'R'
-	},
-	{
-		id: 'difficult',
-		align: 'left',
-		label: 'D'
-	},
-	{
-		id: 'challenging',
-		align: 'left',
-		label: 'C'
-	},
-	{
-		id: 'fate',
-		align: 'left',
-		label: 'F'
-	},
-	{
-		id: 'persona',
-		align: 'left',
-		label: 'P'
-	},
-	{
-		id: 'deeds',
-		align: 'left',
-		label: 'D'
-	}
+	'Name',
+	'Shade',
+	'Exponent',
+	'Tax',
+	'Routine',
+	'Difficult',
+	'Challenging',
+	'Fate',
+	'Persona',
+	'Deeds'
 ]
 
 const skillsLearningCells = [
@@ -191,8 +94,8 @@ const skillsLearningCells = [
 	}
 ]
 
-// List of column names for Strength, Name, Description, CallOn tables:
-const SNDCTableCells = () => [
+// List of column names for Strength, Name, Description, Effect tables:
+const SNDETableCells = () => [
 	{
 		id: 'strength',
 		align: 'left',
@@ -215,9 +118,26 @@ const SNDCTableCells = () => [
 	}
 ]
 
+// SNDE table types
+const ND = ['name', 'description']
+const NDE = ['name', 'description', 'effect']
+const SND = ['strength', 'name', 'description']
+
+const SNDETableTypes = {
+	beliefs: ND,
+	instincts: ND,
+	traits: NDE,
+	relationships: SND,
+	affiliations: SND,
+	titles: SND,
+	funds: SND,
+	aliases: ND
+}
+
 export {
 	userTableHeadCells,
 	dieTestArthaCells,
 	skillsLearningCells,
-	SNDCTableCells
+	SNDETableCells,
+	SNDETableTypes
 }

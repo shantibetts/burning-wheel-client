@@ -1,4 +1,4 @@
-import { createEmptyTableData } from '../Utils'
+import { createEmptyFormData } from '../Utils'
 
 // Context and Hooks
 import { useCharactersContext } from './../../hooks/useCharactersContext'
@@ -147,7 +147,7 @@ const DTAForm = ({
 		<Dialog
 			open={dialogOpen}
 			onClose={() => {
-				setDialogData(createEmptyTableData())
+				setDialogData(createEmptyFormData())
 				setDialogType('')
 				handleToggle()
 			}}
@@ -192,7 +192,7 @@ const DTAForm = ({
 				<Button
 					variant="contained"
 					onClick={() => {
-						setDialogData(createEmptyTableData())
+						setDialogData(createEmptyFormData())
 						setDialogType('')
 						handleToggle()
 					}}

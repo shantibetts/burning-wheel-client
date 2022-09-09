@@ -1,29 +1,21 @@
 import * as React from 'react'
+import { SNDETableTypes } from '../TableConfig'
+
+// Context
+import { useFormContext } from '../../hooks/useFormContext'
+
+// MUI Components
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
-import { SNDCTableCells } from '../TableConfig'
 
-const SNDRow = ({
-	type,
-	attribute,
-	row,
-	handleDialogToggle,
-	setDialogData,
-	setDialogType
-}) => {
+const SNDRow = ({ type, attribute, row }) => {
+	// Form dispatch from context
+	const { formDispatch } = useFormContext()
+
 	// Get list of cells to iterate over
-	let rowCells = SNDCTableCells()
-	if (type === 'SND') {
-		rowCells.pop()
-	}
-	if (type === 'ND') {
-		rowCells = rowCells.slice(1, 3)
-	}
-	if (type === 'NDC') {
-		rowCells.shift()
-	}
+	let rowCells = SNDETableTypes[attribute]
 
 	// Toggle isActive
 	const handleIsActiveToggle = () => {}
@@ -36,28 +28,29 @@ const SNDRow = ({
 						aria-label="edit row"
 						size="small"
 						onClick={() => {
-							handleDialogToggle()
-							setDialogData(row)
-							setDialogType('edit')
+							formDispatch({
+								type: 'EDIT',
+								payload: {
+									formAttribute: attribute,
+									formFields: rowCells,
+									formData: row
+								}
+							})
 						}}
 					>
 						<EditIcon />
 					</IconButton>
 				</TableCell>
 				{rowCells.map((cell, i) => {
-					if (cell.id === 'strength') {
+					if (cell === 'strength') {
 						return (
-							<TableCell key={i} align={cell.align}>
+							<TableCell key={i} align="left">
 								{row.shade + row.exponent}
 							</TableCell>
 						)
-					} else if (cell.id === 'description' && attribute === 'beliefs') {
+					} else if (cell === 'description' && attribute === 'beliefs') {
 						return (
-							<TableCell
-								key={i}
-								align={cell.align}
-								onClick={handleIsActiveToggle}
-							>
+							<TableCell key={i} align="left" onClick={handleIsActiveToggle}>
 								{row.description}{' '}
 								<span
 									style={{
@@ -70,8 +63,8 @@ const SNDRow = ({
 						)
 					} else {
 						return (
-							<TableCell key={i} align={cell.align}>
-								{row[cell.id]}
+							<TableCell key={i} align="left">
+								{row[cell]}
 							</TableCell>
 						)
 					}

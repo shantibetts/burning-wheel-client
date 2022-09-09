@@ -2,6 +2,7 @@ import * as React from 'react'
 import { dieTestArthaCells, skillsLearningCells } from '../TableConfig'
 
 // Context
+import { useFormContext } from '../../hooks/useFormContext'
 
 // MUI Components
 import TableCell from '@mui/material/TableCell'
@@ -10,18 +11,16 @@ import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
 import Tooltip from '@mui/material/Tooltip'
 
-const DTARow = ({
-	attribute,
-	row,
-	handleDialogToggle,
-	setDialogData,
-	setDialogType
-}) => {
+const DTARow = ({ attribute, row }) => {
+	// Form context
+	const { formDispatch } = useFormContext()
+
 	// Get list of cells to iterate over
-	let rowCells = dieTestArthaCells.slice(1)
+	let rowCells = dieTestArthaCells
 	if (attribute === 'skillsLearning') {
-		rowCells = skillsLearningCells.slice(1)
+		rowCells = skillsLearningCells.splice()
 	}
+
 	return (
 		<React.Fragment>
 			<TableRow hover>
@@ -31,9 +30,14 @@ const DTARow = ({
 							aria-label="edit row"
 							size="small"
 							onClick={() => {
-								handleDialogToggle()
-								setDialogData(row)
-								setDialogType('edit')
+								formDispatch({
+									type: 'EDIT',
+									payload: {
+										formAttribute: attribute,
+										formFields: rowCells,
+										formData: row
+									}
+								})
 							}}
 						>
 							<EditIcon />

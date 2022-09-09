@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { createEmptyTableData } from '../Utils'
-
 // Context
 import { useCharactersContext } from './../../hooks/useCharactersContext'
 import { useDisplayContext } from '../../hooks/useDisplayContext'
@@ -16,21 +13,10 @@ import Typography from '@mui/material/Typography'
 // Components
 import SNDRow from './SNDRow'
 import SNDTableHead from './SNDTableHead'
-import SNDForm from './SNDForm'
 
-const SNDTable = ({ type, attribute }) => {
+const SNDTable = ({ attribute }) => {
 	const { character } = useCharactersContext()
 	const { dense } = useDisplayContext()
-
-	// State for controlling the Dialogs
-	const [dialogOpen, setDialogOpen] = useState(false)
-	const [dialogData, setDialogData] = useState(createEmptyTableData())
-	const [dialogType, setDialogType] = useState('')
-
-	// Open and close the SND Form
-	const handleDialogToggle = () => {
-		setDialogOpen(!dialogOpen)
-	}
 
 	// Title for table and add new button
 	let displayTitle = attribute.charAt(0).toUpperCase() + attribute.slice(1)
@@ -56,37 +42,15 @@ const SNDTable = ({ type, attribute }) => {
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<SNDTableHead
-						type={type}
-						tooltip={tooltip}
-						handleDialogToggle={handleDialogToggle}
-					/>
+					<SNDTableHead tooltip={tooltip} attribute={attribute} />
 					<TableBody>
 						{character[attribute].map((row, i) => (
-							<SNDRow
-								key={i}
-								type={type}
-								attribute={attribute}
-								row={row}
-								handleDialogToggle={handleDialogToggle}
-								setDialogData={setDialogData}
-								setDialogType={setDialogType}
-							/>
+							<SNDRow key={i} attribute={attribute} row={row} />
 						))}
 						<TableRow />
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<SNDForm
-				type={type}
-				attribute={attribute}
-				dialogOpen={dialogOpen}
-				handleToggle={handleDialogToggle}
-				dialogType={dialogType}
-				setDialogType={setDialogType}
-				dialogData={dialogData}
-				setDialogData={setDialogData}
-			/>
 		</Paper>
 	)
 }

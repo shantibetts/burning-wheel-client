@@ -1,6 +1,6 @@
 // Context
 import { useDisplayContext } from '../hooks/useDisplayContext'
-import { useCharactersContext } from '../hooks/useCharactersContext'
+import { useFormContext } from '../hooks/useFormContext'
 
 // MUI Components
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -10,10 +10,11 @@ import Switch from '@mui/material/Switch'
 import DTATable from '../Components/Character/DTATable'
 import SNDTable from '../Components/Character/SNDTable'
 import CharacterDetails from '../Components/Character/CharacterDetails'
+import AttributeForm from '../Components/Character/AttributeForm'
 
 const Character = () => {
 	const { dense, displayDispatch } = useDisplayContext()
-	const { character } = useCharactersContext()
+	const { formOpen } = useFormContext()
 
 	// Toggle dense padding
 	const handleDenseToggle = () => {
@@ -23,22 +24,23 @@ const Character = () => {
 	return (
 		<div>
 			<CharacterDetails />
-			<SNDTable type="ND" attribute="beliefs" />
-			<SNDTable type="ND" attribute="instincts" />
-			<SNDTable type="NDC" attribute="traits" />
+			<SNDTable attribute="beliefs" />
+			<SNDTable attribute="instincts" />
+			<SNDTable attribute="traits" />
 			<DTATable attribute="stats" />
 			<DTATable attribute="attributes" />
 			<DTATable attribute="skills" />
 			<DTATable attribute="skillsLearning" />
-			<SNDTable type="SND" attribute="relationships" />
-			<SNDTable type="SND" attribute="affiliations" />
-			<SNDTable type="SND" attribute="titles" />
-			<SNDTable type="SND" attribute="funds" />
-			<SNDTable type="ND" attribute="aliases" />
+			<SNDTable attribute="relationships" />
+			<SNDTable attribute="affiliations" />
+			<SNDTable attribute="titles" />
+			<SNDTable attribute="funds" />
+			<SNDTable attribute="aliases" />
 			<FormControlLabel
 				control={<Switch checked={dense} onChange={handleDenseToggle} />}
 				label="Dense padding"
 			/>
+			<AttributeForm />
 		</div>
 	)
 }
