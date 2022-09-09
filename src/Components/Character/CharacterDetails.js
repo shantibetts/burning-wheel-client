@@ -1,3 +1,5 @@
+import noAvatar from '../../images/no-avatar.png'
+
 // Context
 import { useCharactersContext } from './../../hooks/useCharactersContext'
 
@@ -13,7 +15,12 @@ const CharacterDetails = () => {
 	const lifepaths = lifepathArr.join(', ')
 
 	return (
-		<Paper>
+		<Paper sx={{ pt: 4 }}>
+			<img
+				className="portrait"
+				src={character.portrait ? character.portrait : noAvatar}
+				alt={`A portrait of ${character.name}`}
+			/>
 			<Typography variant="body1" sx={{ pt: 4 }}>
 				Stock: {character.stock}
 			</Typography>

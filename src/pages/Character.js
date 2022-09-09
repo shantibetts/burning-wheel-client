@@ -1,5 +1,3 @@
-import noAvatar from '../images/no-avatar.png'
-
 // Context
 import { useDisplayContext } from '../hooks/useDisplayContext'
 import { useCharactersContext } from '../hooks/useCharactersContext'
@@ -9,9 +7,9 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
 
 // Components
-import DTATable from '../components/Character/DTATable'
-import SNDTable from '../components/Character/SNDTable'
-import CharacterDetails from '../components/Character/CharacterDetails'
+import DTATable from '../Components/Character/DTATable'
+import SNDTable from '../Components/Character/SNDTable'
+import CharacterDetails from '../Components/Character/CharacterDetails'
 
 const Character = () => {
 	const { dense, displayDispatch } = useDisplayContext()
@@ -24,11 +22,6 @@ const Character = () => {
 
 	return (
 		<div>
-			<img
-				className="portrait"
-				src={character.portrait ? character.portrait : noAvatar}
-				alt="A headshot of Shanti"
-			/>
 			<CharacterDetails />
 			<SNDTable type="ND" attribute="beliefs" />
 			<SNDTable type="ND" attribute="instincts" />

@@ -5,7 +5,7 @@ import {
 	handleRequestSort,
 	handleChangePage,
 	handleChangeRowsPerPage
-} from '../components/Utils'
+} from '../Components/Utils'
 
 // Context
 import { useCharactersContext } from '../hooks/useCharactersContext'
@@ -26,9 +26,9 @@ import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
 
 // Components
-import TableHeader from '../components/TableHeader'
-import UserRow from '../components/UserRow'
-import TableToolbar from '../components/TableToolbar'
+import TableHeader from '../Components/TableHeader'
+import UserRow from '../Components/UserRow'
+import TableToolbar from '../Components/TableToolbar'
 
 const Home = ({ setCharacterId }) => {
 	// Get context
