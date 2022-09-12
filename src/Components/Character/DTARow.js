@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TableTypes } from '../TableConfig'
+import { characterTableCells } from '../TableConfig'
 
 // Context
 import { useFormContext } from '../../hooks/useFormContext'
@@ -16,7 +16,7 @@ const DTARow = ({ attribute, row }) => {
 	const { formDispatch } = useFormContext()
 
 	// Get list of cells to iterate over
-	let rowCells = TableTypes[attribute]
+	let rowCells = characterTableCells[attribute]
 
 	return (
 		<React.Fragment>
@@ -43,13 +43,20 @@ const DTARow = ({ attribute, row }) => {
 				{rowCells.map((cell, i) => {
 					if (cell === '') {
 						return <TableCell key={i} />
-					} else {
+					}
+					if (cell === 'strength') {
 						return (
 							<TableCell key={i} align="left">
-								{row[cell]}
+								{row.shade + row.exponent}
 							</TableCell>
 						)
 					}
+
+					return (
+						<TableCell key={i} align="left">
+							{row[cell]}
+						</TableCell>
+					)
 				})}
 			</TableRow>
 		</React.Fragment>

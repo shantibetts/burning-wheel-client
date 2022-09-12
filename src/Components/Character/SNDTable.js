@@ -20,11 +20,6 @@ const SNDTable = ({ attribute }) => {
 
 	// Title for table and add new button
 	let displayTitle = attribute.charAt(0).toUpperCase() + attribute.slice(1)
-	let tooltip = 'Add new ' + attribute.slice(0, -1)
-	if (attribute === 'SkillsLearning') {
-		tooltip = 'Add new skill'
-		displayTitle = 'Skills Being Learned'
-	}
 
 	return (
 		<Paper sx={{ width: '100%', mb: 2 }}>
@@ -42,7 +37,7 @@ const SNDTable = ({ attribute }) => {
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<SNDTableHead tooltip={tooltip} attribute={attribute} />
+					<SNDTableHead attribute={attribute} />
 					<TableBody>
 						{character[attribute].map((row, i) => (
 							<SNDRow key={i} attribute={attribute} row={row} />

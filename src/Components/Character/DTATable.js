@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { createEmptyFormData } from '../Utils'
-
 // Context
 import { useCharactersContext } from './../../hooks/useCharactersContext'
 import { useDisplayContext } from '../../hooks/useDisplayContext'
@@ -16,27 +13,14 @@ import Typography from '@mui/material/Typography'
 // Components
 import DTARow from './DTARow'
 import DTATableHead from './DTATableHead'
-import DTAForm from './DTAForm'
 
 const DTATable = ({ attribute }) => {
 	const { character } = useCharactersContext()
 	const { dense } = useDisplayContext()
 
-	// State for controlling the Dialogs
-	const [dialogOpen, setDialogOpen] = useState(false)
-	const [dialogData, setDialogData] = useState(createEmptyFormData())
-	const [dialogType, setDialogType] = useState('')
-
-	// Open and close the DTA Form
-	const handleDialogToggle = () => {
-		setDialogOpen(!dialogOpen)
-	}
-
 	// Title for table and add new button
 	let displayTitle = attribute.charAt(0).toUpperCase() + attribute.slice(1)
-	let tooltip = 'Add new ' + attribute.slice(0, -1)
 	if (attribute === 'skillsLearning') {
-		tooltip = 'Add new skill'
 		displayTitle = 'Skills Being Learned'
 	}
 
@@ -56,35 +40,15 @@ const DTATable = ({ attribute }) => {
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
-					<DTATableHead
-						attribute={attribute}
-						tooltip={tooltip}
-						handleDialogToggle={handleDialogToggle}
-					/>
+					<DTATableHead attribute={attribute} />
 					<TableBody>
 						{character[attribute].map((row, i) => (
-							<DTARow
-								key={i}
-								attribute={attribute}
-								row={row}
-								handleDialogToggle={handleDialogToggle}
-								setDialogData={setDialogData}
-								setDialogType={setDialogType}
-							/>
+							<DTARow key={i} attribute={attribute} row={row} />
 						))}
 						<TableRow />
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<DTAForm
-				attribute={attribute}
-				dialogOpen={dialogOpen}
-				handleToggle={handleDialogToggle}
-				dialogType={dialogType}
-				setDialogType={setDialogType}
-				dialogData={dialogData}
-				setDialogData={setDialogData}
-			/>
 		</Paper>
 	)
 }

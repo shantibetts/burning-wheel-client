@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TableTypes } from '../TableConfig'
+import { characterTableCells } from '../TableConfig'
 import { capitalize } from '../Utils'
 
 // Context
@@ -13,11 +13,13 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
 
-const SNDTableHead = ({ tooltip, attribute }) => {
+const SNDTableHead = ({ attribute }) => {
 	// Form dispatch from context
 	const { formDispatch } = useFormContext()
 
-	let tableCells = TableTypes[attribute]
+	// Table head constants
+	let tableCells = characterTableCells[attribute]
+	let tooltip = 'Add new ' + attribute.slice(0, -1)
 
 	// Remove add new button from stats table
 	let addButton = (

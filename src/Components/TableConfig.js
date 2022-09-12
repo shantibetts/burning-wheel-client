@@ -9,8 +9,7 @@ export const userTableCells = [
 // DTA table types
 const DTA = [
 	'name',
-	'shade',
-	'exponent',
+	'strength',
 	'tax',
 	'routine',
 	'difficult',
@@ -23,7 +22,6 @@ const skillsLearning = [
 	'name',
 	'',
 	'',
-	'',
 	'routine',
 	'',
 	'',
@@ -31,16 +29,28 @@ const skillsLearning = [
 	'persona',
 	'deeds'
 ]
-
 // SNDE table types
 const ND = ['name', 'description']
 const NDE = ['name', 'description', 'effect']
 const SND = ['strength', 'name', 'description']
-const beliefs = ['name', 'description', 'action', 'active']
+// Form specific types
+const DTAForm = [
+	'name',
+	'shade',
+	'exponent',
+	'tax',
+	'routine',
+	'difficult',
+	'challenging',
+	'fate',
+	'persona',
+	'deeds'
+]
+const beliefs = ['name', 'description', 'action', 'isActive']
 const SEND = ['shade', 'exponent', 'name', 'description']
 
 // Lookup column/cell names by table type
-export const TableTypes = {
+export const characterTableCells = {
 	stats: DTA,
 	attributes: DTA,
 	skills: DTA,
@@ -55,10 +65,10 @@ export const TableTypes = {
 	aliases: ND
 }
 
-export const formTypes = {
-	stats: DTA,
-	attributes: DTA,
-	skills: DTA,
+export const characterFormCells = {
+	stats: DTAForm,
+	attributes: DTAForm,
+	skills: DTAForm,
 	skillsLearning: skillsLearning,
 	beliefs: beliefs,
 	instincts: ND,

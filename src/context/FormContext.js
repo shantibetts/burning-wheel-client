@@ -12,15 +12,15 @@ export const formReducer = (state, action) => {
 			newState.formOpen = true
 			newState.formType = 'NEW'
 			newState.formAttribute = action.payload.formAttribute
-			newState.formFields = action.payload.formFields
 			return newState
 		case 'EDIT':
 			newState.formOpen = true
 			newState.formType = 'EDIT'
 			newState.formAttribute = action.payload.formAttribute
-			newState.formFields = action.payload.formFields
 			newState.formData = action.payload.formData
 			return newState
+		case 'DATA_UPDATE':
+			newState.formData = action.payload.formData
 		case 'CLOSE':
 			newState.formOpen = false
 			newState.formType = ''
@@ -39,7 +39,6 @@ export const FormContextProvider = ({ children }) => {
 		formOpen: false,
 		formType: '',
 		formAttribute: '',
-		formFields: [],
 		formData: createEmptyFormData()
 	})
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TableTypes } from '../TableConfig'
+import { characterTableCells } from '../TableConfig'
 
 // Context
 import { useFormContext } from '../../hooks/useFormContext'
@@ -10,12 +10,12 @@ import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
 
-const SNDRow = ({ type, attribute, row }) => {
+const SNDRow = ({ attribute, row }) => {
 	// Form dispatch from context
 	const { formDispatch } = useFormContext()
 
 	// Get list of cells to iterate over
-	let rowCells = TableTypes[attribute]
+	let rowCells = characterTableCells[attribute]
 
 	// Toggle isActive
 	const handleIsActiveToggle = () => {}
@@ -32,11 +32,9 @@ const SNDRow = ({ type, attribute, row }) => {
 								type: 'EDIT',
 								payload: {
 									formAttribute: attribute,
-									formFields: rowCells,
 									formData: row
 								}
 							})
-							console.log(row)
 						}}
 					>
 						<EditIcon />

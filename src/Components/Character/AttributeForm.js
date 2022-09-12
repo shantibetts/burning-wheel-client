@@ -1,5 +1,7 @@
-import { camelize, capitalize } from '../Utils'
-import { formTypes } from '../TableConfig'
+import * as React from 'react'
+import { useState, useEffect } from 'react'
+import { capitalize } from '../Utils'
+import { characterFormCells } from '../TableConfig'
 
 // Context and Hooks
 import { useCharactersContext } from '../../hooks/useCharactersContext'
@@ -16,12 +18,23 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import FormControl from '@mui/material/FormControl'
 
 const AttributeForm = () => {
 	const { character } = useCharactersContext()
 	const { attributeUpdate, error, isLoading } = useAttributeUpdate()
 	const { formDispatch, formData, formType, formOpen, formAttribute } =
 		useFormContext()
+	// create local state to handle form updates
+	const [data, setData] = useState(formData)
+
+	// update state whenever formData is updated
+	useEffect(() => {
+		setData(formData)
+	}, [formData])
 
 	// Create form title:
 	let formTitle = formAttribute.slice(0, -1)
@@ -30,32 +43,37 @@ const AttributeForm = () => {
 	}
 
 	// Get list of fields for form
-	const formFields = formTypes[formAttribute]
+	const formFields = characterFormCells[formAttribute]
 
-	// Functions to change formData state
+	// Functions to change data state
 	const handleValuesChange = (e, field) => {
-		const newData = { ...formData }
-		newData[field.toLowerCase()] = parseInt(e.target.value)
+		const newData = { ...data }
+		newData[field] = parseInt(e.target.value)
 			? parseInt(e.target.value)
 			: e.target.value
-		formDispatch({ type: 'DATA_UPDATE', payload: newData })
+		setData(newData)
 	}
 	const handleIsActiveToggle = () => {
-		const newData = { ...formData }
+		const newData = { ...data }
 		newData.isActive = !newData.isActive
-		formDispatch({ type: 'DATA_UPDATE', payload: newData })
+		setData(newData)
+	}
+	const handleShadeChange = (e) => {
+		const newData = { ...data }
+		newData.shade = e.target.value
+		setData(newData)
 	}
 
 	// Functions to update database
 	const handleUpdate = async () => {
 		const updatePackage = {}
-		if (formType === 'edit') {
+		if (formType === 'EDIT') {
 			const attributeArray = character[formAttribute]
-			const index = attributeArray.findIndex((a) => a._id === formData._id)
-			attributeArray.splice(index, 1, formData)
+			const index = attributeArray.findIndex((a) => a._id === data._id)
+			attributeArray.splice(index, 1, data)
 			updatePackage[formAttribute] = attributeArray
 		} else {
-			updatePackage[formAttribute] = [...character[formAttribute], formData]
+			updatePackage[formAttribute] = [...character[formAttribute], data]
 		}
 		await attributeUpdate(updatePackage)
 		formDispatch({ type: 'CLOSE', payload: null })
@@ -64,7 +82,7 @@ const AttributeForm = () => {
 	const handleDelete = async () => {
 		const updatePackage = {}
 		const attributeArray = character[formAttribute]
-		const index = attributeArray.findIndex((a) => a._id === formData._id)
+		const index = attributeArray.findIndex((a) => a._id === data._id)
 		attributeArray.splice(index, 1)
 		updatePackage[formAttribute] = attributeArray
 		await attributeUpdate(updatePackage)
@@ -73,7 +91,11 @@ const AttributeForm = () => {
 
 	// Add delete button to edit dialog
 	let deleteButton = ''
-	if (formType === 'edit') {
+	if (
+		formType === 'EDIT' &&
+		formAttribute !== 'stats' &&
+		formAttribute !== 'attributes'
+	) {
 		deleteButton = (
 			<Button variant="contained" color="secondary" onClick={handleDelete}>
 				Delete
@@ -89,7 +111,7 @@ const AttributeForm = () => {
 			}}
 		>
 			<DialogTitle>
-				{formType === 'edit' ? `Edit ${formTitle}` : `Add new ${formTitle}`}
+				{formType === 'EDIT' ? `Edit ${formTitle}` : `Add new ${formTitle}`}
 			</DialogTitle>
 			<DialogContent>
 				<Box
@@ -102,29 +124,48 @@ const AttributeForm = () => {
 				>
 					{formFields &&
 						formFields.map((field, i) => {
-							if (field === 'active') {
+							if (field === 'isActive') {
 								return (
 									<FormControlLabel
 										key={i}
 										control={
 											<Checkbox
-												checked={formData.isActive}
+												checked={data.isActive}
 												onChange={handleIsActiveToggle}
 											/>
 										}
-										label={capitalize(field)}
+										label="Active"
 									/>
 								)
-							} else {
+							}
+							if (field === 'shade') {
+								return (
+									<FormControl fullWidth>
+										<InputLabel id="shade-select-label">Shade</InputLabel>
+										<Select
+											labelId="shade-select-label"
+											id="shade-select"
+											defaultValue="Black"
+											value={data.shade}
+											label="Shade"
+											onChange={(e) => handleShadeChange(e)}
+										>
+											<MenuItem value={'B'}>Black</MenuItem>
+											<MenuItem value={'G'}>Grey</MenuItem>
+											<MenuItem value={'W'}>White</MenuItem>
+										</Select>
+									</FormControl>
+								)
+							}
+							if (field !== '') {
 								return (
 									<TextField
 										key={i}
 										label={capitalize(field)}
-										value={formData[camelize(field)]}
+										value={data[field]}
 										variant="outlined"
-										onChange={(event) =>
-											handleValuesChange(event, camelize(field))
-										}
+										multiline
+										onChange={(e) => handleValuesChange(e, field)}
 									/>
 								)
 							}
