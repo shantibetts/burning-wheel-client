@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SNDETableTypes } from '../TableConfig'
+import { SNDETypes } from '../TableConfig'
 import { capitalize } from '../Utils'
 
 // Context
@@ -17,7 +17,7 @@ const SNDTableHead = ({ tooltip, attribute }) => {
 	// Form dispatch from context
 	const { formDispatch } = useFormContext()
 
-	let tableCells = SNDETableTypes[attribute]
+	let tableCells = SNDETypes[attribute]
 
 	// Remove add new button from stats table
 	let addButton = (

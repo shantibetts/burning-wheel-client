@@ -1,4 +1,4 @@
-import { dieTestArthaCells } from '../TableConfig'
+import { DTACells } from '../TableConfig'
 
 // Context
 import { useFormContext } from '../../hooks/useFormContext'
@@ -41,7 +41,7 @@ const DTATableHead = ({ attribute, tooltip, handleDialogToggle }) => {
 			</TableRow>
 			<TableRow>
 				<TableCell />
-				{dieTestArthaCells.map((cell) => (
+				{DTACells.map((cell) => (
 					<TableCell key={cell} align="left">
 						{cell === 'Name' ? cell : cell.charAt(0)}
 					</TableCell>

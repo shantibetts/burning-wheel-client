@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SNDETableTypes } from '../TableConfig'
+import { SNDETypes } from '../TableConfig'
 
 // Context
 import { useFormContext } from '../../hooks/useFormContext'
@@ -15,7 +15,7 @@ const SNDRow = ({ type, attribute, row }) => {
 	const { formDispatch } = useFormContext()
 
 	// Get list of cells to iterate over
-	let rowCells = SNDETableTypes[attribute]
+	let rowCells = SNDETypes[attribute]
 
 	// Toggle isActive
 	const handleIsActiveToggle = () => {}

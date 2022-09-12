@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { dieTestArthaCells, skillsLearningCells } from '../TableConfig'
+import { DTACells, skillsLearningCells } from '../TableConfig'
 
 // Context
 import { useFormContext } from '../../hooks/useFormContext'
@@ -16,9 +16,9 @@ const DTARow = ({ attribute, row }) => {
 	const { formDispatch } = useFormContext()
 
 	// Get list of cells to iterate over
-	let rowCells = dieTestArthaCells
+	let rowCells = DTACells
 	if (attribute === 'skillsLearning') {
-		rowCells = skillsLearningCells.splice()
+		rowCells = skillsLearningCells
 	}
 
 	return (
@@ -45,12 +45,12 @@ const DTARow = ({ attribute, row }) => {
 					</Tooltip>
 				</TableCell>
 				{rowCells.map((cell, i) => {
-					if (cell.id === 'empty') {
+					if (cell === '') {
 						return <TableCell key={i} />
 					} else {
 						return (
-							<TableCell key={i} align={cell.align}>
-								{row[cell.id]}
+							<TableCell key={i} align="left">
+								{row[cell.toLowerCase()]}
 							</TableCell>
 						)
 					}

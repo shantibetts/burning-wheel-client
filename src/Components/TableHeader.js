@@ -1,10 +1,13 @@
+import { userTableCells } from './TableConfig'
+import { camelize } from './Utils'
+
+// MUI components
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { visuallyHidden } from '@mui/utils'
 import TableSortLabel from '@mui/material/TableSortLabel'
 import Box from '@mui/material/Box'
 import TableCell from '@mui/material/TableCell'
-import { userTableHeadCells } from './TableConfig'
 
 // Creates the Table Heading with sort and list functionality
 const TableHeader = (props) => {
@@ -19,23 +22,22 @@ const TableHeader = (props) => {
 			<TableRow>
 				<TableCell />
 				{/* This maps through the headCells array to create each header */}
-				{userTableHeadCells.map((headCell) => (
+				{userTableCells.map((cell, i) => (
 					// Creates the Header itself
 					<TableCell
-						key={headCell.id}
-						align={headCell.align}
-						padding={headCell.disablePadding ? 'none' : 'normal'}
-						sortDirection={orderBy === headCell.id ? order : false}
+						key={i}
+						align="left"
+						sortDirection={orderBy === camelize(cell) ? order : false}
 					>
 						{/* This is the sort label, where and what direction */}
 						<TableSortLabel
-							active={orderBy === headCell.id}
-							direction={orderBy === headCell.id ? order : 'asc'}
-							onClick={createSortHandler(headCell.id)}
+							active={orderBy === camelize(cell)}
+							direction={orderBy === camelize(cell) ? order : 'asc'}
+							onClick={createSortHandler(camelize(cell))}
 						>
 							{/* This is the actual name of the heading */}
-							{headCell.label}
-							{orderBy === headCell.id ? (
+							{cell}
+							{orderBy === camelize(cell) ? (
 								<Box component="span" sx={visuallyHidden}>
 									{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
 								</Box>
