@@ -56,7 +56,17 @@ const DTATableHead = ({ attribute }) => {
 			<TableRow>
 				<TableCell />
 				{characterTableCells[attribute].map((cell, i) => (
-					<TableCell key={i} align="left">
+					<TableCell
+						key={i}
+						align="left"
+						className={
+							cell === 'routine' ||
+							cell === 'difficult' ||
+							cell === 'challenging'
+								? 'rgb'
+								: ''
+						}
+					>
 						{cell === 'name' ? capitalize(cell) : cell.charAt(0).toUpperCase()}
 					</TableCell>
 				))}

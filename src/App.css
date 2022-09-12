@@ -45,3 +45,7 @@
 	border-color: black;
 	border-radius: 100%;
 }
+
+.rgb {
+	background-color: rgb(25, 118, 210, 0.2);
+}

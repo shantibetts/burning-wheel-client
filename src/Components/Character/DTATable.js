@@ -36,7 +36,7 @@ const DTATable = ({ attribute }) => {
 			</Typography>
 			<TableContainer>
 				<Table
-					sx={{ minWidth: 370 }}
+					sx={{ minWidth: 370, borderCollapse: 'collapse' }}
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>

@@ -53,7 +53,17 @@ const DTARow = ({ attribute, row }) => {
 					}
 
 					return (
-						<TableCell key={i} align="left">
+						<TableCell
+							key={i}
+							align="left"
+							className={
+								cell === 'routine' ||
+								cell === 'difficult' ||
+								cell === 'challenging'
+									? 'rgb'
+									: ''
+							}
+						>
 							{row[cell]}
 						</TableCell>
 					)
