@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { DTACells, skillsLearningCells } from '../TableConfig'
+import { TableTypes } from '../TableConfig'
 
 // Context
 import { useFormContext } from '../../hooks/useFormContext'
@@ -16,10 +16,7 @@ const DTARow = ({ attribute, row }) => {
 	const { formDispatch } = useFormContext()
 
 	// Get list of cells to iterate over
-	let rowCells = DTACells
-	if (attribute === 'skillsLearning') {
-		rowCells = skillsLearningCells
-	}
+	let rowCells = TableTypes[attribute]
 
 	return (
 		<React.Fragment>
@@ -34,7 +31,6 @@ const DTARow = ({ attribute, row }) => {
 									type: 'EDIT',
 									payload: {
 										formAttribute: attribute,
-										formFields: rowCells,
 										formData: row
 									}
 								})
@@ -50,7 +46,7 @@ const DTARow = ({ attribute, row }) => {
 					} else {
 						return (
 							<TableCell key={i} align="left">
-								{row[cell.toLowerCase()]}
+								{row[cell]}
 							</TableCell>
 						)
 					}

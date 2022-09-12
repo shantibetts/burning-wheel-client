@@ -1,4 +1,5 @@
-import { camelize, createEmptyTableData } from '../Utils'
+import { camelize, capitalize } from '../Utils'
+import { formTypes } from '../TableConfig'
 
 // Context and Hooks
 import { useCharactersContext } from '../../hooks/useCharactersContext'
@@ -19,20 +20,17 @@ import Checkbox from '@mui/material/Checkbox'
 const AttributeForm = () => {
 	const { character } = useCharactersContext()
 	const { attributeUpdate, error, isLoading } = useAttributeUpdate()
-	const {
-		formDispatch,
-		formData,
-		formFields,
-		formType,
-		formOpen,
-		formAttribute
-	} = useFormContext()
+	const { formDispatch, formData, formType, formOpen, formAttribute } =
+		useFormContext()
 
 	// Create form title:
-	let dialogTitle = formAttribute.slice(0, -1)
+	let formTitle = formAttribute.slice(0, -1)
 	if (formAttribute === 'aliases') {
-		dialogTitle = 'alias'
+		formTitle = 'alias'
 	}
+
+	// Get list of fields for form
+	const formFields = formTypes[formAttribute]
 
 	// Functions to change formData state
 	const handleValuesChange = (e, field) => {
@@ -73,21 +71,6 @@ const AttributeForm = () => {
 		formDispatch({ type: 'CLOSE', payload: null })
 	}
 
-	// // List of labels for standard SND form
-	// let SNDlist = ['Shade', 'Exponent', 'Name', 'Description']
-	// // update SND list to standard ND form
-	// if (type === 'ND') {
-	// 	SNDlist.splice(0, 2)
-	// }
-	// // List of labels for Traits form
-	// if (attribute === 'traits') {
-	// 	SNDlist = ['Name', 'Description', 'Effect']
-	// }
-	// // List of labels for Beliefs form
-	// if (attribute === 'beliefs') {
-	// 	SNDlist = ['Name', 'Description', 'Action', 'Active']
-	// }
-
 	// Add delete button to edit dialog
 	let deleteButton = ''
 	if (formType === 'edit') {
@@ -106,7 +89,7 @@ const AttributeForm = () => {
 			}}
 		>
 			<DialogTitle>
-				{formType === 'edit' ? `Edit ${dialogTitle}` : `Add new ${dialogTitle}`}
+				{formType === 'edit' ? `Edit ${formTitle}` : `Add new ${formTitle}`}
 			</DialogTitle>
 			<DialogContent>
 				<Box
@@ -117,35 +100,35 @@ const AttributeForm = () => {
 					noValidate
 					autoComplete="off"
 				>
-					{formFields.map((field) => {
-						if (field === 'Active') {
-							return (
-								<FormControlLabel
-									key={field}
-									control={
-										<Checkbox
-											checked={formData.isActive}
-											onChange={handleIsActiveToggle}
-										/>
-									}
-									label={field}
-								/>
-							)
-						} else {
-							return (
-								<TextField
-									key={field}
-									id={field}
-									label={field}
-									value={formData[camelize(field)]}
-									variant="outlined"
-									onChange={(event) =>
-										handleValuesChange(event, camelize(field))
-									}
-								/>
-							)
-						}
-					})}
+					{formFields &&
+						formFields.map((field, i) => {
+							if (field === 'active') {
+								return (
+									<FormControlLabel
+										key={i}
+										control={
+											<Checkbox
+												checked={formData.isActive}
+												onChange={handleIsActiveToggle}
+											/>
+										}
+										label={capitalize(field)}
+									/>
+								)
+							} else {
+								return (
+									<TextField
+										key={i}
+										label={capitalize(field)}
+										value={formData[camelize(field)]}
+										variant="outlined"
+										onChange={(event) =>
+											handleValuesChange(event, camelize(field))
+										}
+									/>
+								)
+							}
+						})}
 				</Box>
 			</DialogContent>
 			<DialogActions>

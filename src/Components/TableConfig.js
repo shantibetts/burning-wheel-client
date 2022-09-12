@@ -6,38 +6,45 @@ export const userTableCells = [
 	'Last Change'
 ]
 
-// List of column names for Die, Test and Artha tables:
-export const DTACells = [
-	'Name',
-	'Shade',
-	'Exponent',
-	'Tax',
-	'Routine',
-	'Difficult',
-	'Challenging',
-	'Fate',
-	'Persona',
-	'Deeds'
+// DTA table types
+const DTA = [
+	'name',
+	'shade',
+	'exponent',
+	'tax',
+	'routine',
+	'difficult',
+	'challenging',
+	'fate',
+	'persona',
+	'deeds'
 ]
-export const skillsLearningCells = [
-	'Name',
+const skillsLearning = [
+	'name',
 	'',
 	'',
 	'',
-	'Routine',
+	'routine',
 	'',
 	'',
-	'Fate',
-	'Persona',
-	'Deeds'
+	'fate',
+	'persona',
+	'deeds'
 ]
 
 // SNDE table types
 const ND = ['name', 'description']
 const NDE = ['name', 'description', 'effect']
 const SND = ['strength', 'name', 'description']
+const beliefs = ['name', 'description', 'action', 'active']
+const SEND = ['shade', 'exponent', 'name', 'description']
 
-export const SNDETypes = {
+// Lookup column/cell names by table type
+export const TableTypes = {
+	stats: DTA,
+	attributes: DTA,
+	skills: DTA,
+	skillsLearning: skillsLearning,
 	beliefs: ND,
 	instincts: ND,
 	traits: NDE,
@@ -45,5 +52,20 @@ export const SNDETypes = {
 	affiliations: SND,
 	titles: SND,
 	funds: SND,
+	aliases: ND
+}
+
+export const formTypes = {
+	stats: DTA,
+	attributes: DTA,
+	skills: DTA,
+	skillsLearning: skillsLearning,
+	beliefs: beliefs,
+	instincts: ND,
+	traits: NDE,
+	relationships: SEND,
+	affiliations: SEND,
+	titles: SEND,
+	funds: SEND,
 	aliases: ND
 }

@@ -1,4 +1,5 @@
-import { DTACells } from '../TableConfig'
+import { TableTypes } from '../TableConfig'
+import { capitalize } from '../Utils'
 
 // Context
 import { useFormContext } from '../../hooks/useFormContext'
@@ -41,9 +42,9 @@ const DTATableHead = ({ attribute, tooltip, handleDialogToggle }) => {
 			</TableRow>
 			<TableRow>
 				<TableCell />
-				{DTACells.map((cell) => (
-					<TableCell key={cell} align="left">
-						{cell === 'Name' ? cell : cell.charAt(0)}
+				{TableTypes[attribute].map((cell, i) => (
+					<TableCell key={i} align="left">
+						{cell === 'name' ? capitalize(cell) : cell.charAt(0).toUpperCase()}
 					</TableCell>
 				))}
 			</TableRow>
