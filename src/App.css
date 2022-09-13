@@ -47,5 +47,12 @@
 }
 
 .rgb {
-	background-color: rgb(25, 118, 210, 0.2);
+	background-color: rgb(25, 118, 210, 0.05);
+}
+
+.fraction {
+	color: rgb(128, 128, 128);
+}
+.complete {
+	color: green;
 }

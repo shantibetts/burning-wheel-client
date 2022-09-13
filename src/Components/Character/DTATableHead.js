@@ -18,8 +18,13 @@ const DTATableHead = ({ attribute }) => {
 
 	// create tool tip from attribute
 	let tooltip = 'Add new ' + attribute.slice(0, -1)
+	let testSpan = 3
 	if (attribute === 'skillsLearning') {
 		tooltip = 'Add new skill being learned'
+		testSpan = 1
+	}
+	if (attribute === 'stats') {
+		testSpan = 2
 	}
 
 	// Add new button
@@ -43,10 +48,13 @@ const DTATableHead = ({ attribute }) => {
 			<TableRow>
 				<TableCell>{attribute === 'stats' ? '' : addButton}</TableCell>
 				<TableCell />
-				<TableCell align="center" colSpan={2}>
-					Die Pool
+				<TableCell
+					align="center"
+					colSpan={attribute === 'skillsLearning' ? 1 : 2}
+				>
+					{attribute === 'skillsLearning' ? '' : 'Die Pool'}
 				</TableCell>
-				<TableCell align="center" colSpan={3}>
+				<TableCell align="center" colSpan={testSpan}>
 					Tests
 				</TableCell>
 				<TableCell align="center" colSpan={3}>
@@ -58,7 +66,7 @@ const DTATableHead = ({ attribute }) => {
 				{characterTableCells[attribute].map((cell, i) => (
 					<TableCell
 						key={i}
-						align="left"
+						align={cell === 'name' ? 'left' : 'center'}
 						className={
 							cell === 'routine' ||
 							cell === 'difficult' ||
@@ -67,7 +75,9 @@ const DTATableHead = ({ attribute }) => {
 								: ''
 						}
 					>
-						{cell === 'name' ? capitalize(cell) : cell.charAt(0).toUpperCase()}
+						{cell === 'name' || cell === 'roots'
+							? capitalize(cell)
+							: cell.charAt(0).toUpperCase()}
 					</TableCell>
 				))}
 			</TableRow>
