@@ -25,7 +25,7 @@ const DTATable = ({ attribute }) => {
 	}
 
 	return (
-		<Paper sx={{ width: '100%', mb: 2 }}>
+		<Paper sx={{ width: '98%', mb: 2 }}>
 			<Typography
 				sx={{ flex: '1 1 100%' }}
 				variant="h6"

@@ -30,6 +30,7 @@ const stats = [
 ]
 const skillsLearning = ['name', 'roots', 'routine', 'fate', 'persona', 'deeds']
 // SNDE table types
+const D = ['description']
 const ND = ['name', 'description']
 const NDE = ['name', 'description', 'effect']
 const SND = ['strength', 'name', 'description']
@@ -57,7 +58,7 @@ const statsForm = [
 	'persona',
 	'deeds'
 ]
-const beliefs = ['name', 'description', 'action', 'isActive']
+const beliefs = ['description', 'action', 'isActive']
 const SEND = ['shade', 'exponent', 'name', 'description']
 
 // Lookup column/cell names by table type
@@ -66,8 +67,8 @@ export const characterTableCells = {
 	attributes: DTA,
 	skills: DTA,
 	skillsLearning: skillsLearning,
-	beliefs: ND,
-	instincts: ND,
+	beliefs: D,
+	instincts: D,
 	traits: NDE,
 	relationships: SND,
 	affiliations: SND,
@@ -82,7 +83,7 @@ export const characterFormCells = {
 	skills: DTAForm,
 	skillsLearning: skillsLearning,
 	beliefs: beliefs,
-	instincts: ND,
+	instincts: D,
 	traits: NDE,
 	relationships: SEND,
 	affiliations: SEND,

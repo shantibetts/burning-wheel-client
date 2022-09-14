@@ -63,6 +63,15 @@ const AttributeForm = () => {
 		newData.shade = e.target.value
 		setData(newData)
 	}
+	const handleRootChange = (e, root) => {
+		const newData = { ...data }
+		if (e.target.value === '') {
+			delete newData[root]
+		} else {
+			newData[root] = e.target.value
+		}
+		setData(newData)
+	}
 
 	// Functions to update database
 	const handleUpdate = async () => {
@@ -140,7 +149,7 @@ const AttributeForm = () => {
 							}
 							if (field === 'shade') {
 								return (
-									<FormControl fullWidth>
+									<FormControl fullWidth key={i}>
 										<InputLabel id="shade-select-label">Shade</InputLabel>
 										<Select
 											labelId="shade-select-label"
@@ -157,18 +166,100 @@ const AttributeForm = () => {
 									</FormControl>
 								)
 							}
-							if (field !== '') {
+							if (field === 'roots') {
+								return (
+									<React.Fragment key={i}>
+										<FormControl fullWidth>
+											<InputLabel id="root1-select-label">Root 1</InputLabel>
+											<Select
+												labelId="root1-select-label"
+												id="root1-select"
+												value={data.root1 ? data.root1 : ''}
+												label="Root 1"
+												onChange={(e) => handleRootChange(e, 'root1')}
+											>
+												<MenuItem value={'Will'}>Will</MenuItem>
+												<MenuItem value={'Perception'}>Perception</MenuItem>
+												<MenuItem value={'Power'}>Power</MenuItem>
+												<MenuItem value={'Forte'}>Forte</MenuItem>
+												<MenuItem value={'Agility'}>Agility</MenuItem>
+												<MenuItem value={'Speed'}>Speed</MenuItem>
+											</Select>
+										</FormControl>
+										<FormControl fullWidth>
+											<InputLabel id="root2-select-label">Root 2</InputLabel>
+											<Select
+												labelId="root2-select-label"
+												id="root2-select"
+												value={data.root2 ? data.root2 : ''}
+												label="Root 2"
+												disabled={!data.root1}
+												onChange={(e) => handleRootChange(e, 'root2')}
+											>
+												<MenuItem value={''}>None</MenuItem>
+												<MenuItem
+													value={'Will'}
+													disabled={data.root1 === 'Will'}
+												>
+													Will
+												</MenuItem>
+												<MenuItem
+													value={'Perception'}
+													disabled={data.root1 === 'Perception'}
+												>
+													Perception
+												</MenuItem>
+												<MenuItem
+													value={'Power'}
+													disabled={data.root1 === 'Power'}
+												>
+													Power
+												</MenuItem>
+												<MenuItem
+													value={'Forte'}
+													disabled={data.root1 === 'Forte'}
+												>
+													Forte
+												</MenuItem>
+												<MenuItem
+													value={'Agility'}
+													disabled={data.root1 === 'Agility'}
+												>
+													Agility
+												</MenuItem>
+												<MenuItem
+													value={'Speed'}
+													disabled={data.root1 === 'Speed'}
+												>
+													Speed
+												</MenuItem>
+											</Select>
+										</FormControl>
+									</React.Fragment>
+								)
+							}
+							if (field === 'name' && formAttribute === 'stats') {
 								return (
 									<TextField
 										key={i}
+										disabled
 										label={capitalize(field)}
 										value={data[field]}
 										variant="outlined"
-										multiline
 										onChange={(e) => handleValuesChange(e, field)}
 									/>
 								)
 							}
+							return (
+								<TextField
+									key={i}
+									label={capitalize(field)}
+									value={data[field]}
+									variant="outlined"
+									multiline
+									onChange={(e) => handleValuesChange(e, field)}
+								/>
+							)
 						})}
 				</Box>
 			</DialogContent>
