@@ -17,7 +17,7 @@ const SNDRow = ({ attribute, row }) => {
 	// Get list of cells to iterate over
 	let rowCells = characterTableCells[attribute]
 
-	// Toggle isActive
+	// Toggle isActive for beliefs (not implemented yet)
 	const handleIsActiveToggle = () => {}
 
 	return (

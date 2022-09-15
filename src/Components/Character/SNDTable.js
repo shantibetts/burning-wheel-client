@@ -29,7 +29,7 @@ const SNDTable = ({ attribute }) => {
 	let displayTitle = attribute.charAt(0).toUpperCase() + attribute.slice(1)
 	let tooltip = 'Add new ' + attribute.slice(0, -1)
 
-	// Remove add new button from stats table
+	// add new button
 	let addButton = (
 		<Tooltip title={tooltip}>
 			<IconButton
@@ -49,6 +49,7 @@ const SNDTable = ({ attribute }) => {
 
 	return (
 		<Paper sx={{ width: '98%', mb: 2 }}>
+			{/* Add button added by title for beliefs and instincts */}
 			{attribute === 'beliefs' || attribute === 'instincts' ? addButton : ''}
 			<Typography
 				sx={{ flex: '1 1 100%' }}
@@ -64,6 +65,7 @@ const SNDTable = ({ attribute }) => {
 					aria-labelledby="tableTitle"
 					size={dense ? 'small' : 'medium'}
 				>
+					{/* beliefs and instincts do not get a tableHead */}
 					{attribute === 'beliefs' || attribute === 'instincts' ? (
 						''
 					) : (
